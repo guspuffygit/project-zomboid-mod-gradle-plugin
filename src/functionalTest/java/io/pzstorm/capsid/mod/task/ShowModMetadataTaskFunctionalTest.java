@@ -67,7 +67,7 @@ class ShowModMetadataTaskFunctionalTest extends PluginFunctionalTest {
 		int startIndex = actualOutput.indexOf(expectedOutput.get(0));
 
 		Assertions.assertTrue(startIndex >= 0, "Could not find start of metadata output in Gradle logs");
-		
+
 		List<String> relevantOutput = actualOutput.subList(startIndex, startIndex + expectedOutput.size());
 
 		Assertions.assertEquals(expectedOutput, relevantOutput);
