@@ -1,21 +1,7 @@
 plugins {
-	// Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
-	// https://docs.gradle.org/current/userguide/java_gradle_plugin.html
 	id 'java-gradle-plugin'
-
-	// Publish plugins to the Gradle Plugin Portal
-	// https://plugins.gradle.org/plugin/com.gradle.plugin-publish
 	id "com.gradle.plugin-publish" version "0.14.0"
-
-	// Provides the ability to publish build artifacts to an Apache Maven repository
-	// https://docs.gradle.org/current/userguide/publishing_maven.html
 	id 'maven-publish'
-
-	// https://plugins.gradle.org/plugin/net.ltgt.errorprone
-	id 'net.ltgt.errorprone' version '2.0.1'
-
-	// Plugin that keeps your code spotless with Gradle
-	// https://plugins.gradle.org/plugin/com.diffplug.spotless
 //	id("com.diffplug.gradle.spotless") version "8.1.0"
 }
 
@@ -33,23 +19,12 @@ repositories {
 }
 
 dependencies {
-	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
-
-	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.1'
-
-	// https://mvnrepository.com/artifact/com.google.guava/guava
 	implementation 'com.google.guava:guava:30.1-jre'
 
-	// https://mvnrepository.com/artifact/org.jetbrains/annotations
-	compileOnly 'org.jetbrains:annotations:20.1.0'
+    compileOnly 'org.jetbrains:annotations:20.1.0'
 
-	// https://mvnrepository.com/artifact/com.google.errorprone/error_prone_core
-	errorprone 'com.google.errorprone:error_prone_core:2.6.0'
-
-	// https://mvnrepository.com/artifact/com.google.errorprone/javac
-	errorproneJavac('com.google.errorprone:javac:9+181-r4173-1')
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.1'
 }
 
 gradlePlugin {
@@ -87,13 +62,6 @@ publishToMavenLocal {
 // https://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
 tasks.withType(Javadoc) {
 	options.addStringOption('Xdoclint:none', '-quiet')
-}
-
-compileJava {
-	options.errorprone {
-		// exclude de-compiler code from being checked by error prone
-		excludedPaths = '.*/src/main/java/org/jetbrains/.*'
-	}
 }
 // include license files in artifact jar
 jar.from 'LICENSE', 'NOTICE'
