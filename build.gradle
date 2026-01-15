@@ -1,6 +1,6 @@
 plugins {
 	id 'java-gradle-plugin'
-	//    id 'com.gradle.plugin-publish' version '2.0.0'
+	id 'com.gradle.plugin-publish' version '2.0.0'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '8.1.0'
 }
@@ -21,7 +21,7 @@ spotless {
 
 apply from: 'test.gradle'
 
-version = '0.4.2'
+version = '0.4.3'
 group = 'io.pzstorm.capsid'
 
 repositories {
@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'com.google.guava:guava:30.1-jre'
+	implementation 'com.google.guava:guava:32.0.1-jre'
 
 	compileOnly 'org.jetbrains:annotations:20.1.0'
 
@@ -45,43 +45,30 @@ java {
 }
 
 gradlePlugin {
-	//noinspection GroovyAssignabilityCheck
+	website = 'https://github.com/pzstorm/capsid'
+	vcsUrl = 'https://github.com/pzstorm/capsid'
+
 	plugins {
-		capsid {
+		register('capsid') {
 			id = 'io.pzstorm.capsid'
+			displayName = 'Idk'
+			description = 'Project Zomboid mod development framework for Gradle'
 			implementationClass = 'io.pzstorm.capsid.CapsidPlugin'
+			tags = [
+				'java',
+				'project-zomboid',
+				'modding',
+				'framework',
+			]
 		}
 	}
-	testSourceSets(sourceSets.integrationTest, sourceSets.functionalTest)
 }
 
-//pluginBundle {
-//    website = 'https://github.com/pzstorm/capsid'
-//    vcsUrl = 'https://github.com/pzstorm/capsid'
-//    description = 'Project Zomboid mod development framework for Gradle'
-//    tags = ['java', 'project-zomboid', 'modding', 'framework']
-//
-////    plugins {
-////        capsid.displayName = 'Storm Capsid'
-////    }
-//}
-
-// publish to mavenLocal every time we build project
-getTasks().named('classes').configure({
-	it.finalizedBy('publishToMavenLocal')
-})
-// publish to mavenLocal after all classes have been compiled
-publishToMavenLocal {
-	mustRunAfter('testClasses', 'functionalTestClasses', 'integrationTestClasses')
-}
-
-// turn off doclint for Javadoc tasks
-// https://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
 tasks.withType(Javadoc) {
 	options.addStringOption('Xdoclint:none', '-quiet')
 }
-// include license files in artifact jar
-jar.from 'LICENSE', 'NOTICE'
+
+jar.from 'LICENSE'
 
 tasks.withType(JavaCompile) {
 	options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
