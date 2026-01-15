@@ -64,7 +64,7 @@ public final class GenericMain {
       List<List<GenericType>> typeParameterBounds = new ArrayList<>();
       signature = parseFormalParameters(signature, typeParameters, typeParameterBounds);
 
-      int to = signature.indexOf(")");
+      int to = signature.indexOf(')');
       String parameters = signature.substring(1, to);
       signature = signature.substring(to + 1);
 
@@ -123,7 +123,7 @@ public final class GenericMain {
     signature = signature.substring(index + 1);
 
     while (value.length() > 0) {
-      int to = value.indexOf(":");
+      int to = value.indexOf(':');
 
       String param = value.substring(0, to);
       value = value.substring(to + 1);
@@ -141,7 +141,7 @@ public final class GenericMain {
         value = value.substring(bound.length());
 
 
-        if (value.length() == 0 || value.charAt(0) != ':') {
+        if (value.isEmpty() || value.charAt(0) != ':') {
           break;
         }
         else {

@@ -76,7 +76,7 @@ public final class InterpreterUtil {
 
     HashSet<Object> set = new HashSet<>(c1);
     set.removeAll(c2);
-    return (set.size() == 0);
+    return (set.isEmpty());
   }
 
   public static boolean equalObjects(Object first, Object second) {

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class StructRecordAttribute extends StructGeneralAttribute {
   List<StructRecordComponent> components;
-  
+
   @Override
   public void initContent(DataInputFullStream data,
                           ConstantPool pool) throws IOException {

@@ -18,12 +18,10 @@
 package io.pzstorm.capsid.mod.task;
 
 import java.io.File;
-import java.util.Objects;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
-import org.gradle.api.plugins.ExtraPropertiesExtension;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Optional;

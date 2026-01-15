@@ -63,7 +63,7 @@ public class GenericType {
             String name = cl;
             String args = null;
 
-            int argStart = cl.indexOf("<");
+            int argStart = cl.indexOf('<');
             if (argStart >= 0) {
               name = cl.substring(0, argStart);
               args = cl.substring(argStart + 1, cl.length() - 1);
@@ -150,7 +150,7 @@ public class GenericType {
         typeStr = typeStr.substring(1);
       }
 
-      type.getArguments().add(typeStr.length() == 0 ? null : new GenericType(typeStr));
+      type.getArguments().add(typeStr.isEmpty() ? null : new GenericType(typeStr));
 
       value = value.substring(len);
     }

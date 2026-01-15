@@ -37,40 +37,40 @@ public class FunctionExprent extends Exprent {
   public static final int FUNCTION_BOOL_NOT = 12;
   public static final int FUNCTION_NEG = 13;
 
-  public final static int FUNCTION_I2L = 14;
-  public final static int FUNCTION_I2F = 15;
-  public final static int FUNCTION_I2D = 16;
-  public final static int FUNCTION_L2I = 17;
-  public final static int FUNCTION_L2F = 18;
-  public final static int FUNCTION_L2D = 19;
-  public final static int FUNCTION_F2I = 20;
-  public final static int FUNCTION_F2L = 21;
-  public final static int FUNCTION_F2D = 22;
-  public final static int FUNCTION_D2I = 23;
-  public final static int FUNCTION_D2L = 24;
-  public final static int FUNCTION_D2F = 25;
-  public final static int FUNCTION_I2B = 26;
-  public final static int FUNCTION_I2C = 27;
-  public final static int FUNCTION_I2S = 28;
+  public static final int FUNCTION_I2L = 14;
+  public static final int FUNCTION_I2F = 15;
+  public static final int FUNCTION_I2D = 16;
+  public static final int FUNCTION_L2I = 17;
+  public static final int FUNCTION_L2F = 18;
+  public static final int FUNCTION_L2D = 19;
+  public static final int FUNCTION_F2I = 20;
+  public static final int FUNCTION_F2L = 21;
+  public static final int FUNCTION_F2D = 22;
+  public static final int FUNCTION_D2I = 23;
+  public static final int FUNCTION_D2L = 24;
+  public static final int FUNCTION_D2F = 25;
+  public static final int FUNCTION_I2B = 26;
+  public static final int FUNCTION_I2C = 27;
+  public static final int FUNCTION_I2S = 28;
 
-  public final static int FUNCTION_CAST = 29;
-  public final static int FUNCTION_INSTANCEOF = 30;
+  public static final int FUNCTION_CAST = 29;
+  public static final int FUNCTION_INSTANCEOF = 30;
 
-  public final static int FUNCTION_ARRAY_LENGTH = 31;
+  public static final int FUNCTION_ARRAY_LENGTH = 31;
 
-  public final static int FUNCTION_IMM = 32;
-  public final static int FUNCTION_MMI = 33;
+  public static final int FUNCTION_IMM = 32;
+  public static final int FUNCTION_MMI = 33;
 
-  public final static int FUNCTION_IPP = 34;
-  public final static int FUNCTION_PPI = 35;
+  public static final int FUNCTION_IPP = 34;
+  public static final int FUNCTION_PPI = 35;
 
-  public final static int FUNCTION_IIF = 36;
+  public static final int FUNCTION_IIF = 36;
 
-  public final static int FUNCTION_LCMP = 37;
-  public final static int FUNCTION_FCMPL = 38;
-  public final static int FUNCTION_FCMPG = 39;
-  public final static int FUNCTION_DCMPL = 40;
-  public final static int FUNCTION_DCMPG = 41;
+  public static final int FUNCTION_LCMP = 37;
+  public static final int FUNCTION_FCMPL = 38;
+  public static final int FUNCTION_FCMPG = 39;
+  public static final int FUNCTION_DCMPL = 40;
+  public static final int FUNCTION_DCMPG = 41;
 
   public static final int FUNCTION_EQ = 42;
   public static final int FUNCTION_NE = 43;

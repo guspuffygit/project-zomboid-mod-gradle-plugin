@@ -74,7 +74,7 @@ public class NestedClassProcessor {
 
         if (child.type == ClassNode.CLASS_LOCAL && child.enclosingMethod != null) {
           MethodWrapper enclosingMethodWrapper = node.getWrapper().getMethods().getWithKey(child.enclosingMethod);
-          if(enclosingMethodWrapper != null) { // e.g. in case of switch-on-enum. FIXME: some proper handling of multiple enclosing classes 
+          if(enclosingMethodWrapper != null) { // e.g. in case of switch-on-enum. FIXME: some proper handling of multiple enclosing classes
             setLocalClassDefinition(enclosingMethodWrapper, child);
           }
         }
@@ -710,10 +710,10 @@ public class NestedClassProcessor {
     }
     else {
       eq = true;
-      if (fObj.fieldKey.length() == 0) {
+      if (fObj.fieldKey.isEmpty()) {
         fObj.fieldKey = sObj.fieldKey;
       }
-      else if (sObj.fieldKey.length() == 0) {
+      else if (sObj.fieldKey.isEmpty()) {
         if (both) {
           sObj.fieldKey = fObj.fieldKey;
         }

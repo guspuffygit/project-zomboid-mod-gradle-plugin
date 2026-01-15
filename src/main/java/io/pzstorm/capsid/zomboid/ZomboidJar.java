@@ -37,14 +37,14 @@ public abstract class ZomboidJar extends Jar {
 		getArchiveFileName().set(project.provider(() ->
 		{
 			String name = GUtil.elvis(getArchiveBaseName().getOrNull(), "");
-			name = name + maybe(name, getArchiveAppendix().getOrNull());
+			name += maybe(name, getArchiveAppendix().getOrNull());
 
 			// omit version from name when no pz version property found
 			String pzVersion = ModProperties.PZ_VERSION.findProperty(project);
 			if (pzVersion != null) {
-				name = name + maybe(name, pzVersion);
+				name += maybe(name, pzVersion);
 			}
-			name = name + maybe(name, getArchiveClassifier().getOrNull());
+			name += maybe(name, getArchiveClassifier().getOrNull());
 
 			String extension = this.getArchiveExtension().getOrNull();
 			return name + (GUtil.isTrue(extension) ? "." + extension : "");

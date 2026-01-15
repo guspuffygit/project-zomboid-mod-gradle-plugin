@@ -18,7 +18,6 @@
 package io.pzstorm.capsid.mod.task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.gradle.testkit.runner.BuildResult;
