@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.gradle.internal.impldep.org.jetbrains.annotations.Contract;
 import org.gradle.testkit.runner.internal.DefaultGradleRunner;
 
 public class CapsidGradleRunner extends DefaultGradleRunner {
@@ -31,9 +30,7 @@ public class CapsidGradleRunner extends DefaultGradleRunner {
 	}
 
 	@Override
-	@Contract(value = "_ -> this")
 	public CapsidGradleRunner withArguments(String... arguments) {
-
 		List<String> argumentList = new ArrayList<>(getArguments());
 		argumentList.addAll(Arrays.asList(arguments));
 		return (CapsidGradleRunner) this.withArguments(argumentList);

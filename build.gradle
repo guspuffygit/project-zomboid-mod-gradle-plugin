@@ -1,6 +1,6 @@
 plugins {
     id 'java-gradle-plugin'
-    id "com.gradle.plugin-publish" version "0.14.0"
+//    id 'com.gradle.plugin-publish' version '2.0.0'
     id 'maven-publish'
 //	id("com.diffplug.gradle.spotless") version "8.1.0"
 }
@@ -38,16 +38,16 @@ gradlePlugin {
     testSourceSets(sourceSets.integrationTest, sourceSets.functionalTest)
 }
 
-pluginBundle {
-    website = 'https://github.com/pzstorm/capsid'
-    vcsUrl = 'https://github.com/pzstorm/capsid'
-    description = 'Project Zomboid mod development framework for Gradle'
-    tags = ['java', 'project-zomboid', 'modding', 'framework']
-
-    plugins {
-        capsid.displayName = 'Storm Capsid'
-    }
-}
+//pluginBundle {
+//    website = 'https://github.com/pzstorm/capsid'
+//    vcsUrl = 'https://github.com/pzstorm/capsid'
+//    description = 'Project Zomboid mod development framework for Gradle'
+//    tags = ['java', 'project-zomboid', 'modding', 'framework']
+//
+////    plugins {
+////        capsid.displayName = 'Storm Capsid'
+////    }
+//}
 
 // publish to mavenLocal every time we build project
 getTasks().named('classes').configure({
