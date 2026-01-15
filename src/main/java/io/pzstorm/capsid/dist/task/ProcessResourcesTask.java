@@ -35,7 +35,7 @@ import io.pzstorm.capsid.dist.DistributionUtils;
 /**
  * This task will copy mod resources to build directory.
  */
-public class ProcessResourcesTask extends ProcessResources implements CapsidTask {
+public abstract class ProcessResourcesTask extends ProcessResources implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

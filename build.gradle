@@ -27,6 +27,12 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.1'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
 gradlePlugin {
     //noinspection GroovyAssignabilityCheck
     plugins {

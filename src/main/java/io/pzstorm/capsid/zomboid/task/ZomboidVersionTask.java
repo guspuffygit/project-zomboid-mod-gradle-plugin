@@ -41,7 +41,7 @@ import io.pzstorm.capsid.util.SemanticVersion;
 /**
  * This task saves and prints Project Zomboid game version.
  */
-public class ZomboidVersionTask extends JavaExec implements CapsidTask {
+public abstract class ZomboidVersionTask extends JavaExec implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

@@ -30,7 +30,7 @@ import io.pzstorm.capsid.util.UnixPath;
 /**
  * This task will annotate vanilla Lua with {@code EmmyLua}.
  */
-public class AnnotateZomboidLuaTask extends ZomboidJavaExec implements CapsidTask {
+public abstract class AnnotateZomboidLuaTask extends ZomboidJavaExec implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

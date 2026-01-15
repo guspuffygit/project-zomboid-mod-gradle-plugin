@@ -19,7 +19,6 @@ package io.pzstorm.capsid.zomboid;
 
 import javax.annotation.Nullable;
 
-import org.gradle.api.NonNullApi;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.jvm.tasks.Jar;
@@ -27,9 +26,10 @@ import org.gradle.jvm.tasks.Jar;
 import groovy.lang.Closure;
 import io.pzstorm.capsid.mod.ModProperties;
 import org.gradle.util.internal.GUtil;
+import org.jspecify.annotations.NullMarked;
 
-@NonNullApi
-public class ZomboidJar extends Jar {
+@NullMarked
+public abstract class ZomboidJar extends Jar {
 
 	protected ZomboidJar() {
 

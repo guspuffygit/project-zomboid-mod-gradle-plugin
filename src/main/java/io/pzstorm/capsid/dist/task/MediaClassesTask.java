@@ -35,7 +35,7 @@ import io.pzstorm.capsid.dist.DistributionUtils;
 /**
  * This task assembles mod Lua classes with directory hierarchy ready for distribution.
  */
-public class MediaClassesTask extends Copy implements CapsidTask {
+public abstract class MediaClassesTask extends Copy implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

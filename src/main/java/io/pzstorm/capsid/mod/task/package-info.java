@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-@NonNullApi
+@NullMarked
 package io.pzstorm.capsid.mod.task;
 
-import org.gradle.api.NonNullApi;
+import org.jspecify.annotations.NullMarked;

@@ -30,7 +30,7 @@ import io.pzstorm.capsid.zomboid.ZomboidTasks;
 /**
  * This task assembles a jar archive containing game classes.
  */
-public class ZomboidJarTask extends ZomboidJar implements CapsidTask {
+public abstract class ZomboidJarTask extends ZomboidJar implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

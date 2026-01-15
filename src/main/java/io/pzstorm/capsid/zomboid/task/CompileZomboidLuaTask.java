@@ -28,7 +28,7 @@ import io.pzstorm.capsid.setup.LocalProperties;
 import io.pzstorm.capsid.util.UnixPath;
 import io.pzstorm.capsid.zomboid.ZomboidTasks;
 
-public class CompileZomboidLuaTask extends ZomboidJavaExec implements CapsidTask {
+public abstract class CompileZomboidLuaTask extends ZomboidJavaExec implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

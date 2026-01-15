@@ -44,7 +44,7 @@ import io.pzstorm.capsid.util.Utils;
 /**
  * This task generates a changelog using {@code github-changelog-generator}.
  */
-public class GenerateChangelogTask extends Exec implements CapsidTask {
+public abstract class GenerateChangelogTask extends Exec implements CapsidTask {
 
 	private static final String TOKEN_ENV_VAR_NAME = "CHANGELOG_GITHUB_TOKEN";
 	private static final String TOKEN_PROPERTY_NAME = "gcl.token";

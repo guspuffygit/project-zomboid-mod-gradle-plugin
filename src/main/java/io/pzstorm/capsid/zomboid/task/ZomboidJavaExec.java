@@ -25,7 +25,7 @@ import io.pzstorm.capsid.CapsidTask;
 import io.pzstorm.capsid.Configurations;
 import io.pzstorm.capsid.zomboid.ZomboidTasks;
 
-public class ZomboidJavaExec extends JavaExec implements CapsidTask {
+public abstract class ZomboidJavaExec extends JavaExec implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

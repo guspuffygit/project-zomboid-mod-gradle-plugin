@@ -30,7 +30,7 @@ import io.pzstorm.capsid.zomboid.ZomboidTasks;
 /**
  * This task assembles a jar containing decompiled game sources.
  */
-public class ZomboidSourcesJarTask extends ZomboidJar implements CapsidTask {
+public abstract class ZomboidSourcesJarTask extends ZomboidJar implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

@@ -27,7 +27,7 @@ import io.pzstorm.capsid.ProjectProperty;
 /**
  * This task will sync {@code zomboidClassesDir} with game install directory.
  */
-public class ZomboidClassesTask extends Sync implements CapsidTask {
+public abstract class ZomboidClassesTask extends Sync implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

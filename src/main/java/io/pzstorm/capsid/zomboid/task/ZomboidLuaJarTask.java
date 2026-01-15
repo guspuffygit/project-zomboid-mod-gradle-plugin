@@ -22,7 +22,7 @@ import org.gradle.api.Project;
 import io.pzstorm.capsid.CapsidTask;
 import io.pzstorm.capsid.zomboid.ZomboidJar;
 
-public class ZomboidLuaJarTask extends ZomboidJar implements CapsidTask {
+public abstract class ZomboidLuaJarTask extends ZomboidJar implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

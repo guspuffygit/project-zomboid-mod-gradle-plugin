@@ -36,7 +36,7 @@ import io.pzstorm.capsid.util.Utils;
 /**
  * This task applies Project Zomboid mod template to root directory.
  */
-public class ApplyModTemplateTask extends Copy implements CapsidTask {
+public abstract class ApplyModTemplateTask extends Copy implements CapsidTask {
 
 	@Override
 	public void configure(String group, String description, Project project) {

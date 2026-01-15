@@ -17,14 +17,14 @@
  */
 package io.pzstorm.capsid;
 
-import org.gradle.api.NonNullApi;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Standard contract for all plugin task implementations.
  */
-@NonNullApi
+@NullMarked
 public interface CapsidTask extends Task {
 
 	/**

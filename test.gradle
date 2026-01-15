@@ -36,7 +36,7 @@ tasks.register('functionalTest', Test) {
     it.shouldRunAfter(integrationTest, "test")
 }
 
-task runTests {
+tasks.register('runTests') {
     description 'Run all test categories in order.'
     group 'verification'
 
