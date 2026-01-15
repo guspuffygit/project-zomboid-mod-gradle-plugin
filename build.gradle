@@ -16,15 +16,13 @@ plugins {
 
 	// Plugin that keeps your code spotless with Gradle
 	// https://plugins.gradle.org/plugin/com.diffplug.spotless
-	id "com.diffplug.spotless" version "5.12.1"
+//	id("com.diffplug.gradle.spotless") version "8.1.0"
 }
-apply plugin: 'com.diffplug.spotless'
-apply from: "https://gist.githubusercontent.com/yooksi/${spotlessGistID}/raw/spotless.gradle"
 
 // exclude decompiler code from formatting
-spotless.java {
-	it.targetExclude '**/org/jetbrains/**/*'
-}
+//spotless.java {
+//	it.targetExclude '**/org/jetbrains/**/*'
+//}
 apply from: 'test.gradle'
 
 version '0.4.2'
