@@ -10,8 +10,8 @@ sourceSets {
 }
 
 configurations {
-    functionalTestImplementation.extendsFrom(implementation, testImplementation)
-    integrationTestImplementation.extendsFrom(implementation, testImplementation)
+    functionalTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
+    integrationTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
 }
 
 test {
