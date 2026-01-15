@@ -23,10 +23,10 @@ import org.gradle.api.NonNullApi;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.jvm.tasks.Jar;
-import org.gradle.util.GUtil;
 
 import groovy.lang.Closure;
 import io.pzstorm.capsid.mod.ModProperties;
+import org.gradle.util.internal.GUtil;
 
 @NonNullApi
 public class ZomboidJar extends Jar {
