@@ -1,49 +1,49 @@
 sourceSets {
-    functionalTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-    }
-    integrationTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-    }
+	functionalTest {
+		compileClasspath += sourceSets.main.output
+		runtimeClasspath += sourceSets.main.output
+	}
+	integrationTest {
+		compileClasspath += sourceSets.main.output
+		runtimeClasspath += sourceSets.main.output
+	}
 }
 
 configurations {
-    functionalTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
-    integrationTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
+	functionalTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
+	integrationTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
 }
 
 test {
-    useJUnitPlatform()
-    testLogging.events "passed", "skipped", "failed"
+	useJUnitPlatform()
+	testLogging.events "passed", "skipped", "failed"
 }
 
 def integrationTest = tasks.register('integrationTest', Test) {
-    it.useJUnitPlatform()
-    it.testLogging.events "passed", "skipped", "failed"
-    it.testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    it.classpath = sourceSets.integrationTest.runtimeClasspath
-    it.shouldRunAfter("test")
+	it.useJUnitPlatform()
+	it.testLogging.events "passed", "skipped", "failed"
+	it.testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	it.classpath = sourceSets.integrationTest.runtimeClasspath
+	it.shouldRunAfter("test")
 }
 
 tasks.register('functionalTest', Test) {
-    it.useJUnitPlatform()
-    it.environment 'jupiter.functionalTest', 'true'
-    it.testLogging.events "passed", "skipped", "failed"
-    it.testClassesDirs = sourceSets.functionalTest.output.classesDirs
-    it.classpath = sourceSets.functionalTest.runtimeClasspath
-    it.shouldRunAfter(integrationTest, "test")
+	it.useJUnitPlatform()
+	it.environment 'jupiter.functionalTest', 'true'
+	it.testLogging.events "passed", "skipped", "failed"
+	it.testClassesDirs = sourceSets.functionalTest.output.classesDirs
+	it.classpath = sourceSets.functionalTest.runtimeClasspath
+	it.shouldRunAfter(integrationTest, "test")
 }
 
 tasks.register('runTests') {
-    description 'Run all test categories in order.'
-    group 'verification'
+	description 'Run all test categories in order.'
+	group 'verification'
 
-    tasks.withType(Test.class).each {
-        dependsOn(it)
-    }
+	tasks.withType(Test.class).each {
+		dependsOn(it)
+	}
 }
 tasks.named('check') {
-    it.dependsOn(tasks.functionalTest, tasks.integrationTest)
+	it.dependsOn(tasks.functionalTest, tasks.integrationTest)
 }

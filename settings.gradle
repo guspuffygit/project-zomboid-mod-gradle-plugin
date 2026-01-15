@@ -1,10 +1,10 @@
 pluginManagement {
-    repositories {
-        mavenLocal()
-        gradlePluginPortal()
-    }
+	repositories {
+		mavenLocal()
+		gradlePluginPortal()
+	}
 }
 rootProject.name = 'pzstorm-capsid'
 if (System.getenv("CI") == null) {
-    include('consumer')
+	include('consumer')
 }
