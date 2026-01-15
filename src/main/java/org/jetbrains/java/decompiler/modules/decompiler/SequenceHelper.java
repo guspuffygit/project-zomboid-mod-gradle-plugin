@@ -21,9 +21,7 @@ public final class SequenceHelper {
   }
 
   private static void condenseSequencesRec(Statement stat) {
-
     if (stat.type == Statement.TYPE_SEQUENCE) {
-
       List<Statement> lst = new ArrayList<>(stat.getStats());
 
       boolean unfolded = false;
@@ -32,7 +30,6 @@ public final class SequenceHelper {
       for (int i = 0; i < lst.size(); i++) {
         Statement st = lst.get(i);
         if (st.type == Statement.TYPE_SEQUENCE) {
-
           removeEmptyStatements((SequenceStatement)st);
 
           if (i == lst.size() - 1 || isSequenceDisbandable(st, lst.get(i + 1))) {
@@ -95,11 +92,9 @@ public final class SequenceHelper {
 
     // sequence consisting of one statement -> disband
     if (stat.type == Statement.TYPE_SEQUENCE) {
-
       removeEmptyStatements((SequenceStatement)stat);
 
       if (stat.getStats().size() == 1) {
-
         Statement st = stat.getFirst();
 
         boolean ok = st.getAllSuccessorEdges().isEmpty();
@@ -143,7 +138,6 @@ public final class SequenceHelper {
   }
 
   private static boolean isSequenceDisbandable(Statement block, Statement next) {
-
     Statement last = block.getStats().getLast();
     List<StatEdge> lstSuccs = last.getAllSuccessorEdges();
     if (!lstSuccs.isEmpty()) {
@@ -162,7 +156,6 @@ public final class SequenceHelper {
   }
 
   private static void removeEmptyStatements(SequenceStatement sequence) {
-
     if (sequence.getStats().size() <= 1) {
       return;
     }
@@ -170,13 +163,10 @@ public final class SequenceHelper {
     mergeFlatStatements(sequence);
 
     while (true) {
-
       boolean found = false;
 
       for (Statement st : sequence.getStats()) {
-
         if (st.getExprents() != null && st.getExprents().isEmpty()) {
-
           if (st.getAllSuccessorEdges().isEmpty()) {
             List<StatEdge> lstBreaks = st.getPredecessorEdges(StatEdge.TYPE_BREAK);
 
@@ -225,16 +215,13 @@ public final class SequenceHelper {
   }
 
   private static void mergeFlatStatements(SequenceStatement sequence) {
-
     while (true) {
-
       Statement next;
       Statement current = null;
 
       boolean found = false;
 
       for (int i = sequence.getStats().size() - 1; i >= 0; i--) {
-
         next = current;
         current = sequence.getStats().get(i);
 
@@ -262,7 +249,6 @@ public final class SequenceHelper {
   }
 
   private static Statement getFirstExprentlist(Statement stat) {
-
     if (stat.getExprents() != null) {
       return stat;
     }
@@ -280,7 +266,6 @@ public final class SequenceHelper {
 
 
   public static void destroyAndFlattenStatement(Statement stat) {
-
     destroyStatementContent(stat, false);
 
     BasicBlockStatement bstat = new BasicBlockStatement(new BasicBlock(
@@ -296,7 +281,6 @@ public final class SequenceHelper {
   }
 
   public static void destroyStatementContent(Statement stat, boolean self) {
-
     for (Statement st : stat.getStats()) {
       destroyStatementContent(st, true);
     }

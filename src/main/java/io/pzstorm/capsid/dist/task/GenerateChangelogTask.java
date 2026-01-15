@@ -57,7 +57,6 @@ public abstract class GenerateChangelogTask extends Exec implements CapsidTask {
 	 * @throws GradleException if an I/O exception occurred while creating {@code Gemfile}.
 	 */
 	private static void createGemfile(Project project) {
-
 		File gemFile = new File(project.getProjectDir(), "Gemfile");
 		if (gemFile.exists()) {
 			return;

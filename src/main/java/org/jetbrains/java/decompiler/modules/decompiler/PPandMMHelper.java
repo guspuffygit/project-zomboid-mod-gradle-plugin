@@ -20,7 +20,6 @@ public class PPandMMHelper {
   private boolean exprentReplaced;
 
   public boolean findPPandMM(RootStatement root) {
-
     FlattenStatementsHelper flatthelper = new FlattenStatementsHelper();
     DirectGraph dgraph = flatthelper.buildDirectGraph(root);
 
@@ -32,7 +31,6 @@ public class PPandMMHelper {
     boolean res = false;
 
     while (!stack.isEmpty()) {
-
       DirectNode node = stack.removeFirst();
 
       if (setVisited.contains(node)) {
@@ -49,7 +47,6 @@ public class PPandMMHelper {
   }
 
   private boolean processExprentList(List<Exprent> lst) {
-
     boolean result = false;
 
     for (int i = 0; i < lst.size(); i++) {
@@ -71,7 +68,6 @@ public class PPandMMHelper {
   }
 
   private Exprent processExprentRecursive(Exprent exprent) {
-
     boolean replaced = true;
     while (replaced) {
       replaced = false;

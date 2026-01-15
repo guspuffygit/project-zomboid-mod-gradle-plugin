@@ -36,7 +36,6 @@ public final class CatchAllStatement extends Statement {
   }
 
   private CatchAllStatement(Statement head, Statement handler) {
-
     this();
 
     first = head;
@@ -79,7 +78,6 @@ public final class CatchAllStatement extends Statement {
       if (edge.getExceptions() == null && exc.getLastBasicType() == LASTBASICTYPE_GENERAL && setHandlers.contains(exc)) {
         List<StatEdge> lstSuccs = exc.getSuccessorEdges(STATEDGE_DIRECT_ALL);
         if (lstSuccs.isEmpty() || lstSuccs.get(0).getType() != StatEdge.TYPE_REGULAR) {
-
           if (head.isMonitorEnter() || exc.isMonitorEnter()) {
             return null;
           }
@@ -147,7 +145,6 @@ public final class CatchAllStatement extends Statement {
 
   @Override
   public void replaceStatement(Statement oldstat, Statement newstat) {
-
     if (handler == oldstat) {
       handler = newstat;
     }
@@ -157,7 +154,6 @@ public final class CatchAllStatement extends Statement {
 
   @Override
   public Statement getSimpleCopy() {
-
     CatchAllStatement cas = new CatchAllStatement();
 
     cas.isFinally = this.isFinally;

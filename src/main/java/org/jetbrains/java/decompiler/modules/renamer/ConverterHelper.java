@@ -46,7 +46,6 @@ public class ConverterHelper implements IIdentifierRenamer {
    * @return {@code true} in case {@code identifier} passed can be used as an identifier; {@code false} otherwise.
    */
   private static boolean isValidIdentifier(boolean isMethod, String identifier) {
-
     assert identifier != null : "Null identifier passed to the isValidIdentifier() method.";
     assert !identifier.isEmpty() : "Empty identifier passed to the isValidIdentifier() method.";
 

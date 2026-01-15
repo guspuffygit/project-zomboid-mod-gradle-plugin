@@ -26,7 +26,6 @@ class CapsidPropertyTest extends PluginUnitTest {
 
 	@Test
 	void shouldBuildCapsidPropertyWithCorrectValues() {
-
 		String name = "testProperty";
 		String comment = "testComment";
 

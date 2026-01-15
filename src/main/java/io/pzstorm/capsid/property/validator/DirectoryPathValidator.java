@@ -39,14 +39,12 @@ public class DirectoryPathValidator implements PropertyValidator<UnixPath> {
 	 */
 	@Override
 	public boolean isValid(UnixPath property) {
-
 		File file = property.convert().toFile();
 		return file.exists() && file.isDirectory();
 	}
 
 	@Override
 	public UnixPath validate(UnixPath property) {
-
 		if (!isValid(property))
 		{
 			String message = "Invalid directory path '%s'";

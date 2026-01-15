@@ -33,7 +33,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void whenConstructingMalformedSemanticVersionShouldThrowException() {
-
 		String[] malformedVersions = new String[]{
 				"0", "1.0", "0.1.0.0",
 				"0-1.2", "0.1-2", "2.1.0$"
@@ -45,7 +44,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void shouldConstructSemanticVersionsWithValidNumbers() {
-
 		Map<String, Integer[]> validVersions = ImmutableMap.of(
 				"1.4.2", new Integer[]{ 1, 4, 2 },
 				"0.1.3", new Integer[]{ 0, 1, 3 },
@@ -65,7 +63,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void shouldConstructSemanticVersionsWithValidClassifiers() {
-
 		Map<String, String> validVersions = ImmutableMap.of(
 				"0.1.0-alpha", "alpha",
 				"0.4.6-0rc", "0rc",
@@ -78,7 +75,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void shouldCorrectlyCompareSemanticVersions() {
-
 		List<SemanticVersion> semanticVersionsList = ImmutableList.of(
 				new SemanticVersion("0.1.0"),
 				new SemanticVersion("0.2.0"),
@@ -97,7 +93,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void shouldCorrectlyCompareUsingEquals() {
-
 		SemanticVersion A = new SemanticVersion("0.1.0");
 		SemanticVersion B = new SemanticVersion("0.2.0");
 		SemanticVersion C = new SemanticVersion("0.3.0");
@@ -112,7 +107,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void shouldCorrectlyCompareUsingHashCode() {
-
 		Set<SemanticVersion> semanticVersions = Sets.newHashSet(
 				new SemanticVersion("0.1.0"),
 				new SemanticVersion("0.2.0"),
@@ -127,7 +121,6 @@ class SemanticVersionTest extends PluginUnitTest {
 
 	@Test
 	void shouldConvertSemanticVersionToString() {
-
 		Assertions.assertEquals("3.1.0", new SemanticVersion("3.1.0").toString());
 		Assertions.assertEquals("2.0.0-beta", new SemanticVersion("2.0.0-beta").toString());
 	}

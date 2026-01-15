@@ -151,7 +151,6 @@ public class VarVersionsProcessor {
     Map<VarVersionPair, Integer> mapMergedVersions = new HashMap<>();
 
     for (Entry<Integer, Set<Integer>> ent : mapVarVersions.entrySet()) {
-
       if (ent.getValue().size() > 1) {
         List<Integer> lstVersions = new ArrayList<>(ent.getValue());
         Collections.sort(lstVersions);
@@ -171,7 +170,6 @@ public class VarVersionsProcessor {
             if (firstType.equals(secondType) ||
                 (firstType.equals(VarType.VARTYPE_NULL) && secondType.type == CodeConstants.TYPE_OBJECT) ||
                 (secondType.equals(VarType.VARTYPE_NULL) && firstType.type == CodeConstants.TYPE_OBJECT)) {
-
               VarType firstMaxType = mapExprentMaxTypes.get(firstPair);
               VarType secondMaxType = mapExprentMaxTypes.get(secondPair);
               VarType type = firstMaxType == null ? secondMaxType :
@@ -216,7 +214,6 @@ public class VarVersionsProcessor {
 
     // map var-version pairs on new var indexes
     for (VarVersionPair pair : new ArrayList<>(mapExprentMinTypes.keySet())) {
-
       if (pair.version >= 0) {
         int newIndex = pair.version == 1 ? pair.var : counters.getCounterAndIncrement(CounterContainer.VAR_COUNTER);
 

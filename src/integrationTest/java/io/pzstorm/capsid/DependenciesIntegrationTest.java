@@ -37,7 +37,6 @@ class DependenciesIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldRegisterDependencies() {
-
 		Project project1 = getProject(false);
 		project1.getPlugins().apply("java");
 

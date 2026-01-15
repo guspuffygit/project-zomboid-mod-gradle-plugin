@@ -77,7 +77,6 @@ public class DominatorTreeExceptionFilter {
     for (Statement stat : statement.getStats()) {
       List<Statement> lstPreds = stat.getNeighbours(StatEdge.TYPE_EXCEPTION, Statement.DIRECTION_BACKWARD);
       if (!lstPreds.isEmpty()) {
-
         Set<Integer> set = new HashSet<>();
 
         for (Statement st : lstPreds) {
@@ -127,7 +126,6 @@ public class DominatorTreeExceptionFilter {
           Set<Integer> range = entry.getValue();
 
           if (range.contains(id)) {
-
             Integer exit;
 
             if (!range.contains(childid)) {

@@ -23,7 +23,6 @@ public class SequenceStatement extends Statement {
   }
 
   public SequenceStatement(List<? extends Statement> lst) {
-
     this();
 
     lastBasicType = lst.get(lst.size() - 1).getLastBasicType();
@@ -36,7 +35,6 @@ public class SequenceStatement extends Statement {
   }
 
   private SequenceStatement(Statement head, Statement tail) {
-
     this(Arrays.asList(head, tail));
 
     List<StatEdge> lstSuccs = tail.getSuccessorEdges(STATEDGE_DIRECT_ALL);
@@ -55,7 +53,6 @@ public class SequenceStatement extends Statement {
   // *****************************************************************************
 
   public static Statement isHead2Block(Statement head) {
-
     if (head.getLastBasicType() != Statement.LASTBASICTYPE_GENERAL) {
       return null;
     }
@@ -72,7 +69,6 @@ public class SequenceStatement extends Statement {
 
       if (stat != head && stat.getPredecessorEdges(StatEdge.TYPE_REGULAR).size() == 1
           && !stat.isMonitorEnter()) {
-
         if (stat.getLastBasicType() == Statement.LASTBASICTYPE_GENERAL) {
           if (DecHelper.checkStatementExceptions(Arrays.asList(head, stat))) {
             return new SequenceStatement(head, stat);
@@ -99,7 +95,6 @@ public class SequenceStatement extends Statement {
     boolean notempty = false;
 
     for (int i = 0; i < stats.size(); i++) {
-
       Statement st = stats.get(i);
 
       if (i > 0 && notempty) {

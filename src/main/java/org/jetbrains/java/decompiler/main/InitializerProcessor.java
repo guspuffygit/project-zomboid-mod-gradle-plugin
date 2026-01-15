@@ -116,7 +116,6 @@ public final class InitializerProcessor {
             FieldExprent fExpr = (FieldExprent)assignExpr.getLeft();
             if (fExpr.isStatic() && fExpr.getClassname().equals(cl.qualifiedName) &&
                 cl.hasField(fExpr.getName(), fExpr.getDescriptor().descriptorString)) {
-
               // interfaces fields should always be initialized inline
               if (inlineInitializers || isExprentIndependent(assignExpr.getRight(), method)) {
                 String keyField = InterpreterUtil.makeUniqueKey(fExpr.getName(), fExpr.getDescriptor().descriptorString);

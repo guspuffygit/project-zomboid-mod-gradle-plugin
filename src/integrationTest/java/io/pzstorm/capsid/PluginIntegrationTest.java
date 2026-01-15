@@ -79,7 +79,6 @@ public abstract class PluginIntegrationTest {
 	}
 
 	private File generateProjectDirectory() {
-
 		// generate a directory name that doesn't exist yet
 		File result = getRandomProjectDirectory();
 		while (result.exists()) {
@@ -93,7 +92,6 @@ public abstract class PluginIntegrationTest {
 	}
 
 	protected Project getProject(boolean applyPlugin) {
-
 		if (applyPlugin) {
 			applyCapsidPlugin();
 		}

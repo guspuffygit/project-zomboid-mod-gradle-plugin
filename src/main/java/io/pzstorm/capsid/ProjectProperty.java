@@ -128,7 +128,6 @@ public class ProjectProperty<T> {
 	private final ProjectPropertiesSupplier<T> propertySupplier;
 
 	private ProjectProperty(String name, ProjectPropertiesSupplier<T> supplier) {
-
 		this.propertyName = name;
 		this.propertySupplier = supplier;
 	}
@@ -139,7 +138,6 @@ public class ProjectProperty<T> {
 	 * @throws ClassCastException if property is not assignable to {@code T}.
 	 */
 	void register(Project project) {
-
 		ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
 		ext.set(propertyName, propertySupplier.getProjectProperty(project));
 	}

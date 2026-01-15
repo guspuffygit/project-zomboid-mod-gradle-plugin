@@ -19,7 +19,6 @@ public class GeneralStatement extends Statement {
   }
 
   public GeneralStatement(Statement head, Collection<? extends Statement> statements, Statement post) {
-
     this();
 
     first = head;

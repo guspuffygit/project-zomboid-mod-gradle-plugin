@@ -52,7 +52,6 @@ public abstract class PluginFunctionalTest {
 	private CapsidGradleRunner runner;
 
 	protected PluginFunctionalTest() {
-
 		this.projectDir = generateProjectDirectory();
 		this.projectName = projectDir.getName();
 	}
@@ -62,7 +61,6 @@ public abstract class PluginFunctionalTest {
 	}
 
 	protected static void assertTaskOutcome(BuildResult result, String taskName, TaskOutcome outcome) {
-
 		BuildTask task = Objects.requireNonNull(result.task(':' + taskName));
 		Assertions.assertEquals(outcome, task.getOutcome());
 	}
@@ -117,7 +115,6 @@ public abstract class PluginFunctionalTest {
 	}
 
 	private Project initializeProject() {
-
 		this.project = ProjectBuilder.builder().withProjectDir(projectDir).build();
 		ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
 		ext.set("gameDir", gameDir.toString());
@@ -141,7 +138,6 @@ public abstract class PluginFunctionalTest {
 	}
 
 	private File generateProjectDirectory() {
-
 		// generate a directory name that doesn't exist yet
 		File result = getRandomProjectDirectory();
 		while (result.exists()) {

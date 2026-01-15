@@ -10,12 +10,10 @@ import java.util.LinkedList;
 public final class ClearStructHelper {
 
   public static void clearStatements(RootStatement root) {
-
     LinkedList<Statement> stack = new LinkedList<>();
     stack.add(root);
 
     while (!stack.isEmpty()) {
-
       Statement stat = stack.removeFirst();
 
       stat.clearTempInformation();

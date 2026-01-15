@@ -75,7 +75,6 @@ class ProcessResourcesTaskFunctionalTest extends PluginFunctionalTest {
 
 	@Test
 	void whenRunningProcessResourcesShouldDependOnThisTask() {
-
 		BuildResult result = getRunner().withArguments("processResources").build();
 		assertTaskOutcome(result, "processResources", TaskOutcome.NO_SOURCE);
 		assertTaskOutcomeSuccess(result, DistributionTasks.PROCESS_RESOURCES.name);

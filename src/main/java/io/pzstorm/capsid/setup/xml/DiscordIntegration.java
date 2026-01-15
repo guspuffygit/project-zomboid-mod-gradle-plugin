@@ -53,7 +53,6 @@ public class DiscordIntegration extends XMLDocument {
 
 	@Override
 	public DiscordIntegration configure(Project project) {
-
 		// <project version="4">
 		Element projectElement = document.createElement("project");
 

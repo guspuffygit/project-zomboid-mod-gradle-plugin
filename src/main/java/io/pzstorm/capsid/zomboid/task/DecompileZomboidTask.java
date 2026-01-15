@@ -63,7 +63,6 @@ public class DecompileZomboidTask extends DecompileJavaTask {
 
 	@Override
 	public List<Path> getSourcePaths(Project project) {
-
 		ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
 		if (ext.has("decompileFiles"))
 		{

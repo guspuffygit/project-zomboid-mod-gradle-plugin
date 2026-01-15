@@ -54,7 +54,6 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
 	DecompileJavaTask(ProjectPropertiesSupplier<?> source,
 					  ProjectPropertiesSupplier<File> destination,
 					  Map<String, Object> parameters) {
-
 		this.source = source;
 		this.destination = destination;
 		this.parameters = parameters;
@@ -109,7 +108,6 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
 	 * @param project {@code Project} used to resolve the project property.
 	 */
 	@Unmodifiable List<Path> getSourcePaths(Project project) {
-
 		List<Path> result = new ArrayList<>();
 		Object oSource = source.getProjectProperty(project);
 		if (oSource instanceof Iterable)
@@ -129,7 +127,6 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
 	 * @throws InvalidUserDataException if objects is an unsupported class.
 	 */
 	Path getSourcePathFromObject(Object object) {
-
 		if (object instanceof File) {
 			return ((File) object).toPath();
 		}
@@ -160,7 +157,6 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
 	 */
 	@SuppressWarnings("unchecked")
 	List<String> getDecompileArguments(Project project) {
-
 		ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
 		if (ext.has("decompileZomboidArgs")) {
 			return (List<String>) Objects.requireNonNull(ext.get("decompileZomboidArgs"));

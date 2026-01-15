@@ -137,7 +137,6 @@ public class ExprProcessor implements CodeConstants {
     mapData.put(dgraph.first, map);
 
     while (!stack.isEmpty()) {
-
       DirectNode node = stack.removeFirst();
       LinkedList<String> entrypoints = stackEntryPoint.removeFirst();
 
@@ -158,7 +157,6 @@ public class ExprProcessor implements CodeConstants {
       String currentEntrypoint = entrypoints.isEmpty() ? null : entrypoints.getLast();
 
       for (DirectNode nd : node.succs) {
-
         boolean isSuccessor = true;
         if (currentEntrypoint != null && dgraph.mapLongRangeFinallyPaths.containsKey(node.id)) {
           isSuccessor = false;
@@ -193,7 +191,6 @@ public class ExprProcessor implements CodeConstants {
 
           String ndentrykey = buildEntryPointKey(ndentrypoints);
           if (!mapSucc.containsKey(ndentrykey)) {
-
             mapSucc.put(ndentrykey, copyVarExprents(data.copyStack()));
 
             stack.add(nd);
@@ -234,7 +231,6 @@ public class ExprProcessor implements CodeConstants {
   }
 
   private static void collectCatchVars(Statement stat, FlattenStatementsHelper flatthelper, Map<String, VarExprent> map) {
-
     List<VarExprent> lst = null;
 
     if (stat.type == Statement.TYPE_CATCHALL) {
@@ -267,7 +263,6 @@ public class ExprProcessor implements CodeConstants {
   }
 
   public void processBlock(BasicBlockStatement stat, PrimitiveExprsList data, StructClass cl) {
-
     ConstantPool pool = cl.getPool();
     StructBootstrapMethodsAttribute bootstrap = cl.getAttribute(StructGeneralAttribute.ATTRIBUTE_BOOTSTRAP_METHODS);
 
@@ -279,7 +274,6 @@ public class ExprProcessor implements CodeConstants {
     InstructionSequence seq = block.getSeq();
 
     for (int i = 0; i < seq.length(); i++) {
-
       Instruction instr = seq.getInstr(i);
       Integer bytecode_offset = block.getOldOffset(i);
       Set<Integer> bytecode_offsets = bytecode_offset >= 0 ? Collections.singleton(bytecode_offset) : null;
@@ -645,7 +639,6 @@ public class ExprProcessor implements CodeConstants {
   }
 
   private void insertByOffsetEx(int offset, ExprentStack stack, List<Exprent> exprlist, int copyoffset) {
-
     int base = VarExprent.STACK_BASE + stack.size();
 
     LinkedList<VarExprent> lst = new LinkedList<>();
@@ -864,7 +857,6 @@ public class ExprProcessor implements CodeConstants {
                                          boolean castNarrowing,
                                          boolean unbox,
                                          BytecodeMappingTracer tracer) {
-
     if (unbox) {
       // "unbox" invocation parameters, e.g. 'byteSet.add((byte)123)' or 'new ShortContainer((short)813)'
       if (exprent.type == Exprent.EXPRENT_INVOCATION && ((InvocationExprent)exprent).isBoxingCall()) {

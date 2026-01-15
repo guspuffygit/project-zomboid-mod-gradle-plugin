@@ -137,7 +137,6 @@ public class BasicBlock implements IGraphNode {
   }
 
   public String toString(int indent) {
-
     String new_line_separator = DecompilerContext.getNewLineSeparator();
 
     return id + ":" + new_line_separator + seq.toString(indent);

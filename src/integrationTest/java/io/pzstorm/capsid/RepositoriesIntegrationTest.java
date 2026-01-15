@@ -31,7 +31,6 @@ class RepositoriesIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldRegisterRepositories() {
-
 		RepositoryHandler handler1 = getProject(false).getRepositories();
 		Map<Repositories, ArtifactRepository> repositoryData = new HashMap<>();
 

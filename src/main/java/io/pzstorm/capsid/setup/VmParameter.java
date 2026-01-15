@@ -53,7 +53,6 @@ public class VmParameter {
 	public final int xmx;
 
 	private VmParameter(Builder builder) {
-
 		this.isDebug = builder.isDebug;
 		this.steamIntegration = builder.steamIntegration;
 		this.zNetLog = builder.zNetLog;
@@ -98,7 +97,6 @@ public class VmParameter {
 
 	@Override
 	public String toString() {
-
 		String expOptions = String.join(" ", new String[]{
 				formatAdvancedRuntimeOption("UseConcMarkSweepGC", useConcMarkSweepGC),
 				formatAdvancedRuntimeOption("CreateMinidumpOnCrash", createMinidumpOnCrash),

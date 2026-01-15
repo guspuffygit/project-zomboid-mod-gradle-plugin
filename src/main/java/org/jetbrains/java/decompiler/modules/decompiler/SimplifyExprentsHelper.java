@@ -261,7 +261,6 @@ public class SimplifyExprentsHelper {
 
         if (newExpr.getExprType().arrayDim > 0 && newExpr.getLstDims().size() == 1 && newExpr.getLstArrayElements().isEmpty() &&
             newExpr.getLstDims().get(0).type == Exprent.EXPRENT_CONST) {
-
           int size = (Integer)((ConstExprent)newExpr.getLstDims().get(0)).getValue();
           if (size == 0) {
             return 0;
@@ -375,7 +374,6 @@ public class SimplifyExprentsHelper {
         if (asf.getRight().equals(ass.getRight())) {
           if ((asf.getLeft().type == Exprent.EXPRENT_VAR && ((VarExprent)asf.getLeft()).isStack()) &&
               (ass.getLeft().type != Exprent.EXPRENT_VAR || !((VarExprent)ass.getLeft()).isStack())) {
-
             if (!ass.getLeft().containsExprent(asf.getLeft())) {
               asf.setRight(ass);
               return true;
@@ -435,7 +433,6 @@ public class SimplifyExprentsHelper {
 
       if ((in.getFuncType() == FunctionExprent.FUNCTION_MMI || in.getFuncType() == FunctionExprent.FUNCTION_PPI) &&
           in.getLstOperands().get(0).equals(as.getRight())) {
-
         if (in.getFuncType() == FunctionExprent.FUNCTION_MMI) {
           in.setFuncType(FunctionExprent.FUNCTION_IMM);
         }
@@ -511,7 +508,6 @@ public class SimplifyExprentsHelper {
 
       if (!invocation.isStatic() && invocation.getInstance().type == Exprent.EXPRENT_VAR && invocation.getName().equals("getClass") &&
           invocation.getStringDescriptor().equals("()Ljava/lang/Class;")) {
-
         List<Exprent> lstExprents = second.getAllExprents();
         lstExprents.add(second);
 
@@ -520,7 +516,6 @@ public class SimplifyExprentsHelper {
             NewExprent newExpr = (NewExprent)expr;
             if (newExpr.getConstructor() != null && !newExpr.getConstructor().getLstParameters().isEmpty() &&
                 newExpr.getConstructor().getLstParameters().get(0).equals(invocation.getInstance())) {
-
               String classname = newExpr.getNewType().value;
               ClassNode node = DecompilerContext.getClassProcessor().getMapRootClasses().get(classname);
               if (node != null && node.type != ClassNode.CLASS_ROOT) {
@@ -543,7 +538,6 @@ public class SimplifyExprentsHelper {
       AssignmentExprent as = (AssignmentExprent)current;
 
       if (as.getLeft().type == Exprent.EXPRENT_VAR && as.getRight().type == Exprent.EXPRENT_NEW) {
-
         NewExprent newExpr = (NewExprent)as.getRight();
         VarType newType = newExpr.getNewType();
         VarVersionPair leftPair = new VarVersionPair((VarExprent)as.getLeft());

@@ -32,7 +32,6 @@ import org.jspecify.annotations.NullMarked;
 public abstract class ZomboidJar extends Jar {
 
 	protected ZomboidJar() {
-
 		Project project = getProject();
 		getArchiveFileName().set(project.provider(() ->
 		{

@@ -36,7 +36,6 @@ class CapsidPluginIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldApplyAllCorePlugins() {
-
 		PluginContainer plugins = getProject(true).getPlugins();
 		for (CorePlugin plugin : CorePlugin.values()) {
 			Assertions.assertTrue(plugins.hasPlugin(plugin.getID()));
@@ -45,7 +44,6 @@ class CapsidPluginIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldRegisterAllRepositories() {
-
 		RepositoryHandler repositories = getProject(true).getRepositories();
 		Assertions.assertEquals(2, repositories.size());
 		Assertions.assertNotNull(repositories.findByName("MavenRepo"));
@@ -53,7 +51,6 @@ class CapsidPluginIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldConfigureJavaToolchainLanguageLevel() {
-
 		JavaPluginExtension java = Objects.requireNonNull(
 				getProject(true).getExtensions().getByType(JavaPluginExtension.class)
 		);
@@ -63,7 +60,6 @@ class CapsidPluginIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldCreateCustomSourceSetsWithSourceDirs() {
-
 		Project project = getProject(true);
         JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSetContainer sourceSets = java.getSourceSets();

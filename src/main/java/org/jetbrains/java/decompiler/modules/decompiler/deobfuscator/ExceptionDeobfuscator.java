@@ -35,7 +35,6 @@ public final class ExceptionDeobfuscator {
   }
 
   public static void restorePopRanges(ControlFlowGraph graph) {
-
     List<Range> lstRanges = new ArrayList<>();
 
     // aggregate ranges
@@ -57,9 +56,7 @@ public final class ExceptionDeobfuscator {
 
     // process aggregated ranges
     for (Range range : lstRanges) {
-
       if (range.uniqueStr != null) {
-
         BasicBlock handler = range.handler;
         InstructionSequence seq = handler.getSeq();
 
@@ -74,12 +71,10 @@ public final class ExceptionDeobfuscator {
             for (Range range_super : lstRanges) { // finally or strict superset
 
               if (range != range_super) {
-
                 Set<BasicBlock> setrange_super = new HashSet<>(range_super.protectedRange);
 
                 if (!setrange.contains(range_super.handler) && !setrange_super.contains(handler)
                     && (range_super.uniqueStr == null || setrange_super.containsAll(setrange))) {
-
                   if (range_super.uniqueStr == null) {
                     setrange_super.retainAll(setrange);
                   }
@@ -88,7 +83,6 @@ public final class ExceptionDeobfuscator {
                   }
 
                   if (!setrange_super.isEmpty()) {
-
                     BasicBlock newblock = handler;
 
                     // split the handler
@@ -146,7 +140,6 @@ public final class ExceptionDeobfuscator {
   }
 
   public static void insertEmptyExceptionHandlerBlocks(ControlFlowGraph graph) {
-
     Set<BasicBlock> setVisited = new HashSet<>();
 
     for (ExceptionRangeCFG range : graph.getExceptions()) {
@@ -187,7 +180,6 @@ public final class ExceptionDeobfuscator {
   }
 
   public static void removeEmptyRanges(ControlFlowGraph graph) {
-
     List<ExceptionRangeCFG> lstRanges = graph.getExceptions();
     for (int i = lstRanges.size() - 1; i >= 0; i--) {
       ExceptionRangeCFG range = lstRanges.get(i);
@@ -211,7 +203,6 @@ public final class ExceptionDeobfuscator {
   }
 
   public static void removeCircularRanges(final ControlFlowGraph graph) {
-
     GenericDominatorEngine engine = new GenericDominatorEngine(new IGraph() {
       @Override
       public List<? extends IGraphNode> getReversePostOrderList() {
@@ -252,7 +243,6 @@ public final class ExceptionDeobfuscator {
   }
 
   private static List<BasicBlock> getReachableBlocksRestricted(BasicBlock start, ExceptionRangeCFG range, GenericDominatorEngine engine) {
-
     List<BasicBlock> lstRes = new ArrayList<>();
 
     LinkedList<BasicBlock> stack = new LinkedList<>();
@@ -406,7 +396,6 @@ public final class ExceptionDeobfuscator {
       }
 
       for (ExceptionRangeCFG range : ranges) {
-
         // add some dummy instructions to prevent optimizing away the empty block
         SimpleInstructionSequence seq = new SimpleInstructionSequence();
         seq.addInstruction(Instruction.create(CodeConstants.opc_bipush, false, CodeConstants.GROUP_GENERAL, bytecode_version, new int[]{0}), -1);

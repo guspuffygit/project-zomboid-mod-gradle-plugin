@@ -41,7 +41,6 @@ public enum DistributionTasks {
 	private final boolean overwrite;
 
 	DistributionTasks(Class<? extends CapsidTask> type, String name, String description, boolean overwrite) {
-
 		this.type = type;
 		this.name = name;
 		this.description = description;
@@ -58,7 +57,6 @@ public enum DistributionTasks {
 	 * @param project {@code Project} register this task.
 	 */
 	public void register(Project project) {
-
 		TaskContainer tasks = project.getTasks();
 		if (overwrite) {
 			tasks.replace(name, type).configure("distribution", description, project);

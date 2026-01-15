@@ -59,7 +59,6 @@ public class CapsidPlugin implements Plugin<Project> {
 	 * @see LocalProperties#GAME_DIR
 	 */
 	public static File getGameDirProperty(Project project) {
-
 		UnixPath property = Objects.requireNonNull(LocalProperties.GAME_DIR.findProperty(project));
 		return property.convert().toAbsolutePath().toFile();
 	}
@@ -80,7 +79,6 @@ public class CapsidPlugin implements Plugin<Project> {
 	 * @param dependencies handler to register dependencies with.
 	 */
 	private static void registerDependenciesInEvaluation(Project project, DependencyHandler dependencies) {
-
 		for (Dependencies dependency : Dependencies.values())
 		{
 			if (!dependency.availablePreEval) {
@@ -91,7 +89,6 @@ public class CapsidPlugin implements Plugin<Project> {
 
 	@Override
 	public void apply(Project project) {
-
 		// add the plugin extension object
 		ExtensionContainer extensions = project.getExtensions();
 		capsidExt = extensions.create("capsid", CapsidPluginExtension.class);

@@ -50,7 +50,6 @@ public enum Configurations {
 
 	Configurations(String name, @Nullable ImmutableSet<String> extendedTo,
 				   @Nullable ImmutableSet<String> extendsFrom) {
-
 		this.name = name;
 		this.extendedTo = extendedTo != null ? extendedTo : ImmutableSet.of();
 		this.extendsFrom = extendsFrom != null ? extendsFrom : ImmutableSet.of();
@@ -64,7 +63,6 @@ public enum Configurations {
 	 * @return configuration with the given name. Never returns {@code null}.
 	 */
 	private static Configuration resolve(String name, ConfigurationContainer configurations) {
-
 		try {
 			return configurations.getByName(name);
 		}

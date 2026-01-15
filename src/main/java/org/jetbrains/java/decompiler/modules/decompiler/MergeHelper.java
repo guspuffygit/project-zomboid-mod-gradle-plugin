@@ -75,7 +75,6 @@ public final class MergeHelper {
              && isDirectPath(stat, ifedge.getDestination())) ||
             (ifedge.getType() == StatEdge.TYPE_CONTINUE && elseedge.getType() == StatEdge.TYPE_BREAK && ifedge.closure == stat
              && isDirectPath(stat, elseedge.getDestination()))) {
-
           Set<Statement> set = stat.getNeighboursSet(StatEdge.TYPE_CONTINUE, Statement.DIRECTION_BACKWARD);
           set.remove(last);
 
@@ -120,7 +119,6 @@ public final class MergeHelper {
   }
 
   private static boolean matchWhile(DoStatement stat) {
-
     // search for an if condition at the entrance of the loop
     Statement first = stat.getFirst();
     while (first.type == Statement.TYPE_SEQUENCE) {
@@ -132,7 +130,6 @@ public final class MergeHelper {
       IfStatement firstif = (IfStatement)first;
 
       if (firstif.getFirst().getExprents().isEmpty()) {
-
         if (firstif.iftype == IfStatement.IFTYPE_IF) {
           if (firstif.getIfstat() == null) {
             StatEdge ifedge = firstif.getIfEdge();
@@ -189,7 +186,6 @@ public final class MergeHelper {
               firstif.removeSuccessor(elseedge);
 
               if (stat.getAllSuccessorEdges().isEmpty()) {
-
                 elseedge.setSource(stat);
                 if (elseedge.closure == stat) {
                   elseedge.closure = stat.getParent();
@@ -231,7 +227,6 @@ public final class MergeHelper {
   }
 
   public static boolean isDirectPath(Statement stat, Statement endstat) {
-
     Set<Statement> setStat = stat.getNeighboursSet(Statement.STATEDGE_DIRECT_ALL, Statement.DIRECTION_FORWARD);
     if (setStat.isEmpty()) {
       Statement parent = stat.getParent();
@@ -348,7 +343,6 @@ public final class MergeHelper {
   }
 
   private static void removeLastEmptyStatement(DoStatement dostat, Statement stat) {
-
     if (stat == dostat.getFirst()) {
       BasicBlockStatement bstat = new BasicBlockStatement(new BasicBlock(
         DecompilerContext.getCounterContainer().getCounterAndIncrement(CounterContainer.STATEMENT_COUNTER)));

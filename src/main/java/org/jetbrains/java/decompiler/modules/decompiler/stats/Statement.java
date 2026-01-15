@@ -108,7 +108,6 @@ public class Statement implements IMatchable {
   // *****************************************************************************
 
   public void clearTempInformation() {
-
     post = null;
     continueSet = null;
 
@@ -137,7 +136,6 @@ public class Statement implements IMatchable {
   }
 
   public void collapseNodesToStatement(Statement stat) {
-
     Statement head = stat.getFirst();
     Statement post = stat.getPost();
 
@@ -155,7 +153,6 @@ public class Statement implements IMatchable {
 
     // regular head edges
     for (StatEdge prededge : head.getAllPredecessorEdges()) {
-
       if (prededge.getType() != StatEdge.TYPE_EXCEPTION &&
           stat.containsStatementStrict(prededge.getSource())) {
         prededge.getSource().changeEdgeType(DIRECTION_FORWARD, prededge, StatEdge.TYPE_CONTINUE);
@@ -178,7 +175,6 @@ public class Statement implements IMatchable {
     }
 
     if (!setHandlers.isEmpty()) {
-
       for (StatEdge edge : head.getEdges(StatEdge.TYPE_EXCEPTION, DIRECTION_FORWARD)) {
         Statement handler = edge.getDestination();
 
@@ -231,7 +227,6 @@ public class Statement implements IMatchable {
   }
 
   public void addLabeledEdge(StatEdge edge) {
-
     if (edge.closure != null) {
       edge.closure.getLabelEdges().remove(edge);
     }
@@ -265,7 +260,6 @@ public class Statement implements IMatchable {
   }
 
   private void removeEdgeDirectInternal(int direction, StatEdge edge, int edgetype) {
-
     Map<Integer, List<StatEdge>> mapEdges = direction == DIRECTION_BACKWARD ? mapPredEdges : mapSuccEdges;
     Map<Integer, List<Statement>> mapStates = direction == DIRECTION_BACKWARD ? mapPredStates : mapSuccStates;
 
@@ -280,7 +274,6 @@ public class Statement implements IMatchable {
   }
 
   private void removeEdgeInternal(int direction, StatEdge edge) {
-
     int type = edge.getType();
 
     int[] arrtypes;
@@ -301,7 +294,6 @@ public class Statement implements IMatchable {
   }
 
   public void removePredecessor(StatEdge edge) {
-
     if (edge == null) {  // FIXME: redundant?
       return;
     }
@@ -320,7 +312,6 @@ public class Statement implements IMatchable {
   }
 
   public void removeSuccessor(StatEdge edge) {
-
     if (edge == null) {
       return;
     }
@@ -338,7 +329,6 @@ public class Statement implements IMatchable {
 
   // TODO: make obsolete and remove
   public void removeAllSuccessors(Statement stat) {
-
     if (stat == null) {
       return;
     }
@@ -372,7 +362,6 @@ public class Statement implements IMatchable {
   }
 
   public void buildMonitorFlags() {
-
     for (Statement st : stats) {
       st.buildMonitorFlags();
     }
@@ -430,7 +419,6 @@ public class Statement implements IMatchable {
   }
 
   public List<Statement> getPostReversePostOrderList(List<Statement> lstexits) {
-
     List<Statement> res = new ArrayList<>();
 
     if (lstexits == null) {
@@ -497,7 +485,6 @@ public class Statement implements IMatchable {
   }
 
   public void replaceStatement(Statement oldstat, Statement newstat) {
-
     for (StatEdge edge : oldstat.getAllPredecessorEdges()) {
       oldstat.removePredecessor(edge);
       edge.getSource().changeEdgeNode(DIRECTION_FORWARD, edge, newstat);
@@ -547,7 +534,6 @@ public class Statement implements IMatchable {
   // *****************************************************************************
 
   private static void addToReversePostOrderListIterative(Statement root, List<? super Statement> lst) {
-
     LinkedList<Statement> stackNode = new LinkedList<>();
     LinkedList<Integer> stackIndex = new LinkedList<>();
     HashSet<Statement> setVisited = new HashSet<>();
@@ -556,7 +542,6 @@ public class Statement implements IMatchable {
     stackIndex.add(0);
 
     while (!stackNode.isEmpty()) {
-
       Statement node = stackNode.getLast();
       int index = stackIndex.removeLast();
 
@@ -590,7 +575,6 @@ public class Statement implements IMatchable {
 
 
   private static void addToPostReversePostOrderList(Statement stat, List<? super Statement> lst, HashSet<? super Statement> setVisited) {
-
     if (setVisited.contains(stat)) { // because of not considered exception edges, s. isExitComponent. Should be rewritten, if possible.
       return;
     }
@@ -611,7 +595,6 @@ public class Statement implements IMatchable {
   // *****************************************************************************
 
   public void changeEdgeNode(int direction, StatEdge edge, Statement value) {
-
     Map<Integer, List<StatEdge>> mapEdges = direction == DIRECTION_BACKWARD ? mapPredEdges : mapSuccEdges;
     Map<Integer, List<Statement>> mapStates = direction == DIRECTION_BACKWARD ? mapPredStates : mapSuccStates;
 
@@ -644,7 +627,6 @@ public class Statement implements IMatchable {
   }
 
   public void changeEdgeType(int direction, StatEdge edge, int newtype) {
-
     int oldtype = edge.getType();
     if (oldtype == newtype) {
       return;
@@ -666,7 +648,6 @@ public class Statement implements IMatchable {
 
 
   private List<StatEdge> getEdges(int type, int direction) {
-
     Map<Integer, List<StatEdge>> map = direction == DIRECTION_BACKWARD ? mapPredEdges : mapSuccEdges;
 
     List<StatEdge> res;
@@ -690,7 +671,6 @@ public class Statement implements IMatchable {
   }
 
   public List<Statement> getNeighbours(int type, int direction) {
-
     Map<Integer, List<Statement>> map = direction == DIRECTION_BACKWARD ? mapPredStates : mapSuccStates;
 
     List<Statement> res;
@@ -775,7 +755,6 @@ public class Statement implements IMatchable {
   }
 
   public boolean isLabeled() {
-
     for (StatEdge edge : labelEdges) {
       if (edge.labeled && edge.explicit) {  // FIXME: consistent setting
         return true;
@@ -785,7 +764,6 @@ public class Statement implements IMatchable {
   }
 
   public boolean hasBasicSuccEdge() {
-
     // FIXME: default switch
 
     return type == TYPE_BASICBLOCK || (type == TYPE_IF &&

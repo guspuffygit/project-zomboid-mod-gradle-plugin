@@ -62,7 +62,6 @@ public class FinallyProcessor {
       Statement parent = stat.getParent();
       if (parent != null && parent.type == Statement.TYPE_CATCHALL &&
           stat == parent.getFirst() && !parent.isCopied()) {
-
         CatchAllStatement fin = (CatchAllStatement)parent;
         BasicBlock head = fin.getBasichead().getBlock();
         BasicBlock handler = fin.getHandler().getBasichead().getBlock();
@@ -174,7 +173,6 @@ public class FinallyProcessor {
       boolean isTrueExit = true;
 
       if (firstcode != 1) {
-
         isTrueExit = false;
 
         for (int i = 0; i < node.exprents.size(); i++) {
@@ -215,7 +213,6 @@ public class FinallyProcessor {
               AssignmentExprent assexpr = (AssignmentExprent)exprent;
               if (assexpr.getRight().type == Exprent.EXPRENT_VAR &&
                   new VarVersionPair((VarExprent)assexpr.getRight()).equals(varpaar)) {
-
                 Exprent next = null;
                 if (i == node.exprents.size() - 1) {
                   if (node.succs.size() == 1) {
@@ -271,7 +268,6 @@ public class FinallyProcessor {
 
     // empty finally block?
     if (fstat.getHandler().type == Statement.TYPE_BASICBLOCK) {
-
       boolean isEmpty = false;
       boolean isFirstLast = mapLast.containsKey(firstBasicBlock);
       InstructionSequence seq = firstBasicBlock.getSeq();
@@ -490,7 +486,6 @@ public class FinallyProcessor {
     List<Area> lstAreas = new ArrayList<>();
 
     for (BasicBlock start : startBlocks) {
-
       Area arr = compareSubgraphsEx(graph, start, catchBlocks, first, finallytype, mapLast, skippedFirst);
       if (arr == null) {
         return false;
@@ -569,7 +564,6 @@ public class FinallyProcessor {
     stack.add(new BlockStackEntry(startCatch, startSample, new ArrayList<>()));
 
     while (!stack.isEmpty()) {
-
       BlockStackEntry entry = stack.remove(0);
       BasicBlock blockCatch = entry.blockCatch;
       BasicBlock blockSample = entry.blockSample;
@@ -617,7 +611,6 @@ public class FinallyProcessor {
 
             if (equalexc) {
               if (catchBlocks.contains(sucCatch) && !setSample.contains(sucSample)) {
-
                 List<int[]> lst = entry.lstStoreVars;
 
                 if (sucCatch.getSeq().length() > 0 && sucSample.getSeq().length() > 0) {
@@ -670,7 +663,6 @@ public class FinallyProcessor {
     boolean multiple = false;
 
     for (BasicBlock[] arr : setNext) {
-
       if (arr[2] != null) {
         next = arr[1];
         multiple = false;
@@ -892,11 +884,9 @@ public class FinallyProcessor {
 
     // remove all the blocks inbetween
     for (BasicBlock block : setBlocks) {
-
       // artificial basic blocks (those resulted from splitting)
       // can belong to more than one area
       if (graph.getBlocks().containsKey(block.id)) {
-
         if (!block.getSuccExceptions().containsAll(setCommonExceptionHandlers)) {
           is_outside_range = true;
         }

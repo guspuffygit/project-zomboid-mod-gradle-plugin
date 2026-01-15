@@ -31,7 +31,6 @@ public class FlattenStatementsHelper {
   private RootStatement root;
 
   public DirectGraph buildDirectGraph(RootStatement root) {
-
     this.root = root;
 
     graph = new DirectGraph();
@@ -54,7 +53,6 @@ public class FlattenStatementsHelper {
   }
 
   private void flattenStatement() {
-
     class StatementStackEntry {
       public final Statement statement;
       public final LinkedList<StackEntry> stackFinally;
@@ -77,7 +75,6 @@ public class FlattenStatementsHelper {
 
     mainloop:
     while (!lstStackStatements.isEmpty()) {
-
       StatementStackEntry statEntry = lstStackStatements.removeFirst();
 
       Statement stat = statEntry.statement;
@@ -90,7 +87,6 @@ public class FlattenStatementsHelper {
       DirectNode sourcenode = null;
 
       if (statEntry.succEdges == null) {
-
         switch (stat.type) {
           case Statement.TYPE_BASICBLOCK:
             node = new DirectNode(DirectNode.NODE_DIRECT, stat, (BasicBlockStatement)stat);
@@ -283,13 +279,11 @@ public class FlattenStatementsHelper {
 
       // no successor edges
       if (sourcenode != null) {
-
         if (statEntry.succEdges != null) {
           lstSuccEdges = statEntry.succEdges;
         }
 
         for (int edgeindex = statEntry.edgeIndex; edgeindex < lstSuccEdges.size(); edgeindex++) {
-
           StatEdge edge = lstSuccEdges.get(edgeindex);
 
           LinkedList<StackEntry> stack = new LinkedList<>(stackFinally);
@@ -307,7 +301,6 @@ public class FlattenStatementsHelper {
           boolean isFinallyExit = false;
 
           while (true) {
-
             StackEntry entry = null;
             if (!stack.isEmpty()) {
               entry = stack.getLast();
@@ -325,7 +318,6 @@ public class FlattenStatementsHelper {
 
               if (entry.state) { // finally handler statement
                 if (edgetype == StatEdge.TYPE_FINALLYEXIT) {
-
                   stack.removeLast();
                   destination = entry.destination;
                   edgetype = entry.edgetype;
@@ -392,7 +384,6 @@ public class FlattenStatementsHelper {
                         Statement finallyShortRangeEntry,
                         Statement finallyLongRangeEntry,
                         boolean isFinallyMonitorExceptionPath) {
-
     if (edgetype != StatEdge.TYPE_FINALLYEXIT) {
       listEdges.add(new Edge(sourcenode.id, destination.id, edgetype));
     }
@@ -416,9 +407,7 @@ public class FlattenStatementsHelper {
   }
 
   private void setEdges() {
-
     for (Edge edge : listEdges) {
-
       String sourceid = edge.sourceid;
       Integer statid = edge.statid;
 
@@ -441,12 +430,10 @@ public class FlattenStatementsHelper {
 
     for (int i = 0; i < 2; i++) {
       for (Entry<String, List<String[]>> ent : (i == 0 ? mapShortRangeFinallyPathIds : mapLongRangeFinallyPathIds).entrySet()) {
-
         List<FinallyPathWrapper> newLst = new ArrayList<>();
 
         List<String[]> lst = ent.getValue();
         for (String[] arr : lst) {
-
           boolean isContinueEdge = arr[i == 0 ? 4 : 3] != null;
 
           DirectNode dest = graph.nodes.getWithKey(mapDestinationNodes.get(Integer.parseInt(arr[1]))[isContinueEdge ? 1 : 0]);
@@ -526,7 +513,6 @@ public class FlattenStatementsHelper {
                       DirectNode finallyShortRangeSource,
                       DirectNode finallyLongRangeSource,
                       boolean isFinallyExceptionPath) {
-
       this.catchstatement = catchstatement;
       this.state = state;
       this.edgetype = edgetype;

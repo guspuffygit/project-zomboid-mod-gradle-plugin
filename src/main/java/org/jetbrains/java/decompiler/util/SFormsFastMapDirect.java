@@ -52,7 +52,6 @@ public class SFormsFastMapDirect {
   }
 
   public SFormsFastMapDirect getCopy() {
-
     SFormsFastMapDirect map = new SFormsFastMapDirect(false);
     map.size = size;
 
@@ -119,7 +118,6 @@ public class SFormsFastMapDirect {
   }
 
   public void putInternal(final int key, final FastSparseSet<Integer> value, boolean remove) {
-
     int index = 0;
     int ikey = key;
     if (ikey < 0) {
@@ -172,7 +170,6 @@ public class SFormsFastMapDirect {
   }
 
   public FastSparseSet<Integer> get(int key) {
-
     int index = 0;
     if (key < 0) {
       index = 2;
@@ -192,7 +189,6 @@ public class SFormsFastMapDirect {
   }
 
   public void complement(SFormsFastMapDirect map) {
-
     for (int i = 2; i >= 0; i--) {
       FastSparseSet<Integer>[] lstOwn = elements[i];
 
@@ -230,7 +226,6 @@ public class SFormsFastMapDirect {
   }
 
   public void intersection(SFormsFastMapDirect map) {
-
     for (int i = 2; i >= 0; i--) {
       FastSparseSet<Integer>[] lstOwn = elements[i];
 
@@ -269,7 +264,6 @@ public class SFormsFastMapDirect {
   }
 
   public void union(SFormsFastMapDirect map) {
-
     for (int i = 2; i >= 0; i--) {
       FastSparseSet<Integer>[] lstExtern = map.elements[i];
 
@@ -310,7 +304,6 @@ public class SFormsFastMapDirect {
   }
 
   public String toString() {
-
     StringBuilder buffer = new StringBuilder("{");
 
     List<Entry<Integer, FastSparseSet<Integer>>> lst = entryList();
@@ -343,7 +336,6 @@ public class SFormsFastMapDirect {
           final int key = i == 0 ? ikey : (i == 1 ? ikey + VarExprent.STACK_BASE : -ikey);
 
           list.add(new Entry<Integer, FastSparseSet<Integer>>() {
-
             private final Integer var = key;
             private final FastSparseSet<Integer> val = ent;
 
@@ -372,7 +364,6 @@ public class SFormsFastMapDirect {
   }
 
   private FastSparseSet<Integer>[] ensureCapacity(int index, int size, boolean exact) {
-
     FastSparseSet<Integer>[] arr = elements[index];
     int[] arrnext = next[index];
 

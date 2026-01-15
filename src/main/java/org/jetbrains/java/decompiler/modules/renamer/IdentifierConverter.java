@@ -107,7 +107,6 @@ public class IdentifierConverter implements NewClassNameBuilder {
 
     // rename methods and fields
     for (ClassWrapperNode node : lstInterfaces) {
-
       StructClass cl = node.getClassStruct();
       Map<String, String> names = new HashMap<>();
 
@@ -139,7 +138,6 @@ public class IdentifierConverter implements NewClassNameBuilder {
   }
 
   private void renameClass(StructClass cl) {
-
     if (!cl.isOwn()) {
       return;
     }
@@ -178,7 +176,6 @@ public class IdentifierConverter implements NewClassNameBuilder {
 
     VBStyleCollection<StructMethod, String> methods = cl.getMethods();
     for (int i = 0; i < methods.size(); i++) {
-
       StructMethod mt = methods.get(i);
       String key = methods.getKey(i);
 

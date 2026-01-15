@@ -32,7 +32,6 @@ class LocalPropertiesIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldReturnFalseWhenLoadingNonExistingLocalProperties() {
-
 		Project project = getProject(false);
 		LocalProperties localProperties = LocalProperties.get();
 

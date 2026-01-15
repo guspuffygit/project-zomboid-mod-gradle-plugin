@@ -11,7 +11,6 @@ public final class InlineSingleBlockHelper {
 
 
   public static boolean inlineSingleBlocks(RootStatement root) {
-
     boolean res = inlineSingleBlocksRec(root);
 
     if (res) {
@@ -22,7 +21,6 @@ public final class InlineSingleBlockHelper {
   }
 
   private static boolean inlineSingleBlocksRec(Statement stat) {
-
     boolean res = false;
 
     for (Statement st : stat.getStats()) {
@@ -30,7 +28,6 @@ public final class InlineSingleBlockHelper {
     }
 
     if (stat.type == Statement.TYPE_SEQUENCE) {
-
       SequenceStatement seq = (SequenceStatement)stat;
       for (int i = 1; i < seq.getStats().size(); i++) {
         if (isInlineable(seq, i)) {
@@ -44,7 +41,6 @@ public final class InlineSingleBlockHelper {
   }
 
   private static void inlineBlock(SequenceStatement seq, int index) {
-
     Statement first = seq.getStats().get(index);
     Statement pre = seq.getStats().get(index - 1);
     pre.removeSuccessor(pre.getAllSuccessorEdges().get(0));   // single regular edge
@@ -85,7 +81,6 @@ public final class InlineSingleBlockHelper {
       // LabelHelper.lowContinueLabels(block, new HashSet<StatEdge>());
       // do it by hand
       for (StatEdge prededge : block.getPredecessorEdges(StatEdge.TYPE_CONTINUE)) {
-
         block.removePredecessor(prededge);
         prededge.getSource().changeEdgeNode(Statement.DIRECTION_FORWARD, prededge, source);
         source.addPredecessor(prededge);
@@ -103,7 +98,6 @@ public final class InlineSingleBlockHelper {
   }
 
   private static boolean isInlineable(SequenceStatement seq, int index) {
-
     Statement first = seq.getStats().get(index);
     Statement pre = seq.getStats().get(index - 1);
 
@@ -134,12 +128,10 @@ public final class InlineSingleBlockHelper {
   }
 
   private static boolean sameCatchRanges(StatEdge edge) {
-
     Statement from = edge.getSource();
     Statement to = edge.getDestination();
 
     while (true) {
-
       Statement parent = from.getParent();
       if (parent.containsStatementStrict(to)) {
         break;
@@ -164,7 +156,6 @@ public final class InlineSingleBlockHelper {
   }
 
   private static boolean noExitLabels(Statement block, Statement sequence) {
-
     for (StatEdge edge : block.getAllSuccessorEdges()) {
       if (edge.getType() != StatEdge.TYPE_REGULAR && edge.getDestination().type != Statement.TYPE_DUMMYEXIT) {
         if (!sequence.containsStatementStrict(edge.getDestination())) {

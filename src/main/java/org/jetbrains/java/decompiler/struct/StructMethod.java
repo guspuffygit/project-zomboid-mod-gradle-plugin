@@ -111,7 +111,6 @@ public class StructMethod extends StructMember {
     int bytecode_version = classStruct.getBytecodeVersion();
 
     for (int i = 0; i < length; ) {
-
       int offset = i;
 
       int opcode = in.readUnsignedByte();

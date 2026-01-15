@@ -18,7 +18,6 @@ public final class IdeaNotNullHelper {
 
 
   public static boolean removeHardcodedChecks(Statement root, StructMethod mt) {
-
     boolean checks_removed = false;
 
     // parameter @NotNull annotations
@@ -35,14 +34,12 @@ public final class IdeaNotNullHelper {
   }
 
   private static boolean findAndRemoveParameterCheck(Statement stat, StructMethod mt) {
-
     Statement st = stat.getFirst();
     while (st.type == Statement.TYPE_SEQUENCE) {
       st = st.getFirst();
     }
 
     if (st.type == Statement.TYPE_IF) {
-
       IfStatement ifstat = (IfStatement)st;
       Statement ifbranch = ifstat.getIfstat();
 
@@ -57,7 +54,6 @@ public final class IdeaNotNullHelper {
           ifbranch.type == Statement.TYPE_BASICBLOCK &&
           ifbranch.getExprents().size() == 1 &&
           ifbranch.getExprents().get(0).type == Exprent.EXPRENT_EXIT) {
-
         FunctionExprent func = (FunctionExprent)if_condition;
         Exprent first_param = func.getLstOperands().get(0);
         Exprent second_param = func.getLstOperands().get(1);
@@ -75,13 +71,11 @@ public final class IdeaNotNullHelper {
             StructAnnotationParameterAttribute param_annotations =
               mt.getAttribute(StructGeneralAttribute.ATTRIBUTE_RUNTIME_INVISIBLE_PARAMETER_ANNOTATIONS);
             if (param_annotations != null) {
-
               List<List<AnnotationExprent>> param_annotations_lists = param_annotations.getParamAnnotations();
               int method_param_number = md.params.length;
 
               int index = thisvar ? 1 : 0;
               for (int i = 0; i < method_param_number; i++) {
-
                 if (index == var.getIndex()) {
                   if (param_annotations_lists.size() >= method_param_number - i) {
                     int shift = method_param_number -
@@ -121,7 +115,6 @@ public final class IdeaNotNullHelper {
   }
 
   private static void removeParameterCheck(Statement stat) {
-
     Statement st = stat.getFirst();
     while (st.type == Statement.TYPE_SEQUENCE) {
       st = st.getFirst();
@@ -152,7 +145,6 @@ public final class IdeaNotNullHelper {
   }
 
   private static boolean findAndRemoveReturnCheck(Statement stat, StructMethod mt) {
-
     boolean is_notnull_check = false;
 
     // method annotation, refers to the return value
@@ -173,7 +165,6 @@ public final class IdeaNotNullHelper {
 
 
   private static boolean removeReturnCheck(Statement stat, StructMethod mt) {
-
     Statement parent = stat.getParent();
 
     if (parent != null && parent.type == Statement.TYPE_IF && stat.type == Statement.TYPE_BASICBLOCK && stat.getExprents().size() == 1) {
@@ -209,7 +200,6 @@ public final class IdeaNotNullHelper {
                     ifbranch.getExprents().size() == 1 &&
                     // TODO: special check for IllegalStateException
                     ifbranch.getExprents().get(0).type == Exprent.EXPRENT_EXIT) {
-
                   ifparent.getFirst().removeSuccessor(ifedge);
                   ifparent.getFirst().removeSuccessor(elseedge);
 
@@ -252,7 +242,6 @@ public final class IdeaNotNullHelper {
           if (sequence_stats_number > 1 &&
               sequence.getStats().getLast() == stat &&
               sequence.getStats().get(sequence_stats_number - 2).type == Statement.TYPE_IF) {
-
             IfStatement ifstat = (IfStatement)sequence.getStats().get(sequence_stats_number - 2);
             Exprent if_condition = ifstat.getHeadexprent().getCondition();
 
@@ -272,7 +261,6 @@ public final class IdeaNotNullHelper {
                       ifbranch.getExprents().size() == 1 &&
                       // TODO: special check for IllegalStateException
                       ifbranch.getExprents().get(0).type == Exprent.EXPRENT_EXIT) {
-
                     ifstat.removeSuccessor(ifstat.getAllSuccessorEdges().get(0)); // remove 'else' edge
 
                     if (!ifstat.getFirst().getExprents().isEmpty()) {
@@ -280,7 +268,6 @@ public final class IdeaNotNullHelper {
                     }
 
                     for (StatEdge edge : ifstat.getAllPredecessorEdges()) {
-
                       ifstat.removePredecessor(edge);
                       edge.getSource().changeEdgeNode(Statement.DIRECTION_FORWARD, edge, stat);
                       stat.addPredecessor(edge);

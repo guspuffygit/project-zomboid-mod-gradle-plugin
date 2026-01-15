@@ -12,13 +12,11 @@ public class FastSparseSetFactory<E> {
   private int lastMask;
 
   public FastSparseSetFactory(Collection<? extends E> set) {
-
     int block = -1;
     int mask = -1;
     int index = 0;
 
     for (E element : set) {
-
       block = index / 32;
 
       if (index % 32 == 0) {
@@ -38,7 +36,6 @@ public class FastSparseSetFactory<E> {
   }
 
   private int[] addElement(E element) {
-
     if (lastMask == -1 || lastMask == 0x80000000) {
       lastMask = 1;
       lastBlock++;
@@ -98,7 +95,6 @@ public class FastSparseSetFactory<E> {
     }
 
     private int[] ensureCapacity(int index) {
-
       int newlength = data.length;
       if (newlength == 0) {
         newlength = 1;
@@ -159,7 +155,6 @@ public class FastSparseSetFactory<E> {
     }
 
     private void setNext() {
-
       int link = 0;
       for (int i = data.length - 1; i >= 0; i--) {
         next[i] = link;
@@ -181,7 +176,6 @@ public class FastSparseSetFactory<E> {
     }
 
     public void union(FastSparseSet<E> set) {
-
       int[] extdata = set.getData();
       int[] extnext = set.getNext();
       int[] intdata = data;
@@ -223,7 +217,6 @@ public class FastSparseSetFactory<E> {
     }
 
     public void complement(FastSparseSet<E> set) {
-
       int[] extdata = set.getData();
       int[] intdata = data;
       int extlength = extdata.length;
@@ -273,7 +266,6 @@ public class FastSparseSetFactory<E> {
     }
 
     public int getCardinality() {
-
       boolean found = false;
       int[] intdata = data;
 
@@ -362,7 +354,6 @@ public class FastSparseSetFactory<E> {
     }
 
     private int getNextIndex(int index) {
-
       index++;
       int bindex = index >>> 5;
       int dindex = index & 0x1F;

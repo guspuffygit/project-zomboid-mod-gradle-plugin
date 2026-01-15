@@ -8,7 +8,7 @@ plugins {
 spotless {
 	java {
 		cleanthat()
-		googleJavaFormat()
+		googleJavaFormat().aosp()
 		removeUnusedImports()
 		trimTrailingWhitespace()
 		endWithNewline()

@@ -32,7 +32,6 @@ public abstract class CompileZomboidLuaTask extends ZomboidJavaExec implements C
 
 	@Override
 	public void configure(String group, String description, Project project) {
-
 		UnixPath gameDir = Objects.requireNonNull(LocalProperties.GAME_DIR.findProperty(project));
 		UnixPath zDocLuaDir = UnixPath.get(ProjectProperty.ZDOC_LUA_DIR.get(project));
 

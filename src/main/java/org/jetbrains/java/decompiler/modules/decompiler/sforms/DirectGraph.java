@@ -40,7 +40,6 @@ public class DirectGraph {
   }
 
   private static void addToReversePostOrderListIterative(DirectNode root, List<? super DirectNode> lst) {
-
     LinkedList<DirectNode> stackNode = new LinkedList<>();
     LinkedList<Integer> stackIndex = new LinkedList<>();
 
@@ -50,7 +49,6 @@ public class DirectGraph {
     stackIndex.add(0);
 
     while (!stackNode.isEmpty()) {
-
       DirectNode node = stackNode.getLast();
       int index = stackIndex.removeLast();
 
@@ -79,14 +77,12 @@ public class DirectGraph {
 
 
   public boolean iterateExprents(ExprentIterator iter) {
-
     LinkedList<DirectNode> stack = new LinkedList<>();
     stack.add(first);
 
     HashSet<DirectNode> setVisited = new HashSet<>();
 
     while (!stack.isEmpty()) {
-
       DirectNode node = stack.removeFirst();
 
       if (setVisited.contains(node)) {

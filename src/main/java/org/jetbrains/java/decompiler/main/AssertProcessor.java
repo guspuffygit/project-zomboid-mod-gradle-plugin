@@ -26,13 +26,11 @@ public final class AssertProcessor {
   private static final VarType CLASS_ASSERTION_ERROR = new VarType(CodeConstants.TYPE_OBJECT, 0, "java/lang/AssertionError");
 
   public static void buildAssertions(ClassNode node) {
-
     ClassWrapper wrapper = node.getWrapper();
 
     StructField field = findAssertionField(node);
 
     if (field != null) {
-
       String key = InterpreterUtil.makeUniqueKey(field.getName(), field.getDescriptor());
 
       boolean res = false;
@@ -52,32 +50,26 @@ public final class AssertProcessor {
   }
 
   private static StructField findAssertionField(ClassNode node) {
-
     ClassWrapper wrapper = node.getWrapper();
 
     boolean noSynthFlag = DecompilerContext.getOption(IFernflowerPreferences.SYNTHETIC_NOT_SET);
 
     for (StructField fd : wrapper.getClassStruct().getFields()) {
-
       String keyField = InterpreterUtil.makeUniqueKey(fd.getName(), fd.getDescriptor());
 
       // initializer exists
       if (wrapper.getStaticFieldInitializers().containsKey(keyField)) {
-
         // access flags set
         if (fd.hasModifier(CodeConstants.ACC_STATIC) && fd.hasModifier(CodeConstants.ACC_FINAL) && (noSynthFlag || fd.isSynthetic())) {
-
           // field type boolean
           FieldDescriptor fdescr = FieldDescriptor.parseDescriptor(fd.getDescriptor());
           if (VarType.VARTYPE_BOOLEAN.equals(fdescr.type)) {
-
             Exprent initializer = wrapper.getStaticFieldInitializers().getWithKey(keyField);
             if (initializer.type == Exprent.EXPRENT_FUNCTION) {
               FunctionExprent fexpr = (FunctionExprent)initializer;
 
               if (fexpr.getFuncType() == FunctionExprent.FUNCTION_BOOL_NOT &&
                   fexpr.getLstOperands().get(0).type == Exprent.EXPRENT_INVOCATION) {
-
                 InvocationExprent invexpr = (InvocationExprent)fexpr.getLstOperands().get(0);
 
                 if (invexpr.getInstance() != null &&
@@ -85,10 +77,8 @@ public final class AssertProcessor {
                     "desiredAssertionStatus".equals(invexpr.getName()) &&
                     "java/lang/Class".equals(invexpr.getClassname()) &&
                     invexpr.getLstParameters().isEmpty()) {
-
                   ConstExprent cexpr = (ConstExprent)invexpr.getInstance();
                   if (VarType.VARTYPE_CLASS.equals(cexpr.getConstType())) {
-
                     ClassNode nd = node;
                     while (nd != null) {
                       if (nd.getWrapper().getClassStruct().qualifiedName.equals(cexpr.getValue())) {
@@ -115,7 +105,6 @@ public final class AssertProcessor {
 
 
   private static boolean replaceAssertions(Statement statement, String classname, String key) {
-
     boolean res = false;
 
     for (Statement st : statement.getStats()) {
@@ -142,7 +131,6 @@ public final class AssertProcessor {
   }
 
   private static boolean replaceAssertion(Statement parent, IfStatement stat, String classname, String key) {
-
     boolean throwInIf = true;
     Statement ifstat = stat.getIfstat();
     InvocationExprent throwError = isAssertionError(ifstat);
@@ -195,7 +183,6 @@ public final class AssertProcessor {
 
     if (stat.iftype == IfStatement.IFTYPE_IFELSE || (first.getExprents() != null &&
                                                      !first.getExprents().isEmpty())) {
-
       first.removeSuccessor(stat.getIfEdge());
       first.removeSuccessor(stat.getElseEdge());
 
@@ -249,7 +236,6 @@ public final class AssertProcessor {
   }
 
   private static InvocationExprent isAssertionError(Statement stat) {
-
     if (stat == null || stat.getExprents() == null || stat.getExprents().size() != 1) {
       return null;
     }
@@ -270,7 +256,6 @@ public final class AssertProcessor {
   }
 
   private static Object[] getAssertionExprent(Exprent exprent, String classname, String key, boolean throwInIf) {
-
     if (exprent.type == Exprent.EXPRENT_FUNCTION) {
       int desiredOperation = FunctionExprent.FUNCTION_CADD;
       if (!throwInIf) {
@@ -279,7 +264,6 @@ public final class AssertProcessor {
 
       FunctionExprent fexpr = (FunctionExprent)exprent;
       if (fexpr.getFuncType() == desiredOperation) {
-
         for (int i = 0; i < 2; i++) {
           Exprent param = fexpr.getLstOperands().get(i);
 

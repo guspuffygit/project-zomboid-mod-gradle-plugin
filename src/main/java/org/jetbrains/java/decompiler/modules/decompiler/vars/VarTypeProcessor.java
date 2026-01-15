@@ -114,7 +114,6 @@ public class VarTypeProcessor {
   }
 
   private boolean checkTypeExprent(Exprent exprent) {
-
     for (Exprent expr : exprent.getAllExprents()) {
       if (!checkTypeExprent(expr)) {
         return false;

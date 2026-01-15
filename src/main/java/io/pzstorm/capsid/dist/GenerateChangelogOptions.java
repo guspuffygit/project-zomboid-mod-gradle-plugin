@@ -364,7 +364,6 @@ public enum GenerateChangelogOptions {
 	private final String shortOpt, longOpt;
 
 	GenerateChangelogOptions(String shortOpt, String longOpt) {
-
 		this.shortOpt = shortOpt;
 		this.longOpt = longOpt;
 	}
@@ -380,7 +379,6 @@ public enum GenerateChangelogOptions {
 	 * @return formatted option ready to be used as a command option.
 	 */
 	public String formatOption(String... args) {
-
 		String option = '-' + shortOpt;
 		if (shortOpt.isEmpty())
 		{

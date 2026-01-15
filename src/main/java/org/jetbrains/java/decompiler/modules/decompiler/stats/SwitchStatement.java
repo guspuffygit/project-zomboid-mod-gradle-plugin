@@ -46,7 +46,6 @@ public final class SwitchStatement extends Statement {
   }
 
   private SwitchStatement(Statement head, Statement poststat) {
-
     this();
 
     first = head;
@@ -73,9 +72,7 @@ public final class SwitchStatement extends Statement {
   // *****************************************************************************
 
   public static Statement isHead(Statement head) {
-
     if (head.type == Statement.TYPE_BASICBLOCK && head.getLastBasicType() == Statement.LASTBASICTYPE_SWITCH) {
-
       List<Statement> lst = new ArrayList<>();
       if (DecHelper.isChoiceStatement(head, lst)) {
         Statement post = lst.remove(0);
@@ -114,7 +111,6 @@ public final class SwitchStatement extends Statement {
     VarType switch_type = headexprent.get(0).getExprType();
 
     for (int i = 0; i < caseStatements.size(); i++) {
-
       Statement stat = caseStatements.get(i);
       List<StatEdge> edges = caseEdges.get(i);
       List<Exprent> values = caseValues.get(i);
@@ -161,7 +157,6 @@ public final class SwitchStatement extends Statement {
 
   @Override
   public List<Object> getSequentialObjects() {
-
     List<Object> lst = new ArrayList<>(stats);
     lst.add(1, headexprent.get(0));
 
@@ -177,7 +172,6 @@ public final class SwitchStatement extends Statement {
 
   @Override
   public void replaceStatement(Statement oldstat, Statement newstat) {
-
     for (int i = 0; i < caseStatements.size(); i++) {
       if (caseStatements.get(i) == oldstat) {
         caseStatements.set(i, newstat);
@@ -205,7 +199,6 @@ public final class SwitchStatement extends Statement {
   // *****************************************************************************
 
   public void sortEdgesAndNodes() {
-
     HashMap<StatEdge, Integer> mapEdgeIndex = new HashMap<>();
 
     List<StatEdge> lstFirstSuccs = first.getSuccessorEdges(STATEDGE_DIRECT_ALL);
@@ -222,7 +215,6 @@ public final class SwitchStatement extends Statement {
 
     // collect regular edges
     for (int i = 1; i < stats.size(); i++) {
-
       Statement stat = stats.get(i);
 
       List<Integer> lst = new ArrayList<>();
@@ -328,7 +320,6 @@ public final class SwitchStatement extends Statement {
         bstat.addSuccessor(new StatEdge(sample_edge.getType(), bstat, sample_edge.getDestination(), sample_edge.closure));
 
         for (StatEdge edge : lstEdges.get(i)) {
-
           edge.getSource().changeEdgeType(DIRECTION_FORWARD, edge, StatEdge.TYPE_REGULAR);
           edge.closure.getLabelEdges().remove(edge);
 

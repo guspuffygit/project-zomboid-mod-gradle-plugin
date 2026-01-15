@@ -364,7 +364,6 @@ public final class InstructionImpact {
   }
 
   private static void processSpecialInstructions(DataPoint data, Instruction instr, ConstantPool pool) {
-
     VarType var1;
     PrimitiveConstant cn;
     LinkConstant ck;

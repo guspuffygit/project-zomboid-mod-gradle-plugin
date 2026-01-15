@@ -81,7 +81,6 @@ public enum Dependencies {
 	private final DependencyResolver resolver;
 
 	Dependencies(String configuration, boolean availablePreEval, DependencyResolver resolver) {
-
 		this.configuration = configuration;
 		this.availablePreEval = availablePreEval;
 		this.resolver = resolver;
@@ -99,7 +98,6 @@ public enum Dependencies {
 	 * @return {@code Set} of registered dependencies empty {@code Set} if none registered.
 	 */
 	Set<Dependency> register(Project project, DependencyHandler dependencies) {
-
 		Set<Dependency> result = new HashSet<>();
 		Set<Object> dependencyNotations = resolver.resolveDependencies(project);
 		for (Object notation : dependencyNotations) {

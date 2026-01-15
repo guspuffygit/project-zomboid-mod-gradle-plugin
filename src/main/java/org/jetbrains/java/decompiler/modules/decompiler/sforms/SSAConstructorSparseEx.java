@@ -48,7 +48,6 @@ public class SSAConstructorSparseEx {
   private FastSparseSetFactory<Integer> factory;
 
   public void splitVariables(RootStatement root, StructMethod mt) {
-
     FlattenStatementsHelper flatthelper = new FlattenStatementsHelper();
     DirectGraph dgraph = flatthelper.buildDirectGraph(root);
 
@@ -77,13 +76,11 @@ public class SSAConstructorSparseEx {
   }
 
   private void ssaStatements(DirectGraph dgraph, HashSet<String> updated) {
-
     // try {
     // DotExporter.toDotFile(dgraph, new File("c:\\Temp\\gr1_my.dot"));
     // } catch(Exception ex) {ex.printStackTrace();}
 
     for (DirectNode node : dgraph.nodes) {
-
       //			if (node.id.endsWith("_inc")) {
       //				System.out.println();
       //
@@ -129,7 +126,6 @@ public class SSAConstructorSparseEx {
   }
 
   private void processExprent(Exprent expr, SFormsFastMapDirect[] varmaparr) {
-
     if (expr == null) {
       return;
     }
@@ -217,7 +213,6 @@ public class SSAConstructorSparseEx {
     SFormsFastMapDirect varmap = varmaparr[0];
 
     if (varassign != null) {
-
       Integer varindex = varassign.getIndex();
 
       if (varassign.getVersion() == 0) {
@@ -234,7 +229,6 @@ public class SSAConstructorSparseEx {
       }
     }
     else if (expr.type == Exprent.EXPRENT_VAR) {
-
       VarExprent vardest = (VarExprent)expr;
       Integer varindex = vardest.getIndex();
       FastSparseSet<Integer> vers = varmap.get(varindex);
@@ -281,7 +275,6 @@ public class SSAConstructorSparseEx {
   }
 
   private void mergeInVarMaps(DirectNode node, DirectGraph dgraph) {
-
     SFormsFastMapDirect mapNew = new SFormsFastMapDirect();
 
     for (DirectNode pred : node.preds) {
@@ -308,7 +301,6 @@ public class SSAConstructorSparseEx {
   }
 
   private SFormsFastMapDirect getFilteredOutMap(String nodeid, String predid, DirectGraph dgraph, String destid) {
-
     SFormsFastMapDirect mapNew = new SFormsFastMapDirect();
 
     if (nodeid.equals(dgraph.mapNegIfBranch.get(predid))) {
@@ -323,7 +315,6 @@ public class SSAConstructorSparseEx {
     boolean isFinallyExit = dgraph.mapShortRangeFinallyPaths.containsKey(predid);
 
     if (isFinallyExit && !mapNew.isEmpty()) {
-
       SFormsFastMapDirect mapNewTemp = mapNew.getCopy();
 
       SFormsFastMapDirect mapTrueSource = new SFormsFastMapDirect();
@@ -380,7 +371,6 @@ public class SSAConstructorSparseEx {
       }
 
       if (isExceptionMonitorExit) {
-
         mapNew = mapTrueSource;
       }
       else {
@@ -400,7 +390,6 @@ public class SSAConstructorSparseEx {
   }
 
   private static SFormsFastMapDirect mergeMaps(SFormsFastMapDirect mapTo, SFormsFastMapDirect map2) {
-
     if (map2 != null && !map2.isEmpty()) {
       mapTo.union(map2);
     }
@@ -409,7 +398,6 @@ public class SSAConstructorSparseEx {
   }
 
   private static boolean mapsEqual(SFormsFastMapDirect map1, SFormsFastMapDirect map2) {
-
     if (map1 == null) {
       return map2 == null;
     }
@@ -437,7 +425,6 @@ public class SSAConstructorSparseEx {
   }
 
   private void setCatchMaps(Statement stat, DirectGraph dgraph, FlattenStatementsHelper flatthelper) {
-
     SFormsFastMapDirect map;
 
     switch (stat.type) {

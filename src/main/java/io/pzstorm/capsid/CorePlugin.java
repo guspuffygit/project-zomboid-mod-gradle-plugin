@@ -62,7 +62,6 @@ public enum CorePlugin {
 	 * @param project {@code Project} to apply the plugins to.
 	 */
 	public static void applyAll(Project project) {
-
 		PluginManager pluginManager = project.getPluginManager();
 		for (CorePlugin plugin : CorePlugin.values()) {
 			pluginManager.apply(plugin.id);

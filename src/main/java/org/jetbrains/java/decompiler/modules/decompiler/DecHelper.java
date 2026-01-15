@@ -13,7 +13,6 @@ import java.util.Set;
 public final class DecHelper {
 
   public static boolean checkStatementExceptions(List<? extends Statement> lst) {
-
     Set<Statement> all = new HashSet<>(lst);
 
     Set<Statement> handlers = new HashSet<>();
@@ -56,7 +55,6 @@ public final class DecHelper {
   }
 
   public static boolean isChoiceStatement(Statement head, List<? super Statement> lst) {
-
     Statement post = null;
 
     Set<Statement> setDest = head.getNeighboursSet(StatEdge.TYPE_REGULAR, Statement.DIRECTION_FORWARD);
@@ -66,7 +64,6 @@ public final class DecHelper {
     }
 
     while (true) {
-
       lst.clear();
 
       boolean repeat = false;
@@ -141,7 +138,6 @@ public final class DecHelper {
           }
         }
         else if (lstEdges.size() == 1) {
-
           StatEdge edge = lstEdges.get(0);
           if (edge.getType() == StatEdge.TYPE_REGULAR) {
             Statement statd = edge.getDestination();

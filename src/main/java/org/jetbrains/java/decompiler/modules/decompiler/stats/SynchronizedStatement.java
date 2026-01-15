@@ -31,7 +31,6 @@ public class SynchronizedStatement extends Statement {
   }
 
   public SynchronizedStatement(Statement head, Statement body, Statement exc) {
-
     this();
 
     first = head;
@@ -94,7 +93,6 @@ public class SynchronizedStatement extends Statement {
 
   @Override
   public List<Object> getSequentialObjects() {
-
     List<Object> lst = new ArrayList<>(stats);
     lst.add(1, headexprent.get(0));
 
@@ -110,7 +108,6 @@ public class SynchronizedStatement extends Statement {
 
   @Override
   public void replaceStatement(Statement oldstat, Statement newstat) {
-
     if (body == oldstat) {
       body = newstat;
     }

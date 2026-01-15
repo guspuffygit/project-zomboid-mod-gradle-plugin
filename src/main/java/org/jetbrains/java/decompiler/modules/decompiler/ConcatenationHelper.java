@@ -24,7 +24,6 @@ public final class ConcatenationHelper {
 
 
   public static Exprent contractStringConcat(Exprent expr) {
-
     Exprent exprTmp = null;
     VarType cltype = null;
 
@@ -59,7 +58,6 @@ public final class ConcatenationHelper {
     List<Exprent> lstOperands = new ArrayList<>();
 
     while (true) {
-
       int found = 0;
 
       switch (exprTmp.type) {
@@ -185,7 +183,6 @@ public final class ConcatenationHelper {
   }
 
   private static boolean isAppendConcat(InvocationExprent expr, VarType cltype) {
-
     if ("append".equals(expr.getName())) {
       MethodDescriptor md = expr.getDescriptor();
       if (md.ret.equals(cltype) && md.params.length == 1) {
@@ -221,7 +218,6 @@ public final class ConcatenationHelper {
   }
 
   private static Exprent removeStringValueOf(Exprent exprent) {
-
     if (exprent.type == Exprent.EXPRENT_INVOCATION) {
       InvocationExprent iex = (InvocationExprent)exprent;
       if ("valueOf".equals(iex.getName()) && stringClass.equals(iex.getClassname())) {

@@ -23,7 +23,6 @@ public class GenericDominatorEngine {
   }
 
   private void orderNodes() {
-
     setRoots = graph.getRoots();
 
     for (IGraphNode node : graph.getReversePostOrderList()) {
@@ -32,7 +31,6 @@ public class GenericDominatorEngine {
   }
 
   private static IGraphNode getCommonIDom(IGraphNode node1, IGraphNode node2, VBStyleCollection<IGraphNode, IGraphNode> orderedIDoms) {
-
     IGraphNode nodeOld;
 
     if (node1 == null) {
@@ -72,17 +70,14 @@ public class GenericDominatorEngine {
   }
 
   private void calcIDoms() {
-
     orderNodes();
 
     List<IGraphNode> lstNodes = colOrderedIDoms.getLstKeys();
 
     while (true) {
-
       boolean changed = false;
 
       for (IGraphNode node : lstNodes) {
-
         IGraphNode idom = null;
 
         if (!setRoots.contains(node)) {
@@ -113,9 +108,7 @@ public class GenericDominatorEngine {
   }
 
   public boolean isDominator(IGraphNode node, IGraphNode dom) {
-
     while (!node.equals(dom)) {
-
       IGraphNode idom = colOrderedIDoms.getWithKey(node);
 
       if (idom == node) {

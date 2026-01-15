@@ -157,7 +157,6 @@ public class ModProperties extends CapsidProperties {
 	 * @return mapping key or empty {@code String} if no mapping is found.
 	 */
 	public static String getMetadataMappingKey(CapsidProperty<?> property) {
-
 		Optional<Map.Entry<String, CapsidProperty<?>>> entry = METADATA_MAPPING.entrySet()
 				.stream().filter(m -> m.getValue() == property).findFirst();
 

@@ -38,7 +38,6 @@ public final class DoStatement extends Statement {
   }
 
   private DoStatement(Statement head) {
-
     this();
 
     first = head;
@@ -52,9 +51,7 @@ public final class DoStatement extends Statement {
   // *****************************************************************************
 
   public static Statement isHead(Statement head) {
-
     if (head.getLastBasicType() == LASTBASICTYPE_GENERAL && !head.isMonitorEnter()) {
-
       // at most one outgoing edge
       StatEdge edge = null;
       List<StatEdge> lstSuccs = head.getSuccessorEdges(STATEDGE_DIRECT_ALL);
@@ -129,7 +126,6 @@ public final class DoStatement extends Statement {
 
   @Override
   public List<Object> getSequentialObjects() {
-
     List<Object> lst = new ArrayList<>();
 
     switch (looptype) {

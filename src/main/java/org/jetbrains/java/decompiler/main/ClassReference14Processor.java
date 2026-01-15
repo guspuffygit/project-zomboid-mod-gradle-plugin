@@ -131,14 +131,12 @@ public final class ClassReference14Processor {
       if ((noSynthFlag || mt.isSynthetic()) &&
           mt.getDescriptor().equals("(Ljava/lang/String;)Ljava/lang/Class;") &&
           mt.hasModifier(CodeConstants.ACC_STATIC)) {
-
         RootStatement root = method.root;
         if (root != null && root.getFirst().type == Statement.TYPE_TRYCATCH) {
           CatchStatement cst = (CatchStatement)root.getFirst();
           if (cst.getStats().size() == 2 && cst.getFirst().type == Statement.TYPE_BASICBLOCK &&
               cst.getStats().get(1).type == Statement.TYPE_BASICBLOCK &&
               cst.getVars().get(0).getVarType().equals(new VarType(CodeConstants.TYPE_OBJECT, 0, "java/lang/ClassNotFoundException"))) {
-
             BasicBlockStatement body = (BasicBlockStatement)cst.getFirst();
             BasicBlockStatement handler = (BasicBlockStatement)cst.getStats().get(1);
 
@@ -196,7 +194,6 @@ public final class ClassReference14Processor {
             if (headexpr.getLstOperands().get(0).type == Exprent.EXPRENT_FIELD &&
                 headexpr.getLstOperands().get(1).type == Exprent.EXPRENT_CONST &&
                 ((ConstExprent)headexpr.getLstOperands().get(1)).getConstType().equals(VarType.VARTYPE_NULL)) {
-
               FieldExprent field = (FieldExprent)headexpr.getLstOperands().get(0);
               ClassNode fieldnode = DecompilerContext.getClassProcessor().getMapRootClasses().get(field.getClassname());
 
@@ -206,7 +203,6 @@ public final class ClassReference14Processor {
 
                 if (fd != null && fd.hasModifier(CodeConstants.ACC_STATIC) &&
                     (fd.isSynthetic() || DecompilerContext.getOption(IFernflowerPreferences.SYNTHETIC_NOT_SET))) {
-
                   if (fexpr.getLstOperands().get(1).type == Exprent.EXPRENT_ASSIGNMENT && fexpr.getLstOperands().get(2).equals(field)) {
                     AssignmentExprent asexpr = (AssignmentExprent)fexpr.getLstOperands().get(1);
 
@@ -216,7 +212,6 @@ public final class ClassReference14Processor {
                       if (invexpr.getClassname().equals(wrapper.getClassStruct().qualifiedName) &&
                           invexpr.getName().equals(meth.methodStruct.getName()) &&
                           invexpr.getStringDescriptor().equals(meth.methodStruct.getDescriptor())) {
-
                         if (invexpr.getLstParameters().get(0).type == Exprent.EXPRENT_CONST) {
                           wrapper.getHiddenMembers()
                             .add(InterpreterUtil.makeUniqueKey(fd.getName(), fd.getDescriptor()));  // hide synthetic field

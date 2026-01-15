@@ -139,7 +139,6 @@ public class NestedMemberAccess {
               if ((isStatic && invexpr.getLstParameters().size() == parcount) ||
                   (!isStatic && invexpr.getInstance().type == Exprent.EXPRENT_VAR
                    && ((VarExprent)invexpr.getInstance()).getIndex() == 0 && invexpr.getLstParameters().size() == parcount - 1)) {
-
                 boolean equalpars = true;
 
                 int index = isStatic ? 0 : 1;
@@ -164,7 +163,6 @@ public class NestedMemberAccess {
 
             if (exprentFirst.type == Exprent.EXPRENT_ASSIGNMENT &&
                 exprentSecond.type == Exprent.EXPRENT_EXIT) {
-
               MethodDescriptor mtdesc = MethodDescriptor.parseDescriptor(mt.getDescriptor());
               int parcount = mtdesc.params.length;
 
@@ -177,7 +175,6 @@ public class NestedMemberAccess {
                     if (fexpras.isStatic() ||
                         (fexpras.getInstance().type == Exprent.EXPRENT_VAR && ((VarExprent)fexpras.getInstance()).getIndex() == 0)) {
                       if (((VarExprent)asexpr.getRight()).getIndex() == parcount - 1) {
-
                         ExitExprent exexpr = (ExitExprent)exprentSecond;
                         if (exexpr.getExitType() == ExitExprent.EXIT_RETURN && exexpr.getValue() != null) {
                           if (exexpr.getValue().type == Exprent.EXPRENT_VAR &&
@@ -206,15 +203,12 @@ public class NestedMemberAccess {
 
 
   private void eliminateStaticAccess(ClassNode node) {
-
     if (node.type == ClassNode.CLASS_LAMBDA) {
       return;
     }
 
     for (MethodWrapper meth : node.getWrapper().getMethods()) {
-
       if (meth.root != null) {
-
         boolean replaced = false;
 
         DirectGraph graph = meth.getOrBuildGraph();
@@ -263,7 +257,6 @@ public class NestedMemberAccess {
 
 
   private boolean replaceInvocations(ClassNode caller, MethodWrapper meth, Exprent exprent) {
-
     boolean res = false;
 
     for (Exprent expr : exprent.getAllExprents()) {
@@ -271,7 +264,6 @@ public class NestedMemberAccess {
     }
 
     while (true) {
-
       boolean found = false;
 
       for (Exprent expr : exprent.getAllExprents()) {
@@ -295,7 +287,6 @@ public class NestedMemberAccess {
   }
 
   private static boolean sameTree(ClassNode caller, ClassNode callee) {
-
     if (caller.classStruct.qualifiedName.equals(callee.classStruct.qualifiedName)) {
       return false;
     }

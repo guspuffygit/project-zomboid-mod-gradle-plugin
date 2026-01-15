@@ -30,7 +30,6 @@ public class VarDefinitionHelper {
   private final VarProcessor varproc;
 
   public VarDefinitionHelper(Statement root, StructMethod mt, VarProcessor varproc) {
-
     mapVarDefStatements = new HashMap<>();
     mapStatementVars = new HashMap<>();
     implDefVars = new HashSet<>();
@@ -125,7 +124,6 @@ public class VarDefinitionHelper {
       if (stat.type == Statement.TYPE_DO) {
         DoStatement dstat = (DoStatement)stat;
         if (dstat.getLooptype() == DoStatement.LOOP_FOR) {
-
           if (dstat.getInitExprent() != null && setDefinition(dstat.getInitExprent(), index)) {
             continue;
           }
@@ -195,7 +193,6 @@ public class VarDefinitionHelper {
   // *****************************************************************************
 
   private Statement findFirstBlock(Statement stat, Integer varindex) {
-
     LinkedList<Statement> stack = new LinkedList<>();
     stack.add(stat);
 
@@ -203,7 +200,6 @@ public class VarDefinitionHelper {
       Statement st = stack.remove(0);
 
       if (stack.isEmpty() || mapStatementVars.get(st.id).contains(varindex)) {
-
         if (st.isLabeled() && !stack.isEmpty()) {
           return st;
         }
@@ -235,13 +231,11 @@ public class VarDefinitionHelper {
   }
 
   private Set<Integer> initStatement(Statement stat) {
-
     HashMap<Integer, Integer> mapCount = new HashMap<>();
 
     List<VarExprent> condlst;
 
     if (stat.getExprents() == null) {
-
       // recurse on children statements
       List<Integer> childVars = new ArrayList<>();
       List<Exprent> currVars = new ArrayList<>();
@@ -306,7 +300,6 @@ public class VarDefinitionHelper {
   }
 
   private static List<VarExprent> getAllVars(List<Exprent> lst) {
-
     List<VarExprent> res = new ArrayList<>();
     List<Exprent> listTemp = new ArrayList<>();
 

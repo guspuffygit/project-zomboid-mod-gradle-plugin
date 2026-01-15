@@ -45,7 +45,6 @@ class VmParameterTest extends PluginUnitTest {
 
 	@Test
 	void shouldBuildVmParameterInstanceWithCustomValues() {
-
 		String[] javaLibPaths = new String[]{ "/home/libs/java", "/home/java/libs" };
 		String[] lwjglPaths = new String[]{ "/home/libs/lwjgl1", "/home/lwjgl/libs" };
 
@@ -80,7 +79,6 @@ class VmParameterTest extends PluginUnitTest {
 	@Test
 	@SuppressWarnings("SpellCheckingInspection")
 	void shouldCorrectlyFormatAdvancedRuntimeOption() {
-
 		Map<String, Boolean> advancedOptions = new HashMap<>();
 		advancedOptions.put("useConcMarkSweepGC", true);
 		advancedOptions.put("createMinidumpOnCrash", false);
@@ -100,7 +98,6 @@ class VmParameterTest extends PluginUnitTest {
 	@Test
 	@SuppressWarnings("SpellCheckingInspection")
 	void shouldCorrectlyDisplayAsString() {
-
 		String[] javaLibPaths = new String[]{ "/home/libs/java", "/home/java/libs" };
 		String[] lwjglPaths = new String[]{ "/home/libs/lwjgl1", "/home/lwjgl/libs" };
 

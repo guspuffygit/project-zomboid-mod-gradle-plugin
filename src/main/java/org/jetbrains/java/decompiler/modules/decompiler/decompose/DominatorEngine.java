@@ -23,14 +23,12 @@ public class DominatorEngine {
   }
 
   private void orderStatements() {
-
     for (Statement stat : statement.getReversePostOrderList()) {
       colOrderedIDoms.addWithKey(null, stat.id);
     }
   }
 
   private static Integer getCommonIDom(Integer key1, Integer key2, VBStyleCollection<Integer, Integer> orderedIDoms) {
-
     if (key1 == null) {
       return key2;
     }
@@ -56,7 +54,6 @@ public class DominatorEngine {
   }
 
   private void calcIDoms() {
-
     orderStatements();
 
     colOrderedIDoms.putWithKey(statement.getFirst().id, statement.getFirst().id);
@@ -65,11 +62,9 @@ public class DominatorEngine {
     List<Integer> lstIds = colOrderedIDoms.getLstKeys().subList(1, colOrderedIDoms.getLstKeys().size());
 
     while (true) {
-
       boolean changed = false;
 
       for (Integer id : lstIds) {
-
         Statement stat = statement.getStats().getWithKey(id);
         Integer idom = null;
 
@@ -96,9 +91,7 @@ public class DominatorEngine {
   }
 
   public boolean isDominator(Integer node, Integer dom) {
-
     while (!node.equals(dom)) {
-
       Integer idom = colOrderedIDoms.getWithKey(node);
 
       if (idom.equals(node)) {

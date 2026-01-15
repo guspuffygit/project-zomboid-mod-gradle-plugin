@@ -56,14 +56,12 @@ public class GradleRunConfig extends XMLDocument {
 	private final Map<String, OptionType> options;
 
 	public GradleRunConfig(String name, Map<String, OptionType> options) {
-
 		super(name, Paths.get(".idea/runConfigurations"));
 		this.options = options;
 	}
 
 	@Override
 	public XMLDocument configure(Project project) {
-
 		// <component name="ProjectRunConfigurationManager">
 		Element component = document.createElement("component");
 		component.setAttribute("name", "ProjectRunConfigurationManager");

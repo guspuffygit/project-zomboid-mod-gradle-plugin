@@ -55,7 +55,6 @@ public class LaunchRunConfig extends XMLDocument {
 	private final String mainClass;
 
 	public LaunchRunConfig(String name, String mainClass, VmParameter.Builder vmParamBuilder, Map<String, Path> logs) {
-
 		super(name, Paths.get(".idea/runConfigurations"));
 		this.vmParamBuilder = vmParamBuilder;
 		this.mainClass = mainClass;
@@ -74,7 +73,6 @@ public class LaunchRunConfig extends XMLDocument {
 	 */
 	@Override
 	public LaunchRunConfig configure(Project project) {
-
 		// <component name="ProjectRunConfigurationManager">
 		Element component = document.createElement("component");
 		component.setAttribute("name", "ProjectRunConfigurationManager");

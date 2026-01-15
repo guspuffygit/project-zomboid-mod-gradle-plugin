@@ -20,7 +20,6 @@ public final class DomHelper {
 
 
   private static RootStatement graphToStatement(ControlFlowGraph graph) {
-
     VBStyleCollection<Statement, Integer> stats = new VBStyleCollection<>();
     VBStyleCollection<BasicBlock, Integer> blocks = graph.getBlocks();
 
@@ -88,7 +87,6 @@ public final class DomHelper {
   }
 
   public static VBStyleCollection<List<Integer>, Integer> calcPostDominators(Statement container) {
-
     HashMap<Statement, FastFixedSet<Statement>> lists = new HashMap<>();
 
     StrongConnectivityHelper schelper = new StrongConnectivityHelper(container);
@@ -123,7 +121,6 @@ public final class DomHelper {
     do {
 
       for (Statement stat : lstStats) {
-
         if (!setFlagNodes.contains(stat)) {
           continue;
         }
@@ -150,7 +147,6 @@ public final class DomHelper {
         }
 
         if (!InterpreterUtil.equalObjects(domsSuccs, doms)) {
-
           lists.put(stat, domsSuccs);
 
           List<Statement> lstPreds = stat.getNeighbours(StatEdge.TYPE_REGULAR, Statement.DIRECTION_BACKWARD);
@@ -171,7 +167,6 @@ public final class DomHelper {
     }
 
     for (Statement st : lstStats) {
-
       List<Integer> lstPosts = new ArrayList<>();
       for (Statement stt : lists.get(st)) {
         lstPosts.add(stt.id);
@@ -190,11 +185,9 @@ public final class DomHelper {
   }
 
   public static RootStatement parseGraph(ControlFlowGraph graph) {
-
     RootStatement root = graphToStatement(graph);
 
     if (!processStatement(root, new HashMap<>())) {
-
       //			try {
       //				DotExporter.toDotFile(root.getFirst().getStats().get(13), new File("c:\\Temp\\stat1.dot"));
       //			} catch (Exception ex) {
@@ -215,7 +208,6 @@ public final class DomHelper {
   }
 
   public static void removeSynchronizedHandler(Statement stat) {
-
     for (Statement st : stat.getStats()) {
       removeSynchronizedHandler(st);
     }
@@ -227,15 +219,12 @@ public final class DomHelper {
 
 
   private static void buildSynchronized(Statement stat) {
-
     for (Statement st : stat.getStats()) {
       buildSynchronized(st);
     }
 
     if (stat.type == Statement.TYPE_SEQUENCE) {
-
       while (true) {
-
         boolean found = false;
 
         List<Statement> lst = stat.getStats();
@@ -243,7 +232,6 @@ public final class DomHelper {
           Statement current = lst.get(i);  // basic block
 
           if (current.isMonitorEnter()) {
-
             Statement next = lst.get(i + 1);
             Statement nextDirect = next;
 
@@ -252,11 +240,9 @@ public final class DomHelper {
             }
 
             if (next.type == Statement.TYPE_CATCHALL) {
-
               CatchAllStatement ca = (CatchAllStatement)next;
 
               if (ca.getFirst().isContainsMonitorExit() && ca.getHandler().isContainsMonitorExit()) {
-
                 // remove the head block from sequence
                 current.removeSuccessor(current.getSuccessorEdges(Statement.STATEDGE_DIRECT_ALL).get(0));
 
@@ -295,7 +281,6 @@ public final class DomHelper {
   }
 
   private static boolean processStatement(Statement general, HashMap<Integer, Set<Integer>> mapExtPost) {
-
     if (general.type == Statement.TYPE_ROOT) {
       Statement stat = general.getFirst();
       if (stat.type != Statement.TYPE_GENERAL) {
@@ -314,13 +299,11 @@ public final class DomHelper {
     boolean mapRefreshed = mapExtPost.isEmpty();
 
     for (int mapstage = 0; mapstage < 2; mapstage++) {
-
       for (int reducibility = 0;
            reducibility < 5;
            reducibility++) { // FIXME: implement proper node splitting. For now up to 5 nodes in sequence are splitted.
 
         if (reducibility > 0) {
-
           //					try {
           //						DotExporter.toDotFile(general, new File("c:\\Temp\\stat1.dot"));
           //					} catch(Exception ex) {ex.printStackTrace();}
@@ -348,11 +331,9 @@ public final class DomHelper {
         }
 
         for (int i = 0; i < 2; i++) {
-
           boolean forceall = i != 0;
 
           while (true) {
-
             if (findSimpleStatements(general, mapExtPost)) {
               reducibility = 0;
             }
@@ -403,7 +384,6 @@ public final class DomHelper {
   }
 
   private static Statement findGeneralStatement(Statement stat, boolean forceall, HashMap<Integer, Set<Integer>> mapExtPost) {
-
     VBStyleCollection<Statement, Integer> stats = stat.getStats();
     VBStyleCollection<List<Integer>, Integer> vbPost;
 
@@ -440,7 +420,6 @@ public final class DomHelper {
     }
 
     for (int k = 0; k < vbPost.size(); k++) {
-
       Integer headid = vbPost.getKey(k);
       List<Integer> posts = vbPost.get(k);
 
@@ -473,7 +452,6 @@ public final class DomHelper {
         HashSet<Statement> setHandlers = new HashSet<>();
         setHandlers.add(head);
         while (true) {
-
           boolean hdfound = false;
           for (Statement handler : setHandlers) {
             if (setNodes.contains(handler)) {
@@ -578,7 +556,6 @@ public final class DomHelper {
   }
 
   private static boolean findSimpleStatements(Statement stat, HashMap<Integer, Set<Integer>> mapExtPost) {
-
     boolean found, success = false;
 
     do {
@@ -586,11 +563,9 @@ public final class DomHelper {
 
       List<Statement> lstStats = stat.getPostReversePostOrderList();
       for (Statement st : lstStats) {
-
         Statement result = detectStatement(st);
 
         if (result != null) {
-
           if (stat.type == Statement.TYPE_GENERAL && result.getFirst() == stat.getFirst() &&
               stat.getStats().size() == result.getStats().size()) {
             // mark general statement
@@ -643,7 +618,6 @@ public final class DomHelper {
 
 
   private static Statement detectStatement(Statement head) {
-
     Statement res;
 
     if ((res = DoStatement.isHead(head)) != null) {

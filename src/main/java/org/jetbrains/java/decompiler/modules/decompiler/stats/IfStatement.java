@@ -49,7 +49,6 @@ public final class IfStatement extends Statement {
   }
 
   private IfStatement(Statement head, int regedges, Statement postst) {
-
     this();
 
     first = head;
@@ -157,7 +156,6 @@ public final class IfStatement extends Statement {
   // *****************************************************************************
 
   public static Statement isHead(Statement head) {
-
     if (head.type == TYPE_BASICBLOCK && head.getLastBasicType() == LASTBASICTYPE_IF) {
       int regsize = head.getSuccessorEdges(StatEdge.TYPE_REGULAR).size();
 
@@ -269,7 +267,6 @@ public final class IfStatement extends Statement {
 
   @Override
   public void initExprents() {
-
     IfExprent ifexpr = (IfExprent)first.getExprents().remove(first.getExprents().size() - 1);
 
     if (negated) {
@@ -282,7 +279,6 @@ public final class IfStatement extends Statement {
 
   @Override
   public List<Object> getSequentialObjects() {
-
     List<Object> lst = new ArrayList<>(stats);
     lst.add(1, headexprent.get(0));
 
@@ -298,7 +294,6 @@ public final class IfStatement extends Statement {
 
   @Override
   public void replaceStatement(Statement oldstat, Statement newstat) {
-
     super.replaceStatement(oldstat, newstat);
 
     if (ifstat == oldstat) {
@@ -331,7 +326,6 @@ public final class IfStatement extends Statement {
 
   @Override
   public Statement getSimpleCopy() {
-
     IfStatement is = new IfStatement();
     is.iftype = this.iftype;
     is.negated = this.negated;
@@ -341,7 +335,6 @@ public final class IfStatement extends Statement {
 
   @Override
   public void initSimpleCopy() {
-
     first = stats.get(0);
 
     List<StatEdge> lstSuccs = first.getSuccessorEdges(STATEDGE_DIRECT_ALL);

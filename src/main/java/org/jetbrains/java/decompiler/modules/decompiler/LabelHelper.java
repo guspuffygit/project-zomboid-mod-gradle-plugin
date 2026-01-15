@@ -12,7 +12,6 @@ public final class LabelHelper {
 
 
   public static void cleanUpEdges(RootStatement root) {
-
     resetAllEdges(root);
 
     removeNonImmediateEdges(root);
@@ -25,7 +24,6 @@ public final class LabelHelper {
   }
 
   public static void identifyLabels(RootStatement root) {
-
     setExplicitEdges(root);
 
     hideDefaultSwitchEdges(root);
@@ -36,7 +34,6 @@ public final class LabelHelper {
   }
 
   private static void liftClosures(Statement stat) {
-
     for (StatEdge edge : stat.getAllSuccessorEdges()) {
       switch (edge.getType()) {
         case StatEdge.TYPE_CONTINUE:
@@ -73,7 +70,6 @@ public final class LabelHelper {
   }
 
   private static void removeNonImmediateEdges(Statement stat) {
-
     for (Statement st : stat.getStats()) {
       removeNonImmediateEdges(st);
     }
@@ -86,7 +82,6 @@ public final class LabelHelper {
   }
 
   public static void lowContinueLabels(Statement stat, HashSet<StatEdge> edges) {
-
     boolean ok = (stat.type != Statement.TYPE_DO);
     if (!ok) {
       DoStatement dostat = (DoStatement)stat;
@@ -102,7 +97,6 @@ public final class LabelHelper {
     if (ok && stat.type == Statement.TYPE_DO) {
       for (StatEdge edge : edges) {
         if (stat.containsStatementStrict(edge.getSource())) {
-
           edge.getDestination().removePredecessor(edge);
           edge.getSource().changeEdgeNode(Statement.DIRECTION_FORWARD, edge, stat);
           stat.addPredecessor(edge);
@@ -123,9 +117,7 @@ public final class LabelHelper {
   }
 
   public static void lowClosures(Statement stat) {
-
     for (StatEdge edge : new ArrayList<>(stat.getLabelEdges())) {
-
       if (edge.getType() == StatEdge.TYPE_BREAK) {  // FIXME: ?
         for (Statement st : stat.getStats()) {
           if (st.containsStatementStrict(edge.getSource())) {
@@ -143,7 +135,6 @@ public final class LabelHelper {
   }
 
   private static void resetAllEdges(Statement stat) {
-
     for (Statement st : stat.getStats()) {
       resetAllEdges(st);
     }
@@ -166,7 +157,6 @@ public final class LabelHelper {
   }
 
   private static HashMap<Statement, List<StatEdge>> setExplicitEdges(Statement stat) {
-
     HashMap<Statement, List<StatEdge>> mapEdges = new HashMap<>();
 
     if (stat.getExprents() != null) {
@@ -287,7 +277,6 @@ public final class LabelHelper {
   }
 
   private static void processEdgesWithNext(Statement stat, HashMap<Statement, List<StatEdge>> mapEdges, Statement next) {
-
     StatEdge statedge = null;
 
     List<StatEdge> lstSuccs = stat.getAllSuccessorEdges();
@@ -379,7 +368,6 @@ public final class LabelHelper {
   }
 
   private static void hideDefaultSwitchEdges(Statement stat) {
-
     if (stat.type == Statement.TYPE_SWITCH) {
       SwitchStatement swst = (SwitchStatement)stat;
 
@@ -446,13 +434,10 @@ public final class LabelHelper {
   }
 
   public static void replaceContinueWithBreak(Statement stat) {
-
     if (stat.type == Statement.TYPE_DO) {
-
       List<StatEdge> lst = stat.getPredecessorEdges(StatEdge.TYPE_CONTINUE);
 
       for (StatEdge edge : lst) {
-
         if (edge.explicit) {
           Statement minclosure = getMinContinueClosure(edge);
 
@@ -472,10 +457,8 @@ public final class LabelHelper {
   }
 
   private static Statement getMinContinueClosure(StatEdge edge) {
-
     Statement closure = edge.closure;
     while (true) {
-
       boolean found = false;
 
       for (Statement st : closure.getStats()) {

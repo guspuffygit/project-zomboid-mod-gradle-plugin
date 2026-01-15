@@ -51,7 +51,6 @@ public final class SecondaryFunctionsHelper {
 
         if (ifelsestat.iftype == IfStatement.IFTYPE_IFELSE && ifstat.getExprents() != null &&
             ifstat.getExprents().isEmpty() && (ifstat.getAllSuccessorEdges().isEmpty() || !ifstat.getAllSuccessorEdges().get(0).explicit)) {
-
           // move else to the if position
           ifelsestat.getStats().removeWithKey(ifstat.id);
 
@@ -155,7 +154,6 @@ public final class SecondaryFunctionsHelper {
             if (functype == FunctionExprent.FUNCTION_LCMP || functype == FunctionExprent.FUNCTION_FCMPG ||
                 functype == FunctionExprent.FUNCTION_FCMPL || functype == FunctionExprent.FUNCTION_DCMPG ||
                 functype == FunctionExprent.FUNCTION_DCMPL) {
-
               int desttype = -1;
 
               Integer[] destcons = mapNumComparisons.get(fexpr.getFuncType());
@@ -276,7 +274,6 @@ public final class SecondaryFunctionsHelper {
 
               if (cexpr1.getExprType().type == CodeConstants.TYPE_BOOLEAN &&
                   cexpr2.getExprType().type == CodeConstants.TYPE_BOOLEAN) {
-
                 if (cexpr1.getIntValue() == 0 && cexpr2.getIntValue() != 0) {
                   return new FunctionExprent(FunctionExprent.FUNCTION_BOOL_NOT, lstOperands.get(0), fexpr.bytecode);
                 }
@@ -377,12 +374,10 @@ public final class SecondaryFunctionsHelper {
   }
 
   public static Exprent propagateBoolNot(Exprent exprent) {
-
     if (exprent.type == Exprent.EXPRENT_FUNCTION) {
       FunctionExprent fexpr = (FunctionExprent)exprent;
 
       if (fexpr.getFuncType() == FunctionExprent.FUNCTION_BOOL_NOT) {
-
         Exprent param = fexpr.getLstOperands().get(0);
 
         if (param.type == Exprent.EXPRENT_FUNCTION) {

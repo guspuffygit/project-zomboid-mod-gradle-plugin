@@ -69,7 +69,6 @@ class LoadModMetadataTaskIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldLoadModInfoFromProjectProperties() {
-
 		// apply plugin before validating properties
 		applyCapsidPlugin();
 
@@ -87,7 +86,6 @@ class LoadModMetadataTaskIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void whenModInfoFileMissingShouldInheritFromProjectName() {
-
 		// make sure mod.info file is deleted
 		Assertions.assertTrue(ProjectProperty.MOD_INFO_FILE.get(project).delete());
 
@@ -102,7 +100,6 @@ class LoadModMetadataTaskIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void whenModInfoFileMissingShouldNotLoadProperties() {
-
 		// make sure mod.info file is deleted
 		Assertions.assertTrue(ProjectProperty.MOD_INFO_FILE.get(project).delete());
 
@@ -125,7 +122,6 @@ class LoadModMetadataTaskIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldReadRepositoryInformationFromUrlProperty() {
-
 		// apply plugin before validating properties
 		applyCapsidPlugin();
 
@@ -143,7 +139,6 @@ class LoadModMetadataTaskIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldInheritModIdPropertyFromRootProjectName() {
-
 		// apply plugin before validating properties
 		applyCapsidPlugin();
 

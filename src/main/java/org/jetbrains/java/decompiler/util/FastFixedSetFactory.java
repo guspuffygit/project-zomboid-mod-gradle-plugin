@@ -10,14 +10,12 @@ public class FastFixedSetFactory<E> {
   private final int dataLength;
 
   public FastFixedSetFactory(Collection<E> set) {
-
     dataLength = set.size() / 32 + 1;
 
     int index = 0;
     int mask = 1;
 
     for (E element : set) {
-
       int block = index / 32;
 
       if (index % 32 == 0) {
@@ -59,7 +57,6 @@ public class FastFixedSetFactory<E> {
     }
 
     public FastFixedSet<E> getCopy() {
-
       FastFixedSet<E> copy = new FastFixedSet<>(factory);
 
       int arrlength = data.length;
@@ -70,7 +67,6 @@ public class FastFixedSetFactory<E> {
     }
 
     public void setAllElements() {
-
       int[] lastindex = colValuesInternal.get(colValuesInternal.size() - 1);
 
       for (int i = lastindex[0] - 1; i >= 0; i--) {
@@ -180,7 +176,6 @@ public class FastFixedSetFactory<E> {
     }
 
     private <T extends Collection<E>> T toPlainCollection(T cl) {
-
       int[] intdata = data;
       for (int bindex = 0; bindex < intdata.length; bindex++) {
         int block = intdata[bindex];
@@ -200,7 +195,6 @@ public class FastFixedSetFactory<E> {
     }
 
     public String toString() {
-
       StringBuilder buffer = new StringBuilder("{");
 
       int[] intdata = data;
@@ -254,7 +248,6 @@ public class FastFixedSetFactory<E> {
     }
 
     private int getNextIndex(int index) {
-
       index++;
       int ret = index;
       int bindex = index / 32;

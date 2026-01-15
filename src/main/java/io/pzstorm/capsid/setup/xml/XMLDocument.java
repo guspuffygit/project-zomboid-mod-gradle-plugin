@@ -56,7 +56,6 @@ public abstract class XMLDocument {
 	 * @param dirPath path to parent directory relative to project root directory.
 	 */
 	XMLDocument(String name, Path dirPath) {
-
 		this.name = name;
 		this.dirPath = dirPath;
 		try {
@@ -72,7 +71,6 @@ public abstract class XMLDocument {
 	}
 
 	XMLDocument configure(Project project) {
-
 		this.project = project;
 		return this;
 	}
@@ -84,7 +82,6 @@ public abstract class XMLDocument {
 	 * @param element element to append or replace child with.
 	 */
 	void appendOrReplaceRootElement(Element element) {
-
 		Node childNode = document.getFirstChild();
 		if (childNode == null) {
 			document.appendChild(element);
@@ -97,7 +94,6 @@ public abstract class XMLDocument {
 	 * what IDEA is doing when it is naming {@code XML} configuration files.
 	 */
 	String translateConfigNameToFilename() {
-
 		// replace dashed with underscores and whitespaces with underscores
 		return name.replace('-', '_').replaceAll("\\s", "_")
 				// remove all non-word characters and consecutive with single underscores

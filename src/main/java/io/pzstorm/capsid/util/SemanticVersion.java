@@ -41,7 +41,6 @@ public class SemanticVersion {
 	 * @throws InvalidUserDataException if given semantic version is malformed.
 	 */
 	public SemanticVersion(String version) {
-
 		Matcher matcher = SEM_VER.matcher(version);
 		if (!matcher.find()) {
 			throw new InvalidUserDataException("Malformed semantic version '" + version + '\'');
@@ -56,14 +55,12 @@ public class SemanticVersion {
 
 	@Override
 	public String toString() {
-
 		String sClassifier = !classifier.isEmpty() ? '-' + classifier : classifier;
 		return String.format("%d.%d.%d%s", major, minor, patch, sClassifier);
 	}
 
 	@Override
 	public boolean equals(Object o) {
-
 		if (this == o) {
 			return true;
 		}
@@ -79,7 +76,6 @@ public class SemanticVersion {
 
 	@Override
 	public int hashCode() {
-
 		int result = 31 * major.hashCode() + minor.hashCode();
 		return 31 * (31 * result + patch.hashCode()) + classifier.hashCode();
 	}
@@ -88,7 +84,6 @@ public class SemanticVersion {
 
 		@Override
 		public int compare(SemanticVersion o1, SemanticVersion o2) {
-
 			if (!o1.major.equals(o2.major)) {
 				return o1.major.compareTo(o2.major);
 			}

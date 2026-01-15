@@ -86,7 +86,6 @@ public final class CatchStatement extends Statement {
           else {
             List<StatEdge> lstStatSuccs = stat.getSuccessorEdges(STATEDGE_DIRECT_ALL);
             if (!lstStatSuccs.isEmpty() && lstStatSuccs.get(0).getType() == StatEdge.TYPE_REGULAR) {
-
               Statement statn = lstStatSuccs.get(0).getDestination();
 
               if (next == null) {

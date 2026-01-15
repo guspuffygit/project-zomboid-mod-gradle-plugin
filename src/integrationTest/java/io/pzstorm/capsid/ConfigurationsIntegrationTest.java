@@ -31,7 +31,6 @@ class ConfigurationsIntegrationTest extends PluginIntegrationTest {
 
 	@Test
 	void shouldRegisterConfigurations() {
-
 		ConfigurationContainer configs1 = getProject(false).getConfigurations();
 		Map<Configurations, Configuration> configData = new HashMap<>();
 

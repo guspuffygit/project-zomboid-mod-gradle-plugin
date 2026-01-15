@@ -24,7 +24,6 @@ public class BasicBlockStatement extends Statement {
   // *****************************************************************************
 
   public BasicBlockStatement(BasicBlock block) {
-
     type = Statement.TYPE_BASICBLOCK;
 
     this.block = block;
@@ -62,7 +61,6 @@ public class BasicBlockStatement extends Statement {
 
   @Override
   public Statement getSimpleCopy() {
-
     BasicBlock newblock = new BasicBlock(
       DecompilerContext.getCounterContainer().getCounterAndIncrement(CounterContainer.STATEMENT_COUNTER));
 

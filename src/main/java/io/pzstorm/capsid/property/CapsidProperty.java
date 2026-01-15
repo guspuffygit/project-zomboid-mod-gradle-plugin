@@ -51,7 +51,6 @@ public class CapsidProperty<T> {
 	private final @Nullable PropertyValidator<T> validator;
 
 	private CapsidProperty(Builder<T> builder) {
-
 		this.name = builder.name;
 		this.env = builder.env;
 		this.comment = builder.comment;
@@ -76,7 +75,6 @@ public class CapsidProperty<T> {
 	 * 		found or was found but is of unsupported type.
 	 */
 	public @Nullable T findProperty(Project project) {
-
 		ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
 		if (ext.has(name))
 		{
@@ -120,7 +118,6 @@ public class CapsidProperty<T> {
 	@SuppressWarnings("unchecked")
 	@Contract("null -> null")
 	private @Nullable T convertAndValidateProperty(String property) {
-
 		if (Strings.isNullOrEmpty(property)) {
 			return null;
 		}

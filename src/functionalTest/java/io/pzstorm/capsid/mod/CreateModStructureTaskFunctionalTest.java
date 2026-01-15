@@ -36,7 +36,6 @@ class CreateModStructureTaskFunctionalTest extends PluginFunctionalTest {
 
 	@Test
 	void shouldCreateCorrectModStructureFromSourceSet() {
-
 		BuildResult result = getRunner().withArguments(ModTasks.CREATE_MOD_STRUCTURE.name).build();
 		assertTaskOutcomeSuccess(result, ModTasks.CREATE_MOD_STRUCTURE.name);
 

@@ -109,7 +109,6 @@ public class CapsidPluginExtension {
 	 * @see GenerateChangelogTask
 	 */
 	public void setProjectRepository(String owner, String name) {
-
 		repositoryOwner = owner;
 		repositoryName = name;
 	}
@@ -121,7 +120,6 @@ public class CapsidPluginExtension {
 	 * @param dirPaths directory paths to exclude.
 	 */
 	public void excludeResourceDirs(String... dirPaths) {
-
 		excludedResourceDirs.clear();
 		excludedResourceDirs.addAll(Arrays.asList(dirPaths));
 	}

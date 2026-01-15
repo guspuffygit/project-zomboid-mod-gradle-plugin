@@ -67,7 +67,6 @@ public class SSAUConstructorSparseEx {
   private FastSparseSetFactory<Integer> factory;
 
   public void splitVariables(RootStatement root, StructMethod mt) {
-
     FlattenStatementsHelper flatthelper = new FlattenStatementsHelper();
     DirectGraph dgraph = flatthelper.buildDirectGraph(root);
 
@@ -100,9 +99,7 @@ public class SSAUConstructorSparseEx {
   }
 
   private void ssaStatements(DirectGraph dgraph, HashSet<String> updated, boolean calcLiveVars) {
-
     for (DirectNode node : dgraph.nodes) {
-
       updated.remove(node.id);
       mergeInVarMaps(node, dgraph);
 
@@ -133,7 +130,6 @@ public class SSAUConstructorSparseEx {
                              || (outNegVarVersions.containsKey(node.id) && !mapsEqual(varmaparr[1], outNegVarVersions.get(node.id)));
 
       if (this_updated) {
-
         outVarVersions.put(node.id, varmaparr[0]);
         if (dgraph.mapNegIfBranch.containsKey(node.id)) {
           outNegVarVersions.put(node.id, varmaparr[1]);
@@ -148,7 +144,6 @@ public class SSAUConstructorSparseEx {
 
 
   private void processExprent(Exprent expr, SFormsFastMapDirect[] varmaparr, Statement stat, boolean calcLiveVars) {
-
     if (expr == null) {
       return;
     }
@@ -237,7 +232,6 @@ public class SSAUConstructorSparseEx {
 
     // field access
     if (expr.type == Exprent.EXPRENT_FIELD) {
-
       int index;
       if (mapFieldVars.containsKey(expr.id)) {
         index = mapFieldVars.get(expr.id);
@@ -256,11 +250,9 @@ public class SSAUConstructorSparseEx {
              (expr.type == Exprent.EXPRENT_ASSIGNMENT && ((AssignmentExprent)expr).getLeft().type == Exprent.EXPRENT_FIELD) ||
              (expr.type == Exprent.EXPRENT_NEW && ((NewExprent)expr).getNewType().type == CodeConstants.TYPE_OBJECT) ||
              expr.type == Exprent.EXPRENT_FUNCTION) {
-
       boolean ismmpp = true;
 
       if (expr.type == Exprent.EXPRENT_FUNCTION) {
-
         ismmpp = false;
 
         FunctionExprent fexpr = (FunctionExprent)expr;
@@ -278,7 +270,6 @@ public class SSAUConstructorSparseEx {
 
 
     if (varassign != null) {
-
       Integer varindex = varassign.getIndex();
 
       if (varassign.getVersion() == 0) {
@@ -346,7 +337,6 @@ public class SSAUConstructorSparseEx {
       }
     }
     else if (expr.type == Exprent.EXPRENT_VAR) {
-
       VarExprent vardest = (VarExprent)expr;
 
       Integer varindex = vardest.getIndex();
@@ -407,7 +397,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private void createOrUpdatePhiNode(VarVersionPair phivar, FastSparseSet<Integer> vers, Statement stat) {
-
     FastSparseSet<Integer> versCopy = vers.getCopy();
     HashSet<Integer> phiVers = new HashSet<>();
 
@@ -441,7 +430,6 @@ public class SSAUConstructorSparseEx {
     List<VarVersionPair> colpaars = new ArrayList<>();
 
     for (Integer ver : versCopy) {
-
       VarVersionNode prenode = ssuversions.nodes.getWithKey(new VarVersionPair(phivar.var, ver.intValue()));
 
       Integer tempver = getNextFreeVersion(phivar.var, stat);
@@ -468,7 +456,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private void varMapToGraph(VarVersionPair varpaar, SFormsFastMapDirect varmap) {
-
     VBStyleCollection<VarVersionNode, VarVersionPair> nodes = ssuversions.nodes;
 
     VarVersionNode node = nodes.getWithKey(varpaar);
@@ -477,7 +464,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private Integer getNextFreeVersion(Integer var, Statement stat) {
-
     Integer nextver = lastversion.get(var);
 
     if (nextver == null) {
@@ -500,7 +486,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private void mergeInVarMaps(DirectNode node, DirectGraph dgraph) {
-
 
     SFormsFastMapDirect mapNew = new SFormsFastMapDirect();
 
@@ -528,7 +513,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private SFormsFastMapDirect getFilteredOutMap(String nodeid, String predid, DirectGraph dgraph, String destid) {
-
     SFormsFastMapDirect mapNew = new SFormsFastMapDirect();
 
     boolean isFinallyExit = dgraph.mapShortRangeFinallyPaths.containsKey(predid);
@@ -543,7 +527,6 @@ public class SSAUConstructorSparseEx {
     }
 
     if (isFinallyExit) {
-
       SFormsFastMapDirect mapNewTemp = mapNew.getCopy();
 
       SFormsFastMapDirect mapTrueSource = new SFormsFastMapDirect();
@@ -602,7 +585,6 @@ public class SSAUConstructorSparseEx {
       }
 
       if (isExceptionMonitorExit) {
-
         mapNew = mapTrueSource;
       }
       else {
@@ -623,7 +605,6 @@ public class SSAUConstructorSparseEx {
 
           for (Entry<Integer, FastSparseSet<Integer>> ent : mapExitVar.entryList()) {
             for (Integer version : ent.getValue()) {
-
               Integer varindex = ent.getKey();
               VarVersionPair exitvar = new VarVersionPair(varindex, version);
               FastSparseSet<Integer> newSet = mapNew.get(varindex);
@@ -664,7 +645,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private static SFormsFastMapDirect mergeMaps(SFormsFastMapDirect mapTo, SFormsFastMapDirect map2) {
-
     if (map2 != null && !map2.isEmpty()) {
       mapTo.union(map2);
     }
@@ -673,7 +653,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private static boolean mapsEqual(SFormsFastMapDirect map1, SFormsFastMapDirect map2) {
-
     if (map1 == null) {
       return map2 == null;
     }
@@ -702,7 +681,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private void setCatchMaps(Statement stat, DirectGraph dgraph, FlattenStatementsHelper flatthelper) {
-
     SFormsFastMapDirect map;
 
     switch (stat.type) {
@@ -769,7 +747,6 @@ public class SSAUConstructorSparseEx {
   }
 
   private static Integer getFirstProtectedRange(Statement stat) {
-
     while (true) {
       Statement parent = stat.getParent();
 
@@ -800,7 +777,6 @@ public class SSAUConstructorSparseEx {
   }
 
   public SFormsFastMapDirect getLiveVarVersionsMap(VarVersionPair varpaar) {
-
 
     VarVersionNode node = ssuversions.nodes.getWithKey(varpaar);
     if (node != null) {

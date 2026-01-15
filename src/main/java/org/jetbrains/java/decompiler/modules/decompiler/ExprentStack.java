@@ -16,7 +16,6 @@ public class ExprentStack extends ListStack<Exprent> {
 
   @Override
   public Exprent pop() {
-
     return this.remove(--pointer);
   }
 

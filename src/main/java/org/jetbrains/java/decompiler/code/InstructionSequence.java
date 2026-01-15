@@ -114,7 +114,6 @@ public abstract class InstructionSequence {
   }
 
   public String toString(int indent) {
-
     String new_line_separator = DecompilerContext.getNewLineSeparator();
 
     StringBuilder buf = new StringBuilder();

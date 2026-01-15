@@ -15,7 +15,6 @@ public final class LoopExtractHelper {
 
 
   public static boolean extractLoops(Statement root) {
-
     boolean res = (extractLoopsRec(root) != 0);
 
     if (res) {
@@ -27,11 +26,9 @@ public final class LoopExtractHelper {
 
 
   private static int extractLoopsRec(Statement stat) {
-
     boolean res = false;
 
     while (true) {
-
       boolean updated = false;
 
       for (Statement st : stat.getStats()) {
@@ -73,7 +70,6 @@ public final class LoopExtractHelper {
   }
 
   private static boolean extractLastIf(DoStatement stat) {
-
     // search for an if condition at the end of the loop
     Statement last = stat.getFirst();
     while (last.type == Statement.TYPE_SEQUENCE) {
@@ -87,7 +83,6 @@ public final class LoopExtractHelper {
         StatEdge elseedge = lastif.getAllSuccessorEdges().get(0);
 
         if (elseedge.getType() == StatEdge.TYPE_CONTINUE && elseedge.closure == stat) {
-
           Set<Statement> set = stat.getNeighboursSet(StatEdge.TYPE_CONTINUE, Statement.DIRECTION_BACKWARD);
           set.remove(last);
 
@@ -104,7 +99,6 @@ public final class LoopExtractHelper {
   }
 
   private static boolean extractFirstIf(DoStatement stat) {
-
     // search for an if condition at the entrance of the loop
     Statement first = stat.getFirst();
     while (first.type == Statement.TYPE_SEQUENCE) {
@@ -116,7 +110,6 @@ public final class LoopExtractHelper {
       IfStatement firstif = (IfStatement)first;
 
       if (firstif.getFirst().getExprents().isEmpty()) {
-
         if (firstif.iftype == IfStatement.IFTYPE_IF && firstif.getIfstat() != null) {
           Statement ifstat = firstif.getIfstat();
 
@@ -132,7 +125,6 @@ public final class LoopExtractHelper {
 
 
   private static boolean isExternStatement(DoStatement loop, Statement block, Statement stat) {
-
     for (StatEdge edge : stat.getAllSuccessorEdges()) {
       if (loop.containsStatement(edge.getDestination()) &&
           !block.containsStatement(edge.getDestination())) {
@@ -151,7 +143,6 @@ public final class LoopExtractHelper {
 
 
   private static void extractIfBlock(DoStatement loop, IfStatement ifstat) {
-
     Statement target = ifstat.getIfstat();
     StatEdge ifedge = ifstat.getIfEdge();
 

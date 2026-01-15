@@ -40,7 +40,6 @@ public class ZomboidUtils {
 	 * @throws InvalidUserDataException if constructed semantic version is malformed.
 	 */
 	public static SemanticVersion getZomboidDocVersion(Project project) {
-
 		// find ZomboidDoc dependency file from configuration
 		File dependency = Configurations.ZOMBOID_DOC.resolve(project).getFiles().stream()
 				.filter(f -> f.getName().startsWith("pz-zdoc")).findFirst().orElseThrow(

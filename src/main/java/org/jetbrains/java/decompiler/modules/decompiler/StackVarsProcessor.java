@@ -343,7 +343,6 @@ public class StackVarsProcessor {
       if (isVersionToBeReplaced(usedver, mapVars, ssau, leftpaar) &&
           (right.type == Exprent.EXPRENT_CONST || right.type == Exprent.EXPRENT_VAR || right.type == Exprent.EXPRENT_FIELD
            || setNextVars == null || setNextVars.contains(usedver))) {
-
         setTempUsedVers.add(usedver);
         verreplaced = true;
       }
@@ -500,7 +499,6 @@ public class StackVarsProcessor {
       VarVersionPair usedver = new VarVersionPair(usedvar.var, usedvar.version);
       if (isVersionToBeReplaced(usedver, mapVars, ssau, leftpaar) &&
           (right.type == Exprent.EXPRENT_VAR || setAllowedVars.contains(usedver))) {
-
         setTempUsedVers.add(usedver);
       }
       else {
@@ -547,7 +545,6 @@ public class StackVarsProcessor {
         VarVersionNode succ = edge.dest;
 
         if (!setVisited.contains(edge.dest)) {
-
           boolean isDominated = true;
           for (VarVersionEdge prededge : succ.preds) {
             if (!setVisited.contains(prededge.source)) {

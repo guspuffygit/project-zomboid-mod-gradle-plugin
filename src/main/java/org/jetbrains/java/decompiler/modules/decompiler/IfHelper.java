@@ -110,16 +110,13 @@ public final class IfHelper {
     if (rtnode.edgetypes.get(0) == 0) {
       IfNode ifbranch = rtnode.succs.get(0);
       if (ifbranch.succs.size() == 2) {
-
         // if-if branch
         if (ifbranch.succs.get(1).value == rtnode.succs.get(1).value) {
-
           IfStatement ifparent = (IfStatement)rtnode.value;
           IfStatement ifchild = (IfStatement)ifbranch.value;
           Statement ifinner = ifbranch.succs.get(0).value;
 
           if (ifchild.getFirst().getExprents().isEmpty()) {
-
             ifparent.getFirst().removeSuccessor(ifparent.getIfEdge());
             ifchild.removeSuccessor(ifchild.getAllSuccessorEdges().get(0));
             ifparent.getStats().removeWithKey(ifchild.id);
@@ -184,12 +181,10 @@ public final class IfHelper {
       if (ifbranch.succs.size() == 2) {
         // if-else branch
         if (ifbranch.succs.get(0).value == rtnode.succs.get(1).value) {
-
           IfStatement ifparent = (IfStatement)rtnode.value;
           IfStatement ifchild = (IfStatement)ifbranch.value;
 
           if (ifchild.getFirst().getExprents().isEmpty()) {
-
             ifparent.getFirst().removeSuccessor(ifparent.getIfEdge());
             ifchild.getFirst().removeSuccessor(ifchild.getIfEdge());
             ifparent.getStats().removeWithKey(ifchild.id);
@@ -233,19 +228,16 @@ public final class IfHelper {
     if (rtnode.edgetypes.get(1) == 0) {
       IfNode elsebranch = rtnode.succs.get(1);
       if (elsebranch.succs.size() == 2) {
-
         // else-if or else-else branch
         int path = elsebranch.succs.get(1).value == rtnode.succs.get(0).value ? 2 :
                    (elsebranch.succs.get(0).value == rtnode.succs.get(0).value ? 1 : 0);
 
         if (path > 0) {
-
           IfStatement firstif = (IfStatement)rtnode.value;
           IfStatement secondif = (IfStatement)elsebranch.value;
           Statement parent = firstif.getParent();
 
           if (secondif.getFirst().getExprents().isEmpty()) {
-
             firstif.getFirst().removeSuccessor(firstif.getIfEdge());
 
             // remove first if
@@ -281,7 +273,6 @@ public final class IfHelper {
 
             if (secondif.getFirst().getExprents().isEmpty() &&
                 !firstif.getFirst().getExprents().isEmpty()) {
-
               secondif.replaceStatement(secondif.getFirst(), firstif.getFirst());
             }
 
@@ -602,7 +593,6 @@ public final class IfHelper {
   }
 
   private static boolean hasDirectEndEdge(Statement stat, Statement from) {
-
     for (StatEdge edge : stat.getAllSuccessorEdges()) {
       if (MergeHelper.isDirectPath(from, edge.getDestination())) {
         return true;

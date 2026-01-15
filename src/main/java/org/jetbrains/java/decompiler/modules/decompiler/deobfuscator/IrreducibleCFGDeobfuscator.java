@@ -14,7 +14,6 @@ public final class IrreducibleCFGDeobfuscator {
 
 
   public static boolean isStatementIrreducible(Statement statement) {
-
     class Node {
       public final Integer id;
       public final Set<Node> preds = new HashSet<>();
@@ -94,13 +93,11 @@ public final class IrreducibleCFGDeobfuscator {
 
 
   private static Statement getCandidateForSplitting(Statement statement) {
-
     Statement candidateForSplitting = null;
     int sizeCandidateForSplitting = Integer.MAX_VALUE;
     int succsCandidateForSplitting = Integer.MAX_VALUE;
 
     for (Statement stat : statement.getStats()) {
-
       Set<Statement> setPreds = stat.getNeighboursSet(StatEdge.TYPE_REGULAR, Statement.DIRECTION_BACKWARD);
 
       if (setPreds.size() > 1) {
@@ -122,7 +119,6 @@ public final class IrreducibleCFGDeobfuscator {
   }
 
   public static boolean splitIrreducibleNode(Statement statement) {
-
     Statement splitnode = getCandidateForSplitting(statement);
     if (splitnode == null) {
       return false;
@@ -157,7 +153,6 @@ public final class IrreducibleCFGDeobfuscator {
   }
 
   private static int getStatementSize(Statement statement) {
-
     int res;
 
     if (statement.type == Statement.TYPE_BASICBLOCK) {
@@ -171,7 +166,6 @@ public final class IrreducibleCFGDeobfuscator {
   }
 
   private static Statement copyStatement(Statement from, Statement to, HashMap<Statement, Statement> mapAltToCopies) {
-
     if (to == null) {
       // first outer invocation
       to = from.getSimpleCopy();
@@ -217,7 +211,6 @@ public final class IrreducibleCFGDeobfuscator {
   }
 
   private static void initCopiedStatement(Statement statement) {
-
     statement.initSimpleCopy();
     statement.setCopied(true);
 

@@ -36,13 +36,11 @@ public final class ExitHelper {
         cleanUpUnreachableBlocks(st);
 
         if (st.type == Statement.TYPE_SEQUENCE && st.getStats().size() > 1) {
-
           Statement last = st.getStats().getLast();
           Statement secondlast = st.getStats().get(st.getStats().size() - 2);
 
           if (last.getExprents() == null || !last.getExprents().isEmpty()) {
             if (!secondlast.hasBasicSuccEdge()) {
-
               Set<Statement> set = last.getNeighboursSet(Statement.STATEDGE_DIRECT_ALL, Statement.DIRECTION_BACKWARD);
               set.remove(secondlast);
 
@@ -115,7 +113,6 @@ public final class ExitHelper {
       Statement parent = stat.getParent();
       if (stat != parent.getFirst() || (parent.type != Statement.TYPE_IF &&
                                         parent.type != Statement.TYPE_SWITCH)) {
-
         StatEdge destedge = stat.getAllSuccessorEdges().get(0);
         dest = isExitEdge(destedge);
         if (dest != null) {
@@ -149,7 +146,6 @@ public final class ExitHelper {
           for (StatEdge edge : dest.getAllPredecessorEdges()) {
             if (!edge.explicit && stat.containsStatementStrict(edge.getSource()) &&
                 MergeHelper.isDirectPath(edge.getSource().getParent(), bstat)) {
-
               dest.removePredecessor(edge);
               edge.getSource().changeEdgeNode(Statement.DIRECTION_FORWARD, edge, bstat);
               bstat.addPredecessor(edge);

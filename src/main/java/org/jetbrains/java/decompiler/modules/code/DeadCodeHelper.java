@@ -16,7 +16,6 @@ import java.util.*;
 public final class DeadCodeHelper {
 
   public static void removeDeadBlocks(ControlFlowGraph graph) {
-
     LinkedList<BasicBlock> stack = new LinkedList<>();
     HashSet<BasicBlock> setStacked = new HashSet<>();
 
@@ -46,7 +45,6 @@ public final class DeadCodeHelper {
   }
 
   public static void removeEmptyBlocks(ControlFlowGraph graph) {
-
     List<BasicBlock> blocks = graph.getBlocks();
 
     boolean cont;
@@ -66,11 +64,9 @@ public final class DeadCodeHelper {
   }
 
   private static boolean removeEmptyBlock(ControlFlowGraph graph, BasicBlock block, boolean merging) {
-
     boolean deletedRanges = false;
 
     if (block.getSeq().isEmpty()) {
-
       if (block.getSuccs().size() > 1) {
         if (block.getPreds().size() > 1) {
           // ambiguous block
@@ -85,7 +81,6 @@ public final class DeadCodeHelper {
 
       if (block.getPredExceptions().isEmpty() &&
           (!setExits.contains(block) || block.getPreds().size() == 1)) {
-
         if (setExits.contains(block)) {
           BasicBlock pred = block.getPreds().get(0);
 
@@ -191,7 +186,6 @@ public final class DeadCodeHelper {
 
 
   public static boolean isDominator(ControlFlowGraph graph, BasicBlock block, BasicBlock dom) {
-
     HashSet<BasicBlock> marked = new HashSet<>();
 
     if (block == dom) {
@@ -202,7 +196,6 @@ public final class DeadCodeHelper {
     lstNodes.add(block);
 
     while (!lstNodes.isEmpty()) {
-
       BasicBlock node = lstNodes.remove(0);
       if (marked.contains(node)) {
         continue;
@@ -234,7 +227,6 @@ public final class DeadCodeHelper {
   }
 
   public static void removeGotos(ControlFlowGraph graph) {
-
     for (BasicBlock block : graph.getBlocks()) {
       Instruction instr = block.getLastInstruction();
 
@@ -247,7 +239,6 @@ public final class DeadCodeHelper {
   }
 
   public static void connectDummyExitBlock(ControlFlowGraph graph) {
-
     BasicBlock exit = graph.getLast();
     for (BasicBlock block : new HashSet<>(exit.getPreds())) {
       exit.removePredecessor(block);
@@ -256,13 +247,10 @@ public final class DeadCodeHelper {
   }
 
   public static void extendSynchronizedRangeToMonitorexit(ControlFlowGraph graph) {
-
     while(true) {
-
       boolean range_extended = false;
 
       for (ExceptionRangeCFG range : graph.getExceptions()) {
-
         Set<BasicBlock> setPreds = new HashSet<>();
         for (BasicBlock block : range.getProtectedRange()) {
           setPreds.addAll(block.getPreds());
@@ -405,13 +393,11 @@ public final class DeadCodeHelper {
 
 
   public static void incorporateValueReturns(ControlFlowGraph graph) {
-
     for (BasicBlock block : graph.getBlocks()) {
       InstructionSequence seq = block.getSeq();
 
       int len = seq.length();
       if (len > 0 && len < 3) {
-
         boolean ok = false;
 
         if (seq.getLastInstr().opcode >= CodeConstants.opc_ireturn && seq.getLastInstr().opcode <= CodeConstants.opc_return) {
@@ -444,9 +430,7 @@ public final class DeadCodeHelper {
         }
 
         if (ok) {
-
           if (!block.getPreds().isEmpty()) {
-
             HashSet<BasicBlock> setPredHandlersUnion = new HashSet<>();
             HashSet<BasicBlock> setPredHandlersIntersection = new HashSet<>();
 
@@ -492,10 +476,8 @@ public final class DeadCodeHelper {
 
 
           if (block.getPreds().size() == 1 && block.getPredExceptions().isEmpty()) {
-
             BasicBlock bpred = block.getPreds().get(0);
             if (bpred.getSuccs().size() == 1) {
-
               // add exception ranges of predecessor
               for (BasicBlock succ : bpred.getSuccExceptions()) {
                 if (!block.getSuccExceptions().contains(succ)) {
@@ -526,20 +508,16 @@ public final class DeadCodeHelper {
 
 
   public static void mergeBasicBlocks(ControlFlowGraph graph) {
-
     while (true) {
-
       boolean merged = false;
 
       for (BasicBlock block : graph.getBlocks()) {
-
         InstructionSequence seq = block.getSeq();
 
         if (block.getSuccs().size() == 1) {
           BasicBlock next = block.getSuccs().get(0);
 
           if (next != graph.getLast() && (seq.isEmpty() || seq.getLastInstr().group != CodeConstants.GROUP_SWITCH)) {
-
             if (next.getPreds().size() == 1 && next.getPredExceptions().isEmpty()
                 && next != graph.getFirst()) {
               // TODO: implement a dummy start block

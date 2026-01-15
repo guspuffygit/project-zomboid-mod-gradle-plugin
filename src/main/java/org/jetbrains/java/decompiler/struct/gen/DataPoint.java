@@ -42,7 +42,6 @@ public class DataPoint {
   }
 
   public static DataPoint getInitialDataPoint(StructMethod mt) {
-
     DataPoint point = new DataPoint();
 
     MethodDescriptor md = MethodDescriptor.parseDescriptor(mt.getDescriptor());
