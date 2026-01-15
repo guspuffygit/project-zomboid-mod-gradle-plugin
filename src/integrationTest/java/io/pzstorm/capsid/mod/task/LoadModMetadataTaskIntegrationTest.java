@@ -155,8 +155,7 @@ class LoadModMetadataTaskIntegrationTest extends PluginIntegrationTest {
 	}
 
 	private void registerModTasks() {
-
 		ZomboidTasks.ZOMBOID_VERSION.register(project);
-		Arrays.stream(ModTasks.values()).forEach(t -> t.createOrRegister(project));
+		Arrays.stream(ModTasks.values()).forEach(t -> t.register(project));
 	}
 }

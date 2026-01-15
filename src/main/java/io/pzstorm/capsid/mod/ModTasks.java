@@ -22,50 +22,38 @@ import org.gradle.api.tasks.TaskContainer;
 
 import io.pzstorm.capsid.CapsidTask;
 import io.pzstorm.capsid.mod.task.*;
+import org.gradle.api.tasks.TaskProvider;
 
 public enum ModTasks {
 
-	CREATE_MOD_STRUCTURE(CreateModStructureTask.class, true,
-			"createModStructure", "Create default mod directory structure."
+	CREATE_MOD_STRUCTURE(CreateModStructureTask.class, "createModStructure", "Create default mod directory structure."
 	),
-	SAVE_MOD_METADATA(SaveModMetadataTask.class, true,
-			"saveModMetadata", "Save mod metadata to file."
+	SAVE_MOD_METADATA(SaveModMetadataTask.class, "saveModMetadata", "Save mod metadata to file."
 	),
-	LOAD_MOD_METADATA(LoadModMetadataTask.class, false,
-			"loadModMetadata", "Load mod metadata information."
+	LOAD_MOD_METADATA(LoadModMetadataTask.class, "loadModMetadata", "Load mod metadata information."
 	),
-	INIT_MOD_METADATA(InitModMetadataTask.class, false,
-			"initModMetadata", "Initialize mod metadata information."
+	INIT_MOD_METADATA(InitModMetadataTask.class, "initModMetadata", "Initialize mod metadata information."
 	),
-	SHOW_MOD_METADATA(ShowModMetadataTask.class, false,
-			"showModMetadata", "Print mod metadata information."
+	SHOW_MOD_METADATA(ShowModMetadataTask.class, "showModMetadata", "Print mod metadata information."
 	),
-	APPLY_MOD_TEMPLATE(ApplyModTemplateTask.class, true,
-			"applyModTemplate", "Apply Project Zomboid mod template."
+	APPLY_MOD_TEMPLATE(ApplyModTemplateTask.class, "applyModTemplate", "Apply Project Zomboid mod template."
 	);
+
 	public final String name, description;
-	private final boolean register;
 	private final Class<? extends CapsidTask> type;
 
-	ModTasks(Class<? extends CapsidTask> type, boolean register, String name, String description) {
-
+	ModTasks(Class<? extends CapsidTask> type, String name, String description) {
 		this.type = type;
 		this.name = name;
-		this.register = register;
 		this.description = description;
 	}
 
-	/**
-	 * Configure and create or register this task for the given {@code Project}.
-	 *
-	 * @param project {@code Project} register this task.
-	 */
-	public void createOrRegister(Project project) {
-
+	public void register(Project project) {
 		TaskContainer tasks = project.getTasks();
-		if (register) {
-			tasks.register(name, type, t -> t.configure("mod", description, project));
-		}
-		else tasks.create(name, type, t -> t.configure("mod", description, project));
+
+		TaskProvider<? extends CapsidTask> provider = tasks.register(name, type, t -> t.configure("mod", description, project));
+
+		// Force loading instead of lazy loading
+		provider.get();
 	}
 }

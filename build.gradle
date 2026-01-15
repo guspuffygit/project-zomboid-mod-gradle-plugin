@@ -11,8 +11,8 @@ plugins {
 //}
 apply from: 'test.gradle'
 
-version '0.4.2'
-group 'io.pzstorm.capsid'
+version='0.4.2'
+group='io.pzstorm.capsid'
 
 repositories {
     mavenCentral()

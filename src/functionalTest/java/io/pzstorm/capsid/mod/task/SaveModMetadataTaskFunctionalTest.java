@@ -28,7 +28,6 @@ class SaveModMetadataTaskFunctionalTest extends PluginFunctionalTest {
 
 	@Test
 	void shouldSuccessfullyExecuteSaveModInfoTask() {
-
 		BuildResult result = getRunner().withArguments(
 				ModTasks.SAVE_MOD_METADATA.name,
 				"-x" + ZomboidTasks.ZOMBOID_VERSION.name

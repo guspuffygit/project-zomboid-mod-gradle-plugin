@@ -34,9 +34,8 @@ import io.pzstorm.capsid.mod.ModTasks;
 
 class ShowModMetadataTaskFunctionalTest extends PluginFunctionalTest {
 
-	@Test
-	void shouldPrintMetadataInformationToStreamOutput() throws IOException {
-
+    @Test
+    void shouldPrintMetadataInformationToStreamOutput() throws IOException {
 		GradleRunner runner = getRunner();
 		writeToProjectFile("mod.info", new String[]{
 				"name=TestMod",
@@ -46,6 +45,7 @@ class ShowModMetadataTaskFunctionalTest extends PluginFunctionalTest {
 				"modversion=1.0.5",
 				"pzversion=41.50-IWBUMS"
 		});
+
 		BuildResult result = runner.withArguments(ModTasks.SHOW_MOD_METADATA.name).build();
 		assertTaskOutcomeSuccess(result, ModTasks.SHOW_MOD_METADATA.name);
 
@@ -58,17 +58,18 @@ class ShowModMetadataTaskFunctionalTest extends PluginFunctionalTest {
 				"ID: " + runner.getProjectDir().getName(),
 				"Version: 1.0.5"
 		);
-		List<String> actualOutput = new ArrayList<>(
-				Splitter.on(System.lineSeparator()).splitToList(result.getOutput())
-		);
-		// remove lines from the ending of file
-		for (int i = 4; i > 0; i--) {
-			actualOutput.remove(actualOutput.size() - 1);
-		}
-		// remove lines from the beginning of file
-		for (int i = 2; i > 0; i--) {
-			actualOutput.remove(0);
-		}
-		Assertions.assertEquals(expectedOutput, actualOutput);
-	}
+
+		List<String> actualOutput = Splitter.on(System.lineSeparator())
+				.trimResults()
+				.omitEmptyStrings()
+				.splitToList(result.getOutput());
+
+		int startIndex = actualOutput.indexOf(expectedOutput.get(0));
+
+		Assertions.assertTrue(startIndex >= 0, "Could not find start of metadata output in Gradle logs");
+		
+		List<String> relevantOutput = actualOutput.subList(startIndex, startIndex + expectedOutput.size());
+
+		Assertions.assertEquals(expectedOutput, relevantOutput);
+    }
 }

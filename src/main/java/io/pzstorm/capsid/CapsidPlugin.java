@@ -181,7 +181,7 @@ public class CapsidPlugin implements Plugin<Project> {
 			{
 				// register all mod tasks
 				for (ModTasks task : ModTasks.values()) {
-					task.createOrRegister(project);
+					task.register(project);
 				}
 				// register dependencies that are only available during evaluation
 				registerDependenciesInEvaluation(project, dependencies);

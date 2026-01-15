@@ -77,27 +77,47 @@ public class ProjectProperty<T> {
 		ZOMBOID_LIBRARIES = new ProjectProperty<>("zomboidLibraries", project ->
 				project.fileTree(CapsidPlugin.getGameDirProperty(project), t -> t.include("*.jar"))
 		);
+
 		ZOMBOID_LIBRARY_SOURCES_DIR = new ProjectProperty<>("zomboidLibrariesSourcesDir", project ->
-				project.file(project.getBuildDir() + "/generated/sources/libraries")
+				project.getLayout().getBuildDirectory()
+						.dir("generated/sources/libraries")
+						.get().getAsFile()
 		);
+
 		ZOMBOID_CLASSES_DIR = new ProjectProperty<>("zomboidClassesDir", project ->
-				project.file(project.getBuildDir() + "/classes/zomboid")
+				project.getLayout().getBuildDirectory()
+						.dir("classes/zomboid")
+						.get().getAsFile()
 		);
+
 		ZOMBOID_SOURCES_DIR = new ProjectProperty<>("zomboidSourcesDir", project ->
-				project.file(project.getBuildDir() + "/generated/sources/zomboid")
+				project.getLayout().getBuildDirectory()
+						.dir("generated/sources/zomboid")
+						.get().getAsFile()
 		);
+
 		ZDOC_LUA_DIR = new ProjectProperty<>("zDocLuaDir", project ->
-				project.file(project.getBuildDir().getPath() + "/generated/sources/zdoc")
+				project.getLayout().getBuildDirectory()
+						.dir("generated/sources/zdoc")
+						.get().getAsFile()
 		);
+
 		MOD_INFO_FILE = new ProjectProperty<>("modInfoFile", project ->
 				project.file("mod.info")
 		);
+
 		MEDIA_CLASSES_DIR = new ProjectProperty<>("mediaClassesDir", project ->
-				new File(project.getBuildDir(), "classes/lua/media")
+				project.getLayout().getBuildDirectory()
+						.dir("classes/lua/media")
+						.get().getAsFile()
 		);
+
 		MEDIA_RESOURCES_DIR = new ProjectProperty<>("mediaResourcesDir", project ->
-				new File(project.getBuildDir(), "resources/media")
+				project.getLayout().getBuildDirectory()
+						.dir("resources/media")
+						.get().getAsFile()
 		);
+
 		PROPERTIES = ImmutableSet.of(
 				ZOMBOID_CLASSES_DIR, ZOMBOID_SOURCES_DIR, ZDOC_LUA_DIR,
 				MOD_INFO_FILE, MEDIA_CLASSES_DIR, MEDIA_RESOURCES_DIR
