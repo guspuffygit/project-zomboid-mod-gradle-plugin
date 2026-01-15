@@ -17,142 +17,148 @@
  */
 package io.pzstorm.capsid;
 
+import com.google.common.collect.ImmutableSet;
 import java.io.File;
 import java.util.Set;
-
 import org.gradle.api.Project;
 import org.gradle.api.file.ConfigurableFileTree;
 import org.gradle.api.plugins.ExtraPropertiesExtension;
 import org.jetbrains.annotations.Unmodifiable;
 
-import com.google.common.collect.ImmutableSet;
-
 public class ProjectProperty<T> {
 
-	/**
-	 * Libraries used by Project Zomboid during runtime.
-	 */
-	public static final ProjectProperty<ConfigurableFileTree> ZOMBOID_LIBRARIES;
+    /** Libraries used by Project Zomboid during runtime. */
+    public static final ProjectProperty<ConfigurableFileTree> ZOMBOID_LIBRARIES;
 
-	/**
-	 * Directory where library sources are decompiled into.
-	 */
-	public static final ProjectProperty<File> ZOMBOID_LIBRARY_SOURCES_DIR;
+    /** Directory where library sources are decompiled into. */
+    public static final ProjectProperty<File> ZOMBOID_LIBRARY_SOURCES_DIR;
 
-	/**
-	 * Directory containing Project Zomboid classes.
-	 */
-	public static final ProjectProperty<File> ZOMBOID_CLASSES_DIR;
+    /** Directory containing Project Zomboid classes. */
+    public static final ProjectProperty<File> ZOMBOID_CLASSES_DIR;
 
-	/**
-	 * Directory containing Project Zomboid sources.
-	 */
-	public static final ProjectProperty<File> ZOMBOID_SOURCES_DIR;
+    /** Directory containing Project Zomboid sources. */
+    public static final ProjectProperty<File> ZOMBOID_SOURCES_DIR;
 
-	/**
-	 * Directory containing Lua library compiled with ZomboidDoc.
-	 */
-	public static final ProjectProperty<File> ZDOC_LUA_DIR;
+    /** Directory containing Lua library compiled with ZomboidDoc. */
+    public static final ProjectProperty<File> ZDOC_LUA_DIR;
 
-	/**
-	 * File where mod properties are stored.
-	 */
-	public static final ProjectProperty<File> MOD_INFO_FILE;
+    /** File where mod properties are stored. */
+    public static final ProjectProperty<File> MOD_INFO_FILE;
 
-	/**
-	 * Directory containing built classes for {@code media} module.
-	 */
-	public static final ProjectProperty<File> MEDIA_CLASSES_DIR;
+    /** Directory containing built classes for {@code media} module. */
+    public static final ProjectProperty<File> MEDIA_CLASSES_DIR;
 
-	/**
-	 * Directory containing resources for {@code media} module.
-	 */
-	public static final ProjectProperty<File> MEDIA_RESOURCES_DIR;
+    /** Directory containing resources for {@code media} module. */
+    public static final ProjectProperty<File> MEDIA_RESOURCES_DIR;
 
-	@Unmodifiable
-	static final Set<ProjectProperty<?>> PROPERTIES;
+    @Unmodifiable static final Set<ProjectProperty<?>> PROPERTIES;
 
-	static
-	{
-		ZOMBOID_LIBRARIES = new ProjectProperty<>("zomboidLibraries", project ->
-				project.fileTree(CapsidPlugin.getGameDirProperty(project), t -> t.include("*.jar"))
-		);
+    static {
+        ZOMBOID_LIBRARIES =
+                new ProjectProperty<>(
+                        "zomboidLibraries",
+                        project ->
+                                project.fileTree(
+                                        CapsidPlugin.getGameDirProperty(project),
+                                        t -> t.include("*.jar")));
 
-		ZOMBOID_LIBRARY_SOURCES_DIR = new ProjectProperty<>("zomboidLibrariesSourcesDir", project ->
-				project.getLayout().getBuildDirectory()
-						.dir("generated/sources/libraries")
-						.get().getAsFile()
-		);
+        ZOMBOID_LIBRARY_SOURCES_DIR =
+                new ProjectProperty<>(
+                        "zomboidLibrariesSourcesDir",
+                        project ->
+                                project.getLayout()
+                                        .getBuildDirectory()
+                                        .dir("generated/sources/libraries")
+                                        .get()
+                                        .getAsFile());
 
-		ZOMBOID_CLASSES_DIR = new ProjectProperty<>("zomboidClassesDir", project ->
-				project.getLayout().getBuildDirectory()
-						.dir("classes/zomboid")
-						.get().getAsFile()
-		);
+        ZOMBOID_CLASSES_DIR =
+                new ProjectProperty<>(
+                        "zomboidClassesDir",
+                        project ->
+                                project.getLayout()
+                                        .getBuildDirectory()
+                                        .dir("classes/zomboid")
+                                        .get()
+                                        .getAsFile());
 
-		ZOMBOID_SOURCES_DIR = new ProjectProperty<>("zomboidSourcesDir", project ->
-				project.getLayout().getBuildDirectory()
-						.dir("generated/sources/zomboid")
-						.get().getAsFile()
-		);
+        ZOMBOID_SOURCES_DIR =
+                new ProjectProperty<>(
+                        "zomboidSourcesDir",
+                        project ->
+                                project.getLayout()
+                                        .getBuildDirectory()
+                                        .dir("generated/sources/zomboid")
+                                        .get()
+                                        .getAsFile());
 
-		ZDOC_LUA_DIR = new ProjectProperty<>("zDocLuaDir", project ->
-				project.getLayout().getBuildDirectory()
-						.dir("generated/sources/zdoc")
-						.get().getAsFile()
-		);
+        ZDOC_LUA_DIR =
+                new ProjectProperty<>(
+                        "zDocLuaDir",
+                        project ->
+                                project.getLayout()
+                                        .getBuildDirectory()
+                                        .dir("generated/sources/zdoc")
+                                        .get()
+                                        .getAsFile());
 
-		MOD_INFO_FILE = new ProjectProperty<>("modInfoFile", project ->
-				project.file("mod.info")
-		);
+        MOD_INFO_FILE = new ProjectProperty<>("modInfoFile", project -> project.file("mod.info"));
 
-		MEDIA_CLASSES_DIR = new ProjectProperty<>("mediaClassesDir", project ->
-				project.getLayout().getBuildDirectory()
-						.dir("classes/lua/media")
-						.get().getAsFile()
-		);
+        MEDIA_CLASSES_DIR =
+                new ProjectProperty<>(
+                        "mediaClassesDir",
+                        project ->
+                                project.getLayout()
+                                        .getBuildDirectory()
+                                        .dir("classes/lua/media")
+                                        .get()
+                                        .getAsFile());
 
-		MEDIA_RESOURCES_DIR = new ProjectProperty<>("mediaResourcesDir", project ->
-				project.getLayout().getBuildDirectory()
-						.dir("resources/media")
-						.get().getAsFile()
-		);
+        MEDIA_RESOURCES_DIR =
+                new ProjectProperty<>(
+                        "mediaResourcesDir",
+                        project ->
+                                project.getLayout()
+                                        .getBuildDirectory()
+                                        .dir("resources/media")
+                                        .get()
+                                        .getAsFile());
 
-		PROPERTIES = ImmutableSet.of(
-				ZOMBOID_CLASSES_DIR, ZOMBOID_SOURCES_DIR, ZDOC_LUA_DIR,
-				MOD_INFO_FILE, MEDIA_CLASSES_DIR, MEDIA_RESOURCES_DIR
-		);
-	}
+        PROPERTIES =
+                ImmutableSet.of(
+                        ZOMBOID_CLASSES_DIR,
+                        ZOMBOID_SOURCES_DIR,
+                        ZDOC_LUA_DIR,
+                        MOD_INFO_FILE,
+                        MEDIA_CLASSES_DIR,
+                        MEDIA_RESOURCES_DIR);
+    }
 
-	private final String propertyName;
-	private final ProjectPropertiesSupplier<T> propertySupplier;
+    private final String propertyName;
+    private final ProjectPropertiesSupplier<T> propertySupplier;
 
-	private ProjectProperty(String name, ProjectPropertiesSupplier<T> supplier) {
-		this.propertyName = name;
-		this.propertySupplier = supplier;
-	}
+    private ProjectProperty(String name, ProjectPropertiesSupplier<T> supplier) {
+        this.propertyName = name;
+        this.propertySupplier = supplier;
+    }
 
-	/**
-	 * Register this property with the given {@link Project}.
-	 *
-	 * @throws ClassCastException if property is not assignable to {@code T}.
-	 */
-	void register(Project project) {
-		ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
-		ext.set(propertyName, propertySupplier.getProjectProperty(project));
-	}
+    /**
+     * Register this property with the given {@link Project}.
+     *
+     * @throws ClassCastException if property is not assignable to {@code T}.
+     */
+    void register(Project project) {
+        ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
+        ext.set(propertyName, propertySupplier.getProjectProperty(project));
+    }
 
-	/**
-	 * Returns property for given project.
-	 */
-	public T get(Project project) {
-		return propertySupplier.getProjectProperty(project);
-	}
+    /** Returns property for given project. */
+    public T get(Project project) {
+        return propertySupplier.getProjectProperty(project);
+    }
 
-	/**
-	 * Returns {@code Supplier} used to resolve the project property.
-	 */
-	public ProjectPropertiesSupplier<T> getSupplier() {
-		return propertySupplier;
-	}
+    /** Returns {@code Supplier} used to resolve the project property. */
+    public ProjectPropertiesSupplier<T> getSupplier() {
+        return propertySupplier;
+    }
 }

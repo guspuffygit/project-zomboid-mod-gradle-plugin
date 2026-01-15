@@ -26,8 +26,6 @@ import org.gradle.api.Project;
  */
 public interface ProjectPropertiesSupplier<T> {
 
-	/**
-	 * Returns property with type for given {@code Project}.
-	 */
-	T getProjectProperty(Project project);
+    /** Returns property with type for given {@code Project}. */
+    T getProjectProperty(Project project);
 }

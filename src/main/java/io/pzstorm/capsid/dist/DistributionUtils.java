@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.gradle.api.GradleException;
 import org.gradle.api.file.SourceDirectorySet;
 
@@ -37,19 +36,21 @@ public class DistributionUtils {
      * files from given {@code SourceDirectorySet}. The resulting map keys represent the source
      * directory, while the values represent paths relative to that source directory.
      *
-     * @param module    {@code File} representing module root directory.
+     * @param module {@code File} representing module root directory.
      * @param srcDirSet {@code SourceDirectorySet} to extract paths from.
      * @return {@code Map} that contains paths relative to given module.
      */
-    public static Map<Path, String> getPathsRelativeToModule(File module, SourceDirectorySet srcDirSet) {
+    public static Map<Path, String> getPathsRelativeToModule(
+            File module, SourceDirectorySet srcDirSet) {
         Map<Path, String> result = new HashMap<>();
         File moduleDir = module.getAbsoluteFile();
         if (!moduleDir.exists()) {
-            throw new GradleException("Unable to find module directory for path '" + moduleDir.getPath() + '\'');
+            throw new GradleException(
+                    "Unable to find module directory for path '" + moduleDir.getPath() + '\'');
         }
         // collect all existing source directories for given directory set
-        Set<File> srcDirs = srcDirSet.getSrcDirs().stream()
-                .filter(File::exists).collect(Collectors.toSet());
+        Set<File> srcDirs =
+                srcDirSet.getSrcDirs().stream().filter(File::exists).collect(Collectors.toSet());
 
         for (File srcDir : srcDirs) {
             // existing file paths found in source directory
