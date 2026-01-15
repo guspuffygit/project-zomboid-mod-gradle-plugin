@@ -20,7 +20,10 @@ package io.pzstorm.capsid.zomboid.task;
 import io.pzstorm.capsid.CapsidPlugin;
 import io.pzstorm.capsid.CapsidTask;
 import io.pzstorm.capsid.ProjectProperty;
+import org.gradle.api.Action;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
+import org.gradle.api.file.FileCopyDetails;
 import org.gradle.api.tasks.Sync;
 
 /** This task will sync {@code zomboidClassesDir} with game install directory. */
@@ -35,7 +38,17 @@ public abstract class ZomboidClassesTask extends Sync implements CapsidTask {
         into(ProjectProperty.ZOMBOID_CLASSES_DIR.get(project));
         include("**/*.class", "stdlib.lbc");
 
-        eachFile(copy -> CapsidPlugin.LOGGER.info("Checking file " + copy.getPath()));
-        doFirst(task -> CapsidPlugin.LOGGER.lifecycle("Copying Zomboid classes..."));
+        eachFile(new Action<FileCopyDetails>() {
+            @Override
+            public void execute(FileCopyDetails copy) {
+                CapsidPlugin.LOGGER.info("Checking file {}", copy.getPath());
+            }
+        });
+        doFirst(new Action<Task>() {
+            @Override
+            public void execute(Task task) {
+                CapsidPlugin.LOGGER.lifecycle("Copying Zomboid classes...");
+            }
+        });
     }
 }
