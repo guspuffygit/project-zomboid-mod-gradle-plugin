@@ -22,6 +22,7 @@ public class StructMember {
     return accessFlags;
   }
 
+  @SuppressWarnings("unchecked")
   public <T extends StructGeneralAttribute> T getAttribute(StructGeneralAttribute.Key<T> attribute) {
     //noinspection unchecked
     return (T)attributes.get(attribute.getName());

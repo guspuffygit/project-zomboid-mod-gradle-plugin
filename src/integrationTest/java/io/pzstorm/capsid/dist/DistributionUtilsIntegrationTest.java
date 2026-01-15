@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.gradle.api.Project;
-import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.tasks.SourceSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class DistributionUtilsIntegrationTest extends PluginIntegrationTest {
 
 		Project project = getProject(false);
 		project.getPluginManager().apply("java");
-		JavaPluginConvention java = project.getConvention().getPlugin(JavaPluginConvention.class);
+		JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet media = java.getSourceSets().create("media");
 
 		media.getJava().setSrcDirs(Collections.singletonList("media/lua"));
@@ -74,7 +74,7 @@ class DistributionUtilsIntegrationTest extends PluginIntegrationTest {
 
 		Project project = getProject(false);
 		project.getPluginManager().apply("java");
-		JavaPluginConvention java = project.getConvention().getPlugin(JavaPluginConvention.class);
+		JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet media = java.getSourceSets().create("media");
 
 		media.getResources().setSrcDirs(ImmutableList.of("media/models", "media/maps"));

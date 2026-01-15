@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.gradle.api.GradleException;
 import org.gradle.api.Project;
-import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.SourceSet;
 
@@ -41,7 +41,7 @@ public class MediaClassesTask extends Copy implements CapsidTask {
 	public void configure(String group, String description, Project project) {
 		CapsidTask.super.configure(group, description, project);
 
-		JavaPluginConvention java = project.getConvention().getPlugin(JavaPluginConvention.class);
+		JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet media = java.getSourceSets().getByName("media");
 		File module = project.file("media");
 		if (!module.exists())

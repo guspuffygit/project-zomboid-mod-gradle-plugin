@@ -25,7 +25,6 @@ import java.util.Set;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
 import org.gradle.api.plugins.Convention;
-import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.SourceSet;
@@ -68,8 +67,8 @@ class CapsidPluginIntegrationTest extends PluginIntegrationTest {
 
 		Project project = getProject(true);
 		Convention convention = project.getConvention();
-		JavaPluginConvention javaPlugin = convention.getPlugin(JavaPluginConvention.class);
-		SourceSetContainer sourceSets = javaPlugin.getSourceSets();
+        JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
+		SourceSetContainer sourceSets = java.getSourceSets();
 
 		SourceSet mediaSourceSet = sourceSets.getByName("media");
 		Set<File> sourceDirs = mediaSourceSet.getJava().getSrcDirs();

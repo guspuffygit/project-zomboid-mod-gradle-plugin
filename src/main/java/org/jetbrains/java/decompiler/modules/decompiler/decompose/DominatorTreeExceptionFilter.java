@@ -136,7 +136,7 @@ public class DominatorTreeExceptionFilter {
             else {
               // after replacing 'new Integer(-1)' with '-1' Eclipse throws a NullPointerException on the following line
               // could be a bug in Eclipse or some obscure specification glitch, FIXME: needs further investigation
-              exit = map.containsKey(handler) ? new Integer(-1) : mapChild.get(handler);
+              exit = map.containsKey(handler) ? Integer.valueOf(-1) : mapChild.get(handler);
             }
 
             if (exit != null) {

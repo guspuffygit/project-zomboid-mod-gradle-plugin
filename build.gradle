@@ -65,3 +65,7 @@ tasks.withType(Javadoc) {
 }
 // include license files in artifact jar
 jar.from 'LICENSE', 'NOTICE'
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}

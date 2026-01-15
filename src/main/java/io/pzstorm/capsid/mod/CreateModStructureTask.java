@@ -21,8 +21,7 @@ import java.io.File;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
-import org.gradle.api.plugins.Convention;
-import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskAction;
 
@@ -41,9 +40,8 @@ public class CreateModStructureTask extends DefaultTask implements CapsidTask {
 	@TaskAction
 	void execute() {
 
-		Convention convention = getProject().getConvention();
-		JavaPluginConvention javaPlugin = convention.getPlugin(JavaPluginConvention.class);
-		SourceSet media = javaPlugin.getSourceSets().getByName("media");
+        JavaPluginExtension java = getProject().getExtensions().getByType(JavaPluginExtension.class);
+		SourceSet media = java.getSourceSets().getByName("media");
 
 		for (File srcDir : media.getJava().getSrcDirs())
 		{
