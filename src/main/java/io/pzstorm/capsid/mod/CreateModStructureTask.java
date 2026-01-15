@@ -39,7 +39,6 @@ public class CreateModStructureTask extends DefaultTask implements CapsidTask {
 
 	@TaskAction
 	void execute() {
-
         JavaPluginExtension java = getProject().getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet media = java.getSourceSets().getByName("media");
 

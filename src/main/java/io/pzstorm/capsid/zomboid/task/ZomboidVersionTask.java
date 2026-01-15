@@ -47,7 +47,7 @@ public class ZomboidVersionTask extends JavaExec implements CapsidTask {
 	public void configure(String group, String description, Project project) {
 		CapsidTask.super.configure(group, description, project);
 
-		setMain("io.cocolabs.pz.zdoc.Main");
+        getMainClass().set("io.cocolabs.pz.zdoc.Main");
 		setClasspath(Configurations.ZOMBOID_DOC.resolve(project));
 		setArgs(ImmutableList.of("version"));
 

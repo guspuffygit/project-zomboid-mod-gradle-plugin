@@ -24,7 +24,6 @@ import java.util.Set;
 
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
-import org.gradle.api.plugins.Convention;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.SourceSet;
@@ -66,7 +65,6 @@ class CapsidPluginIntegrationTest extends PluginIntegrationTest {
 	void shouldCreateCustomSourceSetsWithSourceDirs() {
 
 		Project project = getProject(true);
-		Convention convention = project.getConvention();
         JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSetContainer sourceSets = java.getSourceSets();
 

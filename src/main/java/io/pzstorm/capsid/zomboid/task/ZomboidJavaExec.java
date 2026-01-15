@@ -31,7 +31,7 @@ public class ZomboidJavaExec extends JavaExec implements CapsidTask {
 	public void configure(String group, String description, Project project) {
 		CapsidTask.super.configure(group, description, project);
 
-		setMain("io.cocolabs.pz.zdoc.Main");
+        getMainClass().set("io.cocolabs.pz.zdoc.Main");
 		classpath(Configurations.ZOMBOID_DOC.resolve(project));
 
 		TaskContainer tasks = project.getTasks();

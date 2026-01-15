@@ -134,9 +134,8 @@ public class CapsidPlugin implements Plugin<Project> {
 		// path to game installation directory
 		File gameDir = CapsidPlugin.getGameDirProperty(project);
 
-		Convention convention = project.getConvention();
-		JavaPluginConvention javaPlugin = convention.getPlugin(JavaPluginConvention.class);
-		SourceSet media = javaPlugin.getSourceSets().create("media");
+        JavaPluginExtension java = project.getExtensions().getByType(JavaPluginExtension.class);
+		SourceSet media = java.getSourceSets().create("media");
 
 		// set media java source directory
 		media.getJava().setSrcDirs(Collections.singletonList("media/lua"));
