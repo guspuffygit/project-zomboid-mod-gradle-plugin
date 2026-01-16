@@ -14,7 +14,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.ExtraPropertiesExtension;
-import org.gradle.api.tasks.TaskAction;
+import org.gradle.api.tasks.*;
 import org.jetbrains.annotations.Unmodifiable;
 import org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler;
 import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
@@ -25,8 +25,8 @@ import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
  */
 public class DecompileJavaTask extends DefaultTask implements CapsidTask {
 
-    final ProjectPropertiesSupplier<?> source;
-    final ProjectPropertiesSupplier<File> destination;
+    private final ProjectPropertiesSupplier<?> source;
+    private final ProjectPropertiesSupplier<File> destination;
     private final Map<String, Object> parameters;
 
     // @formatter:off
@@ -57,33 +57,52 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
                         .build());
     } // @formatter:on
 
+    @Input
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    @SkipWhenEmpty
+    public List<File> getInputFiles() {
+        List<File> files = new ArrayList<>();
+        for (Path path : getSourcePaths(getProject())) {
+            files.add(path.toFile());
+        }
+        return files;
+    }
+
+    @OutputDirectory
+    public File getOutputDirectory() {
+        return destination.getProjectProperty(getProject());
+    }
+
     @Override
     public void configure(String group, String description, Project project) {
         CapsidTask.super.configure(group, description, project);
-
-        List<String> args = new ArrayList<>();
-        parameters.forEach((k, v) -> args.add(k + '=' + v));
-
-        // decompile to this directory
-        File destinationFile = destination.getProjectProperty(project);
-
-        // decompiler will throw error if destination dir doesn't exist
-        //noinspection ResultOfMethodCallIgnored
-        destinationFile.mkdirs();
-
-        // decompile from these paths
-        for (Path sourcePath : getSourcePaths(project)) {
-            args.add(sourcePath.toString());
-        }
-        args.add(destinationFile.toPath().toString());
-        setDecompileArguments(project, args);
 
         dependsOn(project.getTasks().getByName(ZomboidTasks.ZOMBOID_CLASSES.name));
     }
 
     @TaskAction
     void execute() {
-        ConsoleDecompiler.main(getDecompileArguments(getProject()).toArray(new String[0]));
+        List<String> args = new ArrayList<>();
+        getParameters().forEach((k, v) -> args.add(k + '=' + v));
+
+        for (File file : getInputFiles()) {
+            args.add(file.getAbsolutePath());
+        }
+
+        File destinationFile = getOutputDirectory();
+
+        if (!destinationFile.exists()) {
+            destinationFile.mkdirs();
+        }
+
+        args.add(destinationFile.getAbsolutePath());
+
+        ConsoleDecompiler.main(args.toArray(new String[0]));
     }
 
     /**
@@ -91,7 +110,7 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
      *
      * @param project {@code Project} used to resolve the project property.
      */
-    @Unmodifiable
+    @Internal
     List<Path> getSourcePaths(Project project) {
         List<Path> result = new ArrayList<>();
         Object oSource = source.getProjectProperty(project);
@@ -109,6 +128,7 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
      *
      * @throws InvalidUserDataException if objects is an unsupported class.
      */
+    @Internal
     Path getSourcePathFromObject(Object object) {
         if (object instanceof File) {
             return ((File) object).toPath();
@@ -119,29 +139,5 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
         } else
             throw new InvalidUserDataException(
                     "Unsupported source path type " + object.getClass().getName());
-    }
-
-    /**
-     * Set arguments to use for decompile task.
-     *
-     * @param project {@code Project} to save the arguments to.
-     */
-    void setDecompileArguments(Project project, List<String> args) {
-        project.getExtensions().getExtraProperties().set("decompileZomboidArgs", args);
-    }
-
-    /**
-     * Returns list of arguments to use for decompile task.
-     *
-     * @param project {@code Project} to load the arguments from.
-     * @throws InvalidUserDataException when decompile arguments are missing.
-     */
-    @SuppressWarnings("unchecked")
-    List<String> getDecompileArguments(Project project) {
-        ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
-        if (ext.has("decompileZomboidArgs")) {
-            return (List<String>) Objects.requireNonNull(ext.get("decompileZomboidArgs"));
-        }
-        throw new InvalidUserDataException("Missing decompile arguments");
     }
 }

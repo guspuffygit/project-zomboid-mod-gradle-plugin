@@ -45,18 +45,6 @@ public class DecompileZomboidTask extends DecompileJavaTask {
 
     @Override
     public List<Path> getSourcePaths(Project project) {
-        ExtraPropertiesExtension ext = project.getExtensions().getExtraProperties();
-        if (ext.has("decompileFiles")) {
-            List<Path> sourcePaths = new ArrayList<>();
-            Path sourcePath = getSourcePathFromObject(source.getProjectProperty(project));
-
-            String sDecompileFiles = (String) Objects.requireNonNull(ext.get("decompileFiles"));
-            List<String> decompileFiles = Splitter.on(',').splitToList(sDecompileFiles);
-            if (!decompileFiles.isEmpty()) {
-                decompileFiles.forEach(f -> sourcePaths.add(sourcePath.resolve(f)));
-                return sourcePaths;
-            }
-        }
         return super.getSourcePaths(project);
     }
 }
