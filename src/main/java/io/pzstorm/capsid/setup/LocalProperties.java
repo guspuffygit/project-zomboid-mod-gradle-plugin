@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.setup;
 
 import com.google.common.collect.ImmutableSet;

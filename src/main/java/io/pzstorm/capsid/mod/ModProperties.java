@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.mod;
 
 import com.google.common.collect.ImmutableMap;

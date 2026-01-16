@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.setup.xml;
 
 import io.pzstorm.capsid.CapsidGradleRunner;

@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid;
 
 import java.util.ArrayList;

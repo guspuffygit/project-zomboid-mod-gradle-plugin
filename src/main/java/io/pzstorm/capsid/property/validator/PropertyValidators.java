@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.property.validator;
 
 public class PropertyValidators {

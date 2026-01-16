@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.setup;
 
 import org.gradle.internal.os.OperatingSystem;

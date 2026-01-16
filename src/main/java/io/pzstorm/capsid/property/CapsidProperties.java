@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.property;
 
 import java.io.File;

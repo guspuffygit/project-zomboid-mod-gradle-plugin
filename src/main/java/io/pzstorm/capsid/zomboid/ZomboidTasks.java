@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.zomboid;
 
 import io.pzstorm.capsid.CapsidTask;

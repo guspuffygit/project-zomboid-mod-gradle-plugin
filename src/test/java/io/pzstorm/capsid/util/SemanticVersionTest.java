@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.util;
 
 import com.google.common.collect.ImmutableList;

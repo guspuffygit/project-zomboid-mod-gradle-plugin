@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid;
 
 import io.pzstorm.capsid.dist.GenerateChangelogOptions;

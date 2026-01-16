@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.setup.task;
 
 import io.pzstorm.capsid.CapsidTask;

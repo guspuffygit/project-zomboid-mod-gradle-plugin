@@ -1,16 +1,11 @@
-
 package io.pzstorm.capsid.zomboid.task;
 
-import com.google.common.base.Splitter;
 import io.pzstorm.capsid.ProjectProperty;
 import io.pzstorm.capsid.zomboid.ZomboidTasks;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.inject.Inject;
 import org.gradle.api.Project;
-import org.gradle.api.plugins.ExtraPropertiesExtension;
 
 /**
  * Decompile game classes with FernFlower using default IDEA settings. Default task behaviour is to

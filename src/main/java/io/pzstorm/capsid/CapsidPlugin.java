@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid;
 
 import io.pzstorm.capsid.dist.DistributionTasks;
@@ -16,7 +15,6 @@ import java.util.Objects;
 import java.util.Set;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.Task;
 import org.gradle.api.artifacts.ConfigurationContainer;
 import org.gradle.api.artifacts.dsl.DependencyHandler;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
@@ -218,11 +216,20 @@ public class CapsidPlugin implements Plugin<Project> {
                         DistributionTasks.GENERATE_CHANGELOG.register(project);
                     }
 
-                    project.getAllprojects().forEach(proj -> {
-                        proj.getTasks().withType(JavaCompile.class).configureEach(compileTask -> {
-                            compileTask.dependsOn(":" + ZomboidTasks.ZOMBOID_JAR.name);
-                        });
-                    });
+                    project.getAllprojects()
+                            .forEach(
+                                    proj -> {
+                                        proj.getTasks()
+                                                .withType(JavaCompile.class)
+                                                .configureEach(
+                                                        compileTask -> {
+                                                            compileTask.dependsOn(
+                                                                    ":"
+                                                                            + ZomboidTasks
+                                                                                    .ZOMBOID_JAR
+                                                                                    .name);
+                                                        });
+                                    });
                 });
     }
 }

@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.property;
 
 import com.google.common.base.Strings;

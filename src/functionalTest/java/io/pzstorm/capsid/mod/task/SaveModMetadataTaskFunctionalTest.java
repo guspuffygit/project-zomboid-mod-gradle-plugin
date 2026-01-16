@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.mod.task;
 
 import io.pzstorm.capsid.PluginFunctionalTest;

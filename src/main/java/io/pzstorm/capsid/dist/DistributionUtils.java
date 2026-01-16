@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.dist;
 
 import java.io.File;

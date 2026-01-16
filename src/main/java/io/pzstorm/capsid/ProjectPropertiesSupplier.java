@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid;
 
 import org.gradle.api.Project;

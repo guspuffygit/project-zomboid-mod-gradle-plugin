@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid;
 
 import com.google.errorprone.annotations.Immutable;

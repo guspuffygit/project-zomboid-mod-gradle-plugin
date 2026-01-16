@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.mod.task;
 
 import com.google.common.base.Strings;

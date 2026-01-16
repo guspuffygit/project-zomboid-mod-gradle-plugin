@@ -1,4 +1,3 @@
-
 @NullMarked
 package io.pzstorm.capsid.mod.task;
 

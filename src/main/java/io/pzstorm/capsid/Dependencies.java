@@ -1,13 +1,11 @@
-
 package io.pzstorm.capsid;
 
 import com.google.common.collect.ImmutableSet;
 import io.pzstorm.capsid.mod.ModProperties;
+import io.pzstorm.capsid.zomboid.ZomboidTasks;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-
-import io.pzstorm.capsid.zomboid.ZomboidTasks;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Dependency;
 import org.gradle.api.artifacts.dsl.DependencyHandler;
@@ -39,12 +37,13 @@ public enum Dependencies {
             project -> {
                 String modPzVersion = ModProperties.PZ_VERSION.findProperty(project);
                 // Create a ConfigurableFileCollection so we can attach build dependencies
-                ConfigurableFileCollection jarFile = project.files(
-                        String.format(
-                                "lib/zomboid%s.jar",
-                                modPzVersion != null && !modPzVersion.isEmpty()
-                                        ? "-" + modPzVersion
-                                        : ""));
+                ConfigurableFileCollection jarFile =
+                        project.files(
+                                String.format(
+                                        "lib/zomboid%s.jar",
+                                        modPzVersion != null && !modPzVersion.isEmpty()
+                                                ? "-" + modPzVersion
+                                                : ""));
                 // Explicitly declare that this file is built by the zomboidJar task
                 jarFile.builtBy(ZomboidTasks.ZOMBOID_JAR.name);
                 return ImmutableSet.of(jarFile);
@@ -70,12 +69,13 @@ public enum Dependencies {
             project -> {
                 String modPzVersion = ModProperties.PZ_VERSION.findProperty(project);
                 // Create a ConfigurableFileCollection so we can attach build dependencies
-                ConfigurableFileCollection jarFile = project.files(
-                        String.format(
-                                "lib/zdoc-lua%s.jar",
-                                modPzVersion != null && !modPzVersion.isEmpty()
-                                        ? "-" + modPzVersion
-                                        : ""));
+                ConfigurableFileCollection jarFile =
+                        project.files(
+                                String.format(
+                                        "lib/zdoc-lua%s.jar",
+                                        modPzVersion != null && !modPzVersion.isEmpty()
+                                                ? "-" + modPzVersion
+                                                : ""));
                 // Explicitly declare that this file is built by the zomboidLuaJar task
                 jarFile.builtBy(ZomboidTasks.ZOMBOID_LUA_JAR.name);
                 return ImmutableSet.of(jarFile);

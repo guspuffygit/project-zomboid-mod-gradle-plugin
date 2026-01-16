@@ -1,16 +1,14 @@
-
 package io.pzstorm.capsid.zomboid.task;
 
 import io.pzstorm.capsid.CapsidPlugin;
 import io.pzstorm.capsid.CapsidTask;
+import io.pzstorm.capsid.zomboid.ZomboidTasks;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-
-import io.pzstorm.capsid.zomboid.ZomboidTasks;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.file.DirectoryProperty;

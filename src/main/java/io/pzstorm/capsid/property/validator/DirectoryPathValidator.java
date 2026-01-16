@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.property.validator;
 
 import io.pzstorm.capsid.util.UnixPath;

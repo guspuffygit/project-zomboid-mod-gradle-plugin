@@ -1,4 +1,3 @@
-
 package io.pzstorm.capsid.zomboid.task;
 
 import com.google.common.collect.ImmutableMap;
@@ -13,9 +12,7 @@ import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Project;
-import org.gradle.api.plugins.ExtraPropertiesExtension;
 import org.gradle.api.tasks.*;
-import org.jetbrains.annotations.Unmodifiable;
 import org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler;
 import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
 
