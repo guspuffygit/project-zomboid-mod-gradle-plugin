@@ -2,8 +2,6 @@ package io.pzstorm.capsid.zomboid.task;
 
 import io.pzstorm.capsid.ProjectProperty;
 import io.pzstorm.capsid.zomboid.ZomboidTasks;
-import java.nio.file.Path;
-import java.util.List;
 import javax.inject.Inject;
 import org.gradle.api.Project;
 
@@ -36,10 +34,5 @@ public class DecompileZomboidTask extends DecompileJavaTask {
         super.configure(group, description, project);
 
         finalizedBy(project.getTasks().getByName(ZomboidTasks.ZOMBOID_SOURCES_JAR.name));
-    }
-
-    @Override
-    public List<Path> getSourcePaths(Project project) {
-        return super.getSourcePaths(project);
     }
 }

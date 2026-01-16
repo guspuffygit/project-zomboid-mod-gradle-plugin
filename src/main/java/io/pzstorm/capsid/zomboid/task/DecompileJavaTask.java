@@ -5,13 +5,14 @@ import io.pzstorm.capsid.CapsidTask;
 import io.pzstorm.capsid.ProjectPropertiesSupplier;
 import io.pzstorm.capsid.zomboid.ZomboidTasks;
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
-import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Project;
+import org.gradle.api.file.ConfigurableFileCollection;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.provider.MapProperty;
 import org.gradle.api.tasks.*;
 import org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler;
 import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
@@ -22,22 +23,30 @@ import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
  */
 public class DecompileJavaTask extends DefaultTask implements CapsidTask {
 
-    private final ProjectPropertiesSupplier<?> source;
-    private final ProjectPropertiesSupplier<File> destination;
-    private final Map<String, Object> parameters;
+    private final ConfigurableFileCollection sourceFiles;
+    private final DirectoryProperty destinationDir;
+    private final MapProperty<String, Object> decompilerParameters;
 
-    // @formatter:off
     @Inject
-    DecompileJavaTask(
+    public DecompileJavaTask(
             ProjectPropertiesSupplier<?> source,
             ProjectPropertiesSupplier<File> destination,
             Map<String, Object> parameters) {
-        this.source = source;
-        this.destination = destination;
-        this.parameters = parameters;
+
+        ObjectFactory objects = getProject().getObjects();
+        this.sourceFiles = objects.fileCollection();
+        this.destinationDir = objects.directoryProperty();
+        this.decompilerParameters = objects.mapProperty(String.class, Object.class);
+
+        this.decompilerParameters.putAll(parameters);
+
+        this.destinationDir.set(destination.getProjectProperty(getProject()));
+
+        Object sourceObj = source.getProjectProperty(getProject());
+        this.sourceFiles.from(sourceObj);
     }
 
-    DecompileJavaTask(
+    public DecompileJavaTask(
             ProjectPropertiesSupplier<?> source, ProjectPropertiesSupplier<File> destination) {
         // default parameters used by IDEA compiler
         this(
@@ -52,46 +61,43 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
                         .put(IFernflowerPreferences.NEW_LINE_SEPARATOR, "1")
                         .put(IFernflowerPreferences.MAX_PROCESSING_METHOD, "60")
                         .build());
-    } // @formatter:on
+    }
 
     @Input
-    public Map<String, Object> getParameters() {
-        return parameters;
+    public MapProperty<String, Object> getParameters() {
+        return decompilerParameters;
     }
 
     @InputFiles
     @PathSensitive(PathSensitivity.RELATIVE)
     @SkipWhenEmpty
-    public List<File> getInputFiles() {
-        List<File> files = new ArrayList<>();
-        for (Path path : getSourcePaths(getProject())) {
-            files.add(path.toFile());
-        }
-        return files;
+    public ConfigurableFileCollection getInputFiles() {
+        return sourceFiles;
     }
 
     @OutputDirectory
-    public File getOutputDirectory() {
-        return destination.getProjectProperty(getProject());
+    public DirectoryProperty getOutputDirectory() {
+        return destinationDir;
     }
 
     @Override
     public void configure(String group, String description, Project project) {
         CapsidTask.super.configure(group, description, project);
-
         dependsOn(project.getTasks().getByName(ZomboidTasks.ZOMBOID_CLASSES.name));
     }
 
     @TaskAction
     void execute() {
         List<String> args = new ArrayList<>();
-        getParameters().forEach((k, v) -> args.add(k + '=' + v));
 
-        for (File file : getInputFiles()) {
+        // Use .get() to access values from properties
+        getParameters().get().forEach((k, v) -> args.add(k + "=" + v));
+
+        for (File file : getInputFiles().getFiles()) {
             args.add(file.getAbsolutePath());
         }
 
-        File destinationFile = getOutputDirectory();
+        File destinationFile = getOutputDirectory().get().getAsFile();
 
         if (!destinationFile.exists()) {
             destinationFile.mkdirs();
@@ -100,41 +106,5 @@ public class DecompileJavaTask extends DefaultTask implements CapsidTask {
         args.add(destinationFile.getAbsolutePath());
 
         ConsoleDecompiler.main(args.toArray(new String[0]));
-    }
-
-    /**
-     * Returns list of source paths to decompile from.
-     *
-     * @param project {@code Project} used to resolve the project property.
-     */
-    @Internal
-    List<Path> getSourcePaths(Project project) {
-        List<Path> result = new ArrayList<>();
-        Object oSource = source.getProjectProperty(project);
-        if (oSource instanceof Iterable) {
-            //noinspection rawtypes
-            for (Object object : ((Iterable) oSource)) {
-                result.add(getSourcePathFromObject(object));
-            }
-        } else result.add(getSourcePathFromObject(oSource));
-        return Collections.unmodifiableList(result);
-    }
-
-    /**
-     * Resolve a {@code Path} from given {@code Object}.
-     *
-     * @throws InvalidUserDataException if objects is an unsupported class.
-     */
-    @Internal
-    Path getSourcePathFromObject(Object object) {
-        if (object instanceof File) {
-            return ((File) object).toPath();
-        } else if (object instanceof Path) {
-            return (Path) object;
-        } else if (object instanceof String) {
-            return Paths.get((String) object);
-        } else
-            throw new InvalidUserDataException(
-                    "Unsupported source path type " + object.getClass().getName());
     }
 }
