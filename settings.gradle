@@ -7,6 +7,6 @@ pluginManagement {
 
 rootProject.name = 'pzstorm-capsid'
 
-if (System.getenv("CI") == null) {
-	include('consumer')
-}
+//if (System.getenv("CI") == null) {
+//	include('consumer')
+//}
