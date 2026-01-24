@@ -1,89 +1,69 @@
-/*
- * Storm Capsid - Project Zomboid mod development framework for Gradle.
- * Copyright (C) 2021 Matthew Cain
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package io.pzstorm.capsid.zomboid.task;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
-import org.gradle.api.InvalidUserDataException;
-import org.gradle.api.Project;
-import org.gradle.api.plugins.ExtraPropertiesExtension;
-import org.gradle.api.tasks.JavaExec;
-import org.gradle.api.tasks.TaskAction;
-
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
 
 import io.pzstorm.capsid.CapsidPlugin;
 import io.pzstorm.capsid.CapsidTask;
-import io.pzstorm.capsid.Configurations;
-import io.pzstorm.capsid.mod.ModProperties;
-import io.pzstorm.capsid.property.VersionProperties;
-import io.pzstorm.capsid.util.SemanticVersion;
+import io.pzstorm.capsid.zomboid.ZomboidTasks;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import org.gradle.api.DefaultTask;
+import org.gradle.api.Project;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.tasks.*;
 
-/**
- * This task saves and prints Project Zomboid game version.
- */
-public class ZomboidVersionTask extends JavaExec implements CapsidTask {
+/** This task saves and prints Project Zomboid game version. */
+public abstract class ZomboidVersionTask extends DefaultTask implements CapsidTask {
 
-	@Override
-	public void configure(String group, String description, Project project) {
-		CapsidTask.super.configure(group, description, project);
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    public abstract DirectoryProperty getClasspathRoot();
 
-		setMain("io.cocolabs.pz.zdoc.Main");
-		setClasspath(Configurations.ZOMBOID_DOC.resolve(project));
-		setArgs(ImmutableList.of("version"));
+    @OutputFile
+    public abstract RegularFileProperty getVersionFile();
 
-		setStandardOutput(new ByteArrayOutputStream());
-	}
+    @Override
+    public void configure(String group, String description, Project project) {
+        CapsidTask.super.configure(group, description, project);
 
-	@TaskAction
-	void execute() throws IOException {
+        dependsOn(project.getTasks().getByName(ZomboidTasks.ZOMBOID_CLASSES.name));
 
-		// get command output from stream
-		ByteArrayOutputStream stream = (ByteArrayOutputStream) getStandardOutput();
-		String streamText = stream.toString(StandardCharsets.UTF_8.name());
-		List<String> versionText = Splitter.onPattern("\r\n|\r|\n").splitToList(streamText);
+        getClasspathRoot()
+                .convention(project.getLayout().getBuildDirectory().dir("classes/zomboid"));
 
-		// ZomboidDoc version
-		String zDocVersion = versionText.get(0).substring(13);
-		CapsidPlugin.LOGGER.lifecycle("zdoc version " + zDocVersion);
+        getVersionFile()
+                .convention(project.getLayout().getBuildDirectory().file("zomboid-version.txt"));
+    }
 
-		// get version number and classifier (ex. 41.50-IWBUMS)
-		ExtraPropertiesExtension ext = getProject().getExtensions().getExtraProperties();
-		String sGameVersion = versionText.get(1).substring(12).replaceAll(" ", "").trim();
-		ext.set(ModProperties.PZ_VERSION.name, sGameVersion);
+    @TaskAction
+    void execute() {
+        File classpathDir = getClasspathRoot().get().getAsFile();
 
-		CapsidPlugin.LOGGER.lifecycle("game version " + sGameVersion);
+        try {
+            URL[] urls = new URL[] {classpathDir.toURI().toURL()};
 
-		SemanticVersion lastZDocVersion = VersionProperties.LAST_ZDOC_VERSION.findProperty(getProject());
-		if (lastZDocVersion == null) {
-			throw new InvalidUserDataException("Missing 'lastZDocVersion' property");
-		}
-		if (SemanticVersion.COMPARATOR.compare(lastZDocVersion, new SemanticVersion(zDocVersion)) != 0)
-		{
-			CapsidPlugin.LOGGER.lifecycle("\nzDoc version updated from " + lastZDocVersion);
-			ext.set(VersionProperties.LAST_ZDOC_VERSION.name, zDocVersion);
+            try (URLClassLoader loader =
+                    new URLClassLoader(urls, this.getClass().getClassLoader())) {
+                Class<?> coreClass = loader.loadClass("zombie.core.Core");
+                Method getInstanceMethod = coreClass.getMethod("getInstance");
+                Object coreInstance = getInstanceMethod.invoke(null);
 
-			// write latest detected versions to file
-			VersionProperties.get().writeToFile(getProject());
-		}
-	}
+                Method getVersionMethod = coreInstance.getClass().getMethod("getGameVersion");
+                String gameVersion = getVersionMethod.invoke(coreInstance).toString();
+
+                CapsidPlugin.LOGGER.lifecycle("game version " + gameVersion);
+
+                File outputFile = getVersionFile().get().getAsFile();
+                Files.writeString(outputFile.toPath(), gameVersion, StandardCharsets.UTF_8);
+                CapsidPlugin.LOGGER.lifecycle("Wrote version file to " + outputFile.toPath());
+            }
+
+        } catch (Exception e) {
+            getLogger().error("Failed to load game version from zomboid classes", e);
+            throw new RuntimeException(e);
+        }
+    }
 }

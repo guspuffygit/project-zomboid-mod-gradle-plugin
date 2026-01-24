@@ -1,15 +1,15 @@
 plugins {
-	id 'io.pzstorm.capsid' version '0.4.0'
+    id 'io.pzstorm.capsid' version '0.4.3'
 }
 
 repositories {
-	mavenLocal()
+    mavenLocal()
 }
 
 capsid {
-	excludeResourceDirs(
-			"media/lua", "media/luaexamples",
-			"media/newuitests", "media/launcher"
-	)
-	setProjectRepository('pzstorm', 'capsid')
+    excludeResourceDirs(
+            "media/lua", "media/luaexamples",
+            "media/newuitests", "media/launcher"
+    )
+    setProjectRepository('pzstorm', 'capsid')
 }

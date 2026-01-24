@@ -10,8 +10,8 @@ sourceSets {
 }
 
 configurations {
-	functionalTestImplementation.extendsFrom(implementation, testImplementation)
-	integrationTestImplementation.extendsFrom(implementation, testImplementation)
+	functionalTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
+	integrationTestImplementation.extendsFrom(implementation, testImplementation, testRuntimeOnly)
 }
 
 test {
@@ -36,7 +36,7 @@ tasks.register('functionalTest', Test) {
 	it.shouldRunAfter(integrationTest, "test")
 }
 
-task runTests {
+tasks.register('runTests') {
 	description 'Run all test categories in order.'
 	group 'verification'
 

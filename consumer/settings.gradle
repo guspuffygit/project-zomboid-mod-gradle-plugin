@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            // Replace 'your.plugin.id' with the actual ID defined in the plugin's code
+            if (requested.id.id == 'io.pzstorm.capsid') {
+                useModule('io.pzstorm.capsid:pzstorm-capsid:0.4.3')
+            }
+        }
+    }
+}
